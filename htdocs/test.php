@@ -1,4 +1,4 @@
-<?php
+<!-- < ?php
 include 'libs/load.php';
 
 $conn = Database::getConnection();
@@ -16,4 +16,7 @@ if ($result) {
     echo "Error sending group message!";
 }
 
-?>
+?> -->
+
+
+<h1>Testing the ci / cd</h1>
