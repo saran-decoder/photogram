@@ -65,7 +65,7 @@
                             <img src="<?=$p['avatar']?>" alt="<?=$p['owner']?> Profile">
                         </a>
                         <div class="text user-info">
-                            <p class="user_name m-0"><?=$p['owner']?></p>
+                            <p class="user_name m-0"><a href="profile/<?=$p['owner']?>" class="text"><?=$p['owner']?></a></p>
                             <p class="user_bio m-0"><?=$p['bio']?></p>
                         </div>
                         <div class="arr_container card-style" id="<?=$p['id']?>">

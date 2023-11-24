@@ -178,7 +178,7 @@ class UserSession
             if (!$this->conn) {
                 $this->conn = Database::getConnection();
             }
-            $sql = "DELETE FROM `session` WHERE `id` = $id;";
+            $sql = "UPDATE `session` SET `active` = '0' WHERE `id` = $id;";
             if ($this->conn->query($sql)) {
                 return true;
             } else {

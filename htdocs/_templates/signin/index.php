@@ -64,7 +64,7 @@
 			}
 		?>
         <div class="login-form">      
-			<form method="post" action="/">
+			<form method="post" action="/" autocomplete="off">
 				<div class="login-form-inner">
                     <h1><div class="logo">
                         <svg height="512" viewBox="0 0 192 192" width="512" xmlns="http://www.w3.org/2000/svg">

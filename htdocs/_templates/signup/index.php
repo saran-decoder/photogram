@@ -44,7 +44,7 @@ if (isset($_POST['username']) and isset($_POST['password']) and !empty($_POST['p
 
     <div class="login-container slideRight-animation">
         <div class="login-form">
-			<form method="post" action="signup">
+			<form method="post" action="signup" autocomplete="off">
 				<div class="login-form-inner">
 					<h1><div class="logo">
 						<svg height="512" viewBox="0 0 192 192" width="512" xmlns="http://www.w3.org/2000/svg">

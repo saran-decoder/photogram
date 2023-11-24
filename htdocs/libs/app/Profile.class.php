@@ -240,6 +240,15 @@ class Profile
         return $result->fetch_assoc();
     }
 
+    public static function getuserAuth()
+    {
+        $username = $_GET['username'];
+        $db = Database::getConnection();
+        $sql = "SELECT * FROM `auth` WHERE `username`='$username'";
+        $result = $db->query($sql);
+        return $result->fetch_assoc();
+    }
+
     public static function getProfile()
     {
         $db = Database::getConnection();

@@ -196,7 +196,7 @@ button.btn.text.bg-success.m-2 {
 
 @media (min-width: 992px) {
     .profile-layout {
-        margin-left: 3rem !important;
+        margin-left: 11.5rem !important;
     }
 }
 
@@ -211,10 +211,40 @@ button.btn.text.bg-success.m-2 {
     }
 
     .profile-layout {
-        /* left: auto; */
         width: 43rem;
         margin-left: 2.8rem;
-        /* padding: 10px;
-        position: absolute; */
     }
+}
+
+
+
+
+
+
+
+
+.nav-pills {
+    background: rgb(30, 33, 38);
+    border-radius: 0.6rem;
+    padding: 0.3125rem;
+}
+.nav-justified .nav-item, .nav-justified > .nav-link {
+    flex-basis: 0px;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    text-align: center;
+}
+.nav-link.text.active {
+    background: var(--body-color);
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    color: var(--text-color);
+    background-color: rgb(22, 25, 28);
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    border-style: solid;
+    border-color: rgb(30, 33, 38);
+    border-image: initial;
 }
