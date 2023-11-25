@@ -25,14 +25,14 @@ class Profile
                 if ($db->query($update_profile)) {
                     $update_postavatar = "UPDATE `posts` SET `avatar`='$avatar_path' WHERE `userid`='$id'";
                     if ($db->query($update_postavatar)) {
-                        echo "<script>window.location.href = '/profile-edit?savedavatars={$headid}'</script>";
+                        echo "<script>window.location.href = '/profile/{$owner}?savedavatars={$headid}'</script>";
                         return true;
                     } else {
-                        echo "<script>window.location.href = '/profile-edit?updatepostavatarerror'</script>";
+                        echo "<script>window.location.href = '/profile/{$owner}?updatepostavatarerror'</script>";
                         return false;
                     }
                 } else {
-                    echo "<script>window.location.href = '/profile-edit?updateavatarerror'</script>";
+                    echo "<script>window.location.href = '/profile/{$owner}?updateavatarerror'</script>";
                     return false;
                 }
             } else {
@@ -43,90 +43,25 @@ class Profile
         }
     }
 
-    public static function bio($bio)
+    public static function profileinfo($user, $email, $phone, $bio)
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
+        $owner = Session::getUser()->getUsername();
         $headid = md5(Session::getUser()->getUsername());
-        $update_profile = "UPDATE `users` SET `bio`='$bio' WHERE `userid`='$id'";
+        $update_profile = "UPDATE `users` SET `owner`='$user', `bio`='$bio' WHERE `userid`='$id'";
         try {
             if ($db->query($update_profile)) {
-                echo "<script>window.location.href = '/profile-edit?savedbio={$headid}'</script>";
-                return true;
-            } else {
-                echo "<script>window.location.href = '/profile-edit?updatebioerror'</script>";
-                return false;
-            }
-        } catch (Exception $e) {
-            echo "<script>window.location.href = '/profile?{$e->getMessage()}'</script>";
-            return false;
-        }
-    }
-
-    public static function username($username)
-    {
-        $db = Database::getConnection();
-        $id = Session::getUser()->getID();
-        $headid = md5(Session::getUser()->getUsername());
-        $user1_update = "UPDATE `auth` SET `username`='$username' WHERE `id`='$id'";
-        try {
-            if ($db->query($user1_update)) {
-                $user2_update = "UPDATE `posts` SET `owner`='$username' WHERE `userid`='$id'";
-                if ($db->query($user2_update)) {
-                    $user3_update = "UPDATE `users` SET `owner`='$username' WHERE `userid`='$id'";
-                    if ($db->query($user3_update)) {
-                        echo "<script>window.location.href = '/profile-edit?savedalluser={$headid}'</script>";
-                        return true;
-                    } else {
-                        echo "<script>window.location.href = '/profile-edit?error=3'</script>";
-                        return false;
-                    }
+                $u_profile ="UPDATE `auth` SET `username`='$user', `email`='$email', `phone`='$phone' WHERE `id`='$id'";
+                if ($db->query($u_profile)) {
+                    echo "<script>window.location.href = '/profile/{$owner}?savedprofileinfo={$headid}'</script>";
+                    return true;
                 } else {
-                    echo "<script>window.location.href = '/profile-edit?error=2'</script>";
+                    echo "<script>window.location.href = '/profile/{$owner}?notsavesomeerror'</script>";
                     return false;
                 }
             } else {
-                echo "<script>window.location.href = '/profile-edit?error=1'</script>";
-                return false;
-            }
-        } catch (Exception $e) {
-            echo "<script>window.location.href = '/profile?error=yourquery'</script>";
-            return false;
-        }
-    }
-
-    public static function email($email)
-    {
-        $db = Database::getConnection();
-        $id = Session::getUser()->getID();
-        $headid = md5(Session::getUser()->getUsername());
-        $update_profile = "UPDATE `auth` SET `email`='$email' WHERE `id`='$id'";
-        try {
-            if ($db->query($update_profile)) {
-                echo "<script>window.location.href = '/profile-edit?savedemail={$headid}'</script>";
-                return true;
-            } else {
-                echo "<script>window.location.href = '/profile-edit?updateemailerror'</script>";
-                return false;
-            }
-        } catch (Exception $e) {
-            echo "<script>window.location.href = '/profile?{$e->getMessage()}'</script>";
-            return false;
-        }
-    }
-
-    public static function phone($phone)
-    {
-        $db = Database::getConnection();
-        $id = Session::getUser()->getID();
-        $headid = md5(Session::getUser()->getUsername());
-        $update_profile = "UPDATE `auth` SET `phone`='$phone' WHERE `id`='$id'";
-        try {
-            if ($db->query($update_profile)) {
-                echo "<script>window.location.href = '/profile-edit?savedphonenumber={$headid}'</script>";
-                return true;
-            } else {
-                echo "<script>window.location.href = '/profile-edit?updatephoneerror'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?updatebioerror'</script>";
                 return false;
             }
         } catch (Exception $e) {
@@ -139,14 +74,15 @@ class Profile
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
+        $owner = Session::getUser()->getUsername();
         $headid = md5(Session::getUser()->getUsername());
         $update_profile = "UPDATE `users` SET `gender`='$gender' WHERE `userid`='$id'";
         try {
             if ($db->query($update_profile)) {
-                echo "<script>window.location.href = '/profile-edit?savedgender={$headid}'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?savedgender={$headid}'</script>";
                 return true;
             } else {
-                echo "<script>window.location.href = '/profile-edit?updategendererror'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?updategendererror'</script>";
                 return false;
             }
         } catch (Exception $e) {
@@ -159,14 +95,15 @@ class Profile
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
+        $owner = Session::getUser()->getUsername();
         $headid = md5(Session::getUser()->getUsername());
         $update_profile = "UPDATE `users` SET `dob`='$dob' WHERE `userid`='$id'";
         try {
             if ($db->query($update_profile)) {
-                echo "<script>window.location.href = '/profile-edit?saveddob={$headid}'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?saveddob={$headid}'</script>";
                 return true;
             } else {
-                echo "<script>window.location.href = '/profile-edit?updatedoberror'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?updatedoberror'</script>";
                 return false;
             }
         } catch (Exception $e) {
@@ -179,6 +116,7 @@ class Profile
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
+        $owner = Session::getUser()->getUsername();
         $headid = md5(Session::getUser()->getUsername());
         $query = "SELECT `password` FROM `auth` WHERE `id` = '$id'";
         $result = $db->query($query);
@@ -192,10 +130,10 @@ class Profile
                 $update_profile = "UPDATE `auth` SET `password`='$password' WHERE `id`='$id'";
                 try {
                     if ($db->query($update_profile)) {
-                        echo "<script>window.location.href = '/profile-edit?savenewpass={$headid}'</script>";
+                        echo "<script>window.location.href = '/profile/{$owner}?savenewpass={$headid}'</script>";
                         return true;
                     } else {
-                        echo "<script>window.location.href = '/profile-edit?updatepasserror'</script>";
+                        echo "<script>window.location.href = '/profile/{$owner}?updatepasserror'</script>";
                         return false;
                     }
                 } catch (Exception $e) {
@@ -203,7 +141,7 @@ class Profile
                     return false;
                 }
             } else {
-                echo "<script>window.location.href = '/profile-edit?verifypasserror'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?verifypasserror'</script>";
                 return false;
             }
         } else {
@@ -215,14 +153,15 @@ class Profile
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
+        $owner = Session::getUser()->getUsername();
         $headid = md5(Session::getUser()->getUsername());
         $update_profile = "UPDATE `users` SET `link`='$link' WHERE `userid`='$id'";
         try {
             if ($db->query($update_profile)) {
-                echo "<script>window.location.href = '/profile-edit?savedlink={$headid}'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?savedlink={$headid}'</script>";
                 return true;
             } else {
-                echo "<script>window.location.href = '/profile-edit?updatelinkerror'</script>";
+                echo "<script>window.location.href = '/profile/{$owner}?updatelinkerror'</script>";
                 return false;
             }
         } catch (Exception $e) {
@@ -306,6 +245,15 @@ class Profile
         return $result->fetch_assoc();
     }
     // Ended
+
+    public static function getDeviceInfo()
+    {
+        $db = Database::getConnection();
+        $id = Session::getUser()->getID();
+        $sql = "SELECT `login_time`,`ip`,`user_agent`,`active` FROM `session` WHERE `uid`='$id'";
+        $result = $db->query($sql);
+        return $result->fetch_assoc();
+    }
 
     public function __construct($id)
     {

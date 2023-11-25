@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 24/11/2023 @ 15:45:45*/
+/*Processed by SNA Labs on 25/11/2023 @ 17:48:53*/
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -596,6 +596,7 @@ $(document).ready(function() {
             if (e.target.result) {
                 // Create a Blob URL from the loaded data and set it as the image source
                 curElement.attr('src', URL.createObjectURL(new Blob([e.target.result])));
+                $('.change-avatar').removeClass('d-none');
             }
         };
 

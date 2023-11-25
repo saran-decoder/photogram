@@ -20,6 +20,7 @@ $(document).ready(function() {
             if (e.target.result) {
                 // Create a Blob URL from the loaded data and set it as the image source
                 curElement.attr('src', URL.createObjectURL(new Blob([e.target.result])));
+                $('.change-avatar').removeClass('d-none');
             }
         };
 

@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 24/11/2023 @ 15:45:45*/
+/*Processed by SNA Labs on 25/11/2023 @ 17:48:53*/
 .comment-container
 {
     right: 0;
@@ -1548,6 +1548,10 @@ input:valid ~ span.name-holder {
     border-bottom-right-radius: 1.5rem;
 }
 
+p.font-italic.mb-0 {
+    width: 30rem;
+}
+
 .imageWrapper {
     width: 30%;
     padding-bottom: 12rem;
@@ -1786,6 +1790,96 @@ button.btn.text.bg-success.m-2 {
     border-style: solid;
     border-color: rgb(30, 33, 38);
     border-image: initial;
+}
+
+
+
+
+/* Edit Profile */
+
+.col-auto .avatar {
+    height: 44px;
+    width: 44px;
+    position: relative;
+    display: flex;
+}
+.avatar, .avatar .avatar-img, .avatar .avatar-text {
+    border-radius: 50%;
+}
+.avatar .avatar-img {
+    max-width: 100%;
+    height: auto;
+}
+.badge-circle {
+    border-radius: 1rem;
+    height: calc(1em + 0.778em);
+    padding: 0.389em;
+    background: var(--body-color) !important;
+}
+.badge-circle svg {
+    height: 1em;
+    width: 1em;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+.stretched-label {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+.card-body.rounded-3 {
+    background: #1e2126;
+}
+.accordion-item {
+    color: inherit;
+    background-color: #1e2126;
+    border: 2px solid #1e2126;
+}
+a.text-reset {
+    background-color: #1e2126;
+    color: var(--text-color) !important;
+    text-decoration: none;
+}
+.accordion-header {
+    padding: 1.25rem 0 1.5rem 0;
+    border-top: 1px solid #495057;
+}
+.accordion-item:first-child .accordion-header {
+    border-top: 0;
+}
+.text-muted {
+    color: #adb5bd !important;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #2787f5;
+    border-color: #2787f5;
+}
+.btn-group-lg>.btn, .btn-lg {
+    padding: 0.875rem 1.125rem;
+    font-size: .9375rem;
+    border-radius: 0.6rem;
+}
+label {
+    color: #f8f9fa;
+}
+h6.text-profile-style.mb-1 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 16rem;
+}
+p.d-block.small.opacity-50.m-0 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 30rem;
 }
 input.search-input {
     border: none;

@@ -25,13 +25,15 @@
                                     <li class="list-group-item">
                                         <div class="row align-items-center gx-6">
                                             <div class="col">
-                                                <h5>Birthday</h5>
-                                                <p class="m-0"><?=$profile['dob']?></p>
+                                                <h6 class="text-profile-style mb-1">Birthday</h6>
+                                                <p class="d-block small opacity-50 m-0"><?=$profile['dob']?></p>
                                             </div>
 
                                             <div class="col-auto">
                                                 <div class="text">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cake" viewBox="0 0 16 16">
+                                                        <path d="m7.994.013-.595.79a.747.747 0 0 0 .101 1.01V4H5a2 2 0 0 0-2 2v3H2a2 2 0 0 0-2 2v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a2 2 0 0 0-2-2h-1V6a2 2 0 0 0-2-2H8.5V1.806A.747.747 0 0 0 8.592.802l-.598-.79ZM4 6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v.414a.911.911 0 0 1-.646-.268 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0A.911.911 0 0 1 4 6.414zm0 1.414c.49 0 .98-.187 1.354-.56a.914.914 0 0 1 1.292 0c.748.747 1.96.747 2.708 0a.914.914 0 0 1 1.292 0c.374.373.864.56 1.354.56V9H4zM1 11a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.793l-.354.354a.914.914 0 0 1-1.293 0 1.914 1.914 0 0 0-2.707 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0L1 11.793zm11.646 1.854a1.915 1.915 0 0 0 2.354.279V15H1v-1.867c.737.452 1.715.36 2.354-.28a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.708 0a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.707 0a.914.914 0 0 1 1.293 0Z"/>
+                                                    </svg>
                                                 </div>
                                             </div>
                                         </div>
@@ -40,13 +42,15 @@
                                     <li class="list-group-item">
                                         <div class="row align-items-center gx-6">
                                             <div class="col">
-                                                <h5>Gender</h5>
-                                                <p class="m-0"><?=$profile['gender']?></p>
+                                                <h6 class="text-profile-style mb-1">Gender</h6>
+                                                <p class="d-block small opacity-50 m-0"><?=$profile['gender']?></p>
                                             </div>
 
                                             <div class="col-auto">
                                                 <div class="text">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                                    </svg>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,8 +59,8 @@
                                     <li class="list-group-item">
                                         <div class="row align-items-center gx-6">
                                             <div class="col">
-                                                <h5>Phone</h5>
-                                                <p class="m-0"><?=$A_profile['phone']?></p>
+                                                <h6 class="text-profile-style mb-1">Phone</h6>
+                                                <p class="d-block small opacity-50 m-0"><?=$A_profile['phone']?></p>
                                             </div>
 
                                             <div class="col-auto">
@@ -73,8 +77,8 @@
                                     <li class="list-group-item">
                                         <div class="row align-items-center gx-6">
                                             <div class="col">
-                                                <h5>Email</h5>
-                                                <p class="m-0"><?=$A_profile['email']?></p>
+                                                <h6 class="text-profile-style mb-1">Email</h6>
+                                                <p class="d-block small opacity-50 m-0"><?=$A_profile['email']?></p>
                                             </div>
 
                                             <div class="col-auto">
@@ -91,7 +95,7 @@
                                     <li class="list-group-item">
                                         <div class="row align-items-center gx-6">
                                             <div class="col">
-                                                <h5>Like</h5>
+                                                <h6 class="text-profile-style mb-1">Like</h6>
                                                 <a class="text-decoration-none" href="<?=$profile['link']?>"><?=$profile['link']?></a>
                                             </div>
 
@@ -110,7 +114,14 @@
                                         if (!Session::isOwnerOf($profile['owner'])) {
                                     ?>
                                         <li class="list-group-item">
-                                            <a href="#" class="text-danger text-decoration-none">Block</a>
+                                            <div class="d-flex align-items-center">
+                                                <div class="text-danger mb-1 me-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                                                        <path d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+                                                    </svg>
+                                                </div>
+                                                <a href="#" class="text-danger text-decoration-none">Block</a>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 </ul>
