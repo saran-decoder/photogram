@@ -7,7 +7,6 @@
                 
                 <?php 
                     $profile = Profile::getuserProfile();
-                    $A_profile = Profile::getuserAuth();
                 ?>
                 
                 <div class="overflow-hidden">
@@ -48,12 +47,16 @@
                                     Profile <sub>Info</sub>
                                 </a>
                             </li>
-
+                            
+                            <?php
+                                if (Session::isOwnerOf($profile['owner'])) {
+                            ?>
                             <li class="nav-item">
                                 <a class="nav-link text" data-bs-toggle="pill" href="#offcanvas-profile-edit-tab" role="tab" aria-controls="offcanvas-profile-edit-tab" aria-selected="false">
-                                    Edit <sub>Profile</sub>
+                                    Profile <sub>Edit</sub>
                                 </a>
                             </li>
+                            <?php } ?>
                         </ul>
                         <!-- Tabs -->
 

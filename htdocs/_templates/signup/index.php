@@ -13,16 +13,7 @@ if (isset($_POST['username']) and isset($_POST['password']) and !empty($_POST['p
 
 <?php
 	if ($signup) {
-		if (!$error) {
-?>
-			<main class="container">
-				<div class="bg-light p-5 rounded mt-3">
-					<h1>Signup Fail</h1>
-					<p class="lead">Something went wrong, <?=$error?> </p>
-				</div>
-			</main>
-<?php
-    	} else {
+		if ($error) {
 ?>
 			<main class="container">
 				<div class="bg-light p-5 rounded mt-3">
@@ -30,6 +21,16 @@ if (isset($_POST['username']) and isset($_POST['password']) and !empty($_POST['p
 					<p class="lead">Now you can login from <a href="<?=get_config('base_path')?>">here</a>.</p>
 				</div>
 			</main>
+<?php
+    	} else {
+?>
+			<main class="container">
+				<div class="bg-light p-5 rounded mt-3">
+					<h1>Signup Fail</h1>
+					<p class="lead">Something went wrong, <?=$error?></p>
+				</div>
+			</main>
+
 <?php
 	    }
 	} else {
@@ -44,7 +45,7 @@ if (isset($_POST['username']) and isset($_POST['password']) and !empty($_POST['p
 
     <div class="login-container slideRight-animation">
         <div class="login-form">
-			<form method="post" action="signup" autocomplete="off">
+			<form method="post" action="signup" autocomplete="off" id="Signup-Form" novalidate>
 				<div class="login-form-inner">
 					<h1><div class="logo">
 						<svg height="512" viewBox="0 0 192 192" width="512" xmlns="http://www.w3.org/2000/svg">
@@ -84,17 +85,16 @@ if (isset($_POST['username']) and isset($_POST['password']) and !empty($_POST['p
 					</div>
 
 					<div class="login-form-group">
-						<input name="username" type="text" id="floatingInputUsername" required>
+						<input name="username" type="text" id="username" required>
 						<div class="input-icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
 								<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
 							</svg>
 						</div>
 						<span class="name-holder">Username</span>
-						<!-- <div class="error"></div> TODO:This is The Validation Error Do This Before -->
 					</div>
 					<div class="login-form-group">
-						<input name="email_address" type="email" id="floatingInput" required>
+						<input name="email_address" type="email" id="email_address" required>
 						<div class="input-icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope-at" viewBox="0 0 16 16">
 								<path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
@@ -102,10 +102,9 @@ if (isset($_POST['username']) and isset($_POST['password']) and !empty($_POST['p
 							</svg>
 						</div>
 						<span class="name-holder">Email Address</span>
-						<!-- <div class="error"></div> -->
 					</div>
 					<div class="login-form-group">
-						<input name="phone" type="text" id="floatingInputUsername" required>
+						<input name="phone" type="number" id="phone" required>
 						<div class="input-icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
 								<path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
@@ -113,19 +112,15 @@ if (isset($_POST['username']) and isset($_POST['password']) and !empty($_POST['p
 							</svg>
 						</div>
 						<span class="name-holder">Phone Number</span>
-						<!-- <div class="error"></div> -->
 					</div>
 					<div class="login-form-group">
-						<input name="password" type="password" id="floatingPassword" required>
+						<input name="password" type="password" id="password" required>
 						<div class="input-icon">
-							<!-- <span class="show_psswrd" id="show_psswrd" style="cursor: pointer;"> -->
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
 									<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
 								</svg>
-							<!-- </span> -->
 						</div>
 						<span class="name-holder">Password</span>
-						<!-- <div class="error"></div> -->
 					</div>
 
 					<button class="rounded-button login-cta submit-btn" type="submit">Sign Up</button>

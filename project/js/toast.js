@@ -13,10 +13,11 @@ C,15,a[50]),d=n(d,e,f,c,s,21,a[51]),c=n(c,d,e,f,A,6,a[52]),f=n(f,c,d,e,q,10,a[53
 4294967296);k[(h+64>>>9<<4)+15]=(l<<8|l>>>24)&16711935|(l<<24|l>>>8)&4278255360;k[(h+64>>>9<<4)+14]=(b<<8|b>>>24)&16711935|(b<<24|b>>>8)&4278255360;a.sigBytes=4*(k.length+1);this._process();a=this._hash;k=a.words;for(b=0;4>b;b++)h=k[b],k[b]=(h<<8|h>>>24)&16711935|(h<<24|h>>>8)&4278255360;return a},clone:function(){var a=t.clone.call(this);a._hash=this._hash.clone();return a}});r.MD5=t._createHelper(q);r.HmacMD5=t._createHmacHelper(q)})(Math);
 
 class Toast{
-    constructor(title, subtitle, message, options=undefined){
+    constructor(title, subtitle, message, color, options=undefined){
         this.title = title
         this.subtitle = subtitle
         this.message = message
+        this.color = color
         this.options = {
             'placement': 'top-right'
         }
@@ -50,6 +51,7 @@ class Toast{
             `);
         } else {
             //do nothiung
+            console.log('This toast is not working...')
         }
         
     }
@@ -63,7 +65,7 @@ class Toast{
                 <small class="text-muted">${this.subtitle}</small>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body ${this.color}">
                 ${this.message}
             </div>
         </div>

@@ -25,6 +25,7 @@
     --more-color: #e9ecef;
     --bs-dark: #e9ecef;
     --bg-bottum-color: #fff;
+    --profile-colors: #e9ecef;
 
     /* Transition */
     --tran-03: all 0.2s ease;
@@ -42,6 +43,7 @@ body.dark{
     --more-color: #999;
     --bs-dark: #212529;
     --bg-bottum-color: #343a40;
+    --profile-colors: #1e2126;
 }
 
 body{

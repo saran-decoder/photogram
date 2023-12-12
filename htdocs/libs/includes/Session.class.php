@@ -79,8 +79,9 @@ class Session
     }
 
 
-    public static function loadTemplate($name)
+    public static function loadTemplate($name, $data = [])
     {
+        extract($data);
         $script = $_SERVER['DOCUMENT_ROOT'] . get_config('base_path'). "_templates/$name.php";
         if (is_file($script)) {
             include $script;

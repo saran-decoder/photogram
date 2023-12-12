@@ -30,36 +30,121 @@ $(document).ready(function() {
 });
 
 
-// This is edit profile user info update menu 'active' class add & remove jquery
+
 $(document).ready(function() {
 
-    // Define an array of section IDs for easier management
-    var sections = ['bio', 'user', 'email', 'num', 'gen', 'dob', 'link', 'pass'];
+    $("#Profile-Form1").submit(function() {
 
-    // Click event handler for the icons
-    $.each(sections, function(index, section) {
-        $('#' + section + 'RightIcon').click(function() {
-            $('#' + section + 'DownIcon, #' + section + 'Class').addClass('active');
-            $.each(sections, function(i, otherSection) {
-                if (otherSection !== section) {
-                    $('#' + section + 'RightIcon, #' + otherSection + 'DownIcon, #' + otherSection + 'Class').removeClass('active');
-                    $('#' + otherSection + 'RightIcon').addClass('active');
-                }
-            });
-            console.log('Yeah this righticon working cool...');
-        });
+        var username, email, number;
 
-        $('#' + section + 'DownIcon').click(function() {
-            $('#' + section + 'RightIcon').addClass('active');
-            $('#' + section + 'DownIcon, #' + section + 'Class').removeClass('active');
-            console.log('Yeah this downicon working cool...');
-        });
+        username = $('#profile-name').val();
+        email = $('#profile-email').val();
+        number = $('#profile-phone').val();
+
+        // Validate user
+        if (username === "") {
+            displayError("Username should not be empty!", '#profile-name');
+            return false;
+        }
+
+        // Validate email
+        if (email === "") {
+            displayError("Email address should not be empty!", '#profile-email');
+            return false;
+        }
+        if (!isValidEmail(email)) {
+            displayError('Please enter a valid email address!', '#profile-email');
+            return false;
+        }
+
+        // Validate phone
+        if (number === "") {
+            displayError("Phone number should not be empty!", '#profile-phone');
+            return false;
+        }
     });
+
+    $("#Profile-Form2").submit(function() {
+
+        var currentPass, newPass;
+
+        currentPass = $('#profile-current-password').val();
+        newPass = $('#profile-new-password').val();
+
+        if (currentPass === newPass) {
+            displayError("Current password should not be empty! or Current password and new password is equal", '#profile-current-password');
+            return false;
+        }
+
+        // Validate current
+        // if (currentPass === "") {
+        //     displayError("Current password should not be empty!", '#profile-current-password');
+        //     return false;
+        // }
+
+        // Validate new
+        if (newPass === "") {
+            displayError("New password should not be empty!", '#profile-new-password');
+            return false;
+        }
+    });
+
+    function isValidEmail(email) {
+        // Use a regular expression for basic email validation
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function displayError(errorMessage, elementId) {
+        new Toast('Form Validation', 'now', errorMessage + ' *', 'text-danger').show();
+        $(elementId).focus();
+        console.log(errorMessage);
+    }
 
 });
 
 
+// This is user all session delete jquery api calling
+$(document).on('click', '.tab-pane #das', function(){
+    id = $(this).closest('.device').data('id');
+    d = new Dialog("Clear All Session", "Are you sure want to clear this sessions");
+    d.setButtons([
+        {
+            'name': "Delete",
+            "class": "btn-danger",
+            "onClick": function(event){
+                console.log(`Assume this session ${id} is not delete`);
+                
+                $.post('/api/profile/das',
+                {
+                    id: id
+                }, function(data, textSuccess, xhr){
+                    console.log('HTTP Status:', xhr.status);
+                    console.log('Response:', data);
 
+                    if(textSuccess == "success"){ //means 200
+                        console.log('All most working cool.');
+                        window.location.reload();
+                    }
+                });
+
+                $(event.data.modal).modal('hide')
+            }
+        },
+        {
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        }
+    ]);
+    d.show();
+});
+
+
+
+// This is Testing
 let pressTimer;
 $(".longPress").mouseup(function () {
   clearTimeout(pressTimer);

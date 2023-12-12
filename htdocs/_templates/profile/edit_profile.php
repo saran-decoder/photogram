@@ -1,12 +1,19 @@
                                     <?php
                                         use Carbon\Carbon;
                                         $profile = Profile::getuserProfile();
-                                        $A_profile = Profile::getuserAuth();
+                                        $A_profile = Profile::getAuth();
                                         $devices = Profile::getDeviceInfo();
+                                        $das = Profile::getInfo();
                                         
                                         $uploaded_time = Carbon::parse($devices['login_time']);
-                                        $uploaded_time_str = $uploaded_time->diffForHumans();
+                                        $uploaded_time_str = $uploaded_time->Format('D, j M Y, g:i A');
+
+                                        $accound_create = Carbon::parse($profile['uploaded_time']);
+                                        $created_at = $accound_create->Format('D, j M Y, g:i A');
+
+                                        if (Session::isOwnerOf($profile['owner'])) {
                                     ?>
+
                                     <div class="tab-pane fade h-100 active show" id="tab-content-settings" role="tabpanel">
                                         <div class="d-flex flex-column h-100">
                                             <div class="hide-scrollbar">
@@ -14,7 +21,7 @@
                                                 <!-- Profile -->
                                                 <div class="card border-0">
                                                     <div class="card-body rounded-3">
-                                                        <div class="row align-items-center gx-5">
+                                                        <div class="">
                                                             <?php
                                                                 if (isset($_FILES['update_image']))
                                                                 {
@@ -23,7 +30,7 @@
                                                                 }
                                                             ?>
                                                             <!-- image update form data -->
-                                                            <form class="d-flex align-items-center" method="post" action="" autocomplete="off" enctype="multipart/form-data">
+                                                            <form class="d-flex align-items-center overflow-auto" method="post" action="" autocomplete="off" enctype="multipart/form-data">
                                                                 <div class="col-auto pe-3">
                                                                     <div class="avatar">
                                                                         <img src="<?=$profile['avatar']?>" alt="..." class="avatar-img view_image">
@@ -37,7 +44,7 @@
                                                                 </div>
                                                                 <div class="col px-0">
                                                                     <h6 class="text-profile-style mb-1"><?=$profile['owner']?></h6>
-                                                                    <p class="d-block small opacity-50 m-0"><?=$profile['bio']?></p>
+                                                                    <p class="d-block small opacity-50 m-0"><?=$created_at?></p>
                                                                 </div>
                                                                 <div class="col-auto">
                                                                     <a href="#" class="text-muted">
@@ -58,7 +65,7 @@
 
                                                 <!-- Account -->
                                                 <div class="mt-3">
-                                                    <div class="d-flex align-items-center mb-2 px-4">
+                                                    <div class="d-flex align-items-center mb-2">
                                                         <small class="text-muted me-auto">Account</small>
                                                     </div>
 
@@ -87,7 +94,7 @@
                                                                                     Profile::profileinfo($user, $email, $phone, $bio);
                                                                                 }
                                                                             ?>
-                                                                            <form method="post" action="" autocomplete="off">
+                                                                            <form method="post" action="" autocomplete="off" id="Profile-Form1" novalidate>
                                                                                 <div class="form-floating mb-3">
                                                                                     <input type="text" class="form-control" id="profile-name" name="username" value="<?=$A_profile['username']?>" required>
                                                                                     <label for="profile-name">Username</label>
@@ -99,7 +106,7 @@
                                                                                 </div>
 
                                                                                 <div class="form-floating mb-3">
-                                                                                    <input type="text" class="form-control" id="profile-phone" name="phone" value="<?=$A_profile['phone']?>" required>
+                                                                                    <input type="number" class="form-control" id="profile-phone" name="phone" value="<?=$A_profile['phone']?>" required>
                                                                                     <label for="profile-phone">Phone</label>
                                                                                 </div>
 
@@ -132,7 +139,7 @@
                                                                                 }
                                                                             ?>
                                                                             <div class="col-md-12 active">
-                                                                                <form class="row" method="post" action="" autocomplete="off">
+                                                                                <form class="row flex-column" method="post" action="" autocomplete="off">
                                                                                     <div class="form-row flex-center">
                                                                                         <input type="radio" name="gender" id="Male" value="Male" class="form-inputs" required>
                                                                                         <label for="Male" class="form-label m-0">Male</label>
@@ -204,7 +211,7 @@
 
                                                 <!-- Security -->
                                                 <div class="mt-3">
-                                                    <div class="d-flex align-items-center mb-2 px-4">
+                                                    <div class="d-flex align-items-center mb-2">
                                                         <small class="text-muted me-auto">Security</small>
                                                     </div>
 
@@ -231,7 +238,7 @@
                                                                                     Profile::newPassword($current_password, $password);
                                                                                 }
                                                                             ?>
-                                                                            <form method="post" action="" autocomplete="off">
+                                                                            <form method="post" action="" autocomplete="off" id="Profile-Form2" novalidate>
                                                                                 <div class="form-floating mb-3">
                                                                                     <input type="password" class="form-control" name="current_password" id="profile-current-password" placeholder="Current Password" required>
                                                                                     <label for="profile-current-password">Current Password</label>
@@ -277,58 +284,56 @@
                                                 <!-- Security -->
 
                                                 <!-- Devices -->
-                                                <div class="mt-3">
-                                                    <div class="d-flex align-items-center mb-2 px-4">
+                                                <div class="mt-3 device" data-id="<?=$das['token']?>">
+                                                    <div class="d-flex align-items-center mb-2">
                                                         <small class="text-muted me-auto">Devices</small>
-
                                                         <div class="text-muted">
-                                                            <a href="#" class="small text-decoration-none text-primary">Clear All Sessions</a>
+                                                            <a type="button" class="small text-decoration-none text-primary" id="das">Clear All Sessions</a>
                                                         </div>
                                                     </div>
 
                                                     <div class="card border-0">
                                                         <div class="card-body rounded-3 p-2">
-
                                                             <ul class="list-group list-group-flush rounded-3">
                                                                 <?php
                                                                     foreach ($devices as $device) {
+                                                                        $uploaded_time = Carbon::parse($device['login_time']);
+                                                                        $userAgent = $device['user_agent'];
+                                                                        $info = Profile::extractDeviceInfo($userAgent);
                                                                 ?>
                                                                 <li class="list-group-item p-3">
                                                                     <div class="row align-items-center">
                                                                         <div class="col">
-                                                                            <h6 class="text-profile-style mb-1"><?=$devices['user_agent']?></h6>
-                                                                            <p class="d-block small opacity-50 m-0"><?=$uploaded_time_str?> ⋅ Browser: Chrome</p>
+                                                                            <h6 class="text-profile-style mb-1"><?=$info['device']?> • <?=$device['ip']?></h6>
+                                                                            <p class="d-block small opacity-50 m-0"><?=$uploaded_time->format('D, j M, g:i A')?> • Browser: <?=$info['browser']?></p>
                                                                         </div>
-                                                                        <!-- < ?php
-                                                                            if ($devices['active'] !== 1) {
-                                                                        ?> -->
-                                                                        <!-- <div class="col-auto">
+                                                                        <?php
+                                                                            if ($device['active'] == 1) {
+                                                                        ?>
+                                                                        <div class="col-auto">
                                                                             <span class="text-success extra-small">active</span>
-                                                                        </div> -->
-                                                                        <!-- < ?php
+                                                                        </div>
+                                                                        <?php
+                                                                            } else {
+                                                                        ?>
+                                                                        <div class="col-auto">
+                                                                            <span class="text-danger extra-small">inactive</span>
+                                                                        </div>
+                                                                        <?php
                                                                             }
-                                                                        ?> -->
+                                                                        ?>
                                                                     </div>
                                                                 </li>
                                                                 <?php
-                                                                    break; }
+                                                                    }
                                                                 ?>
-                                                                <!-- <li class="list-group-item p-3">
-                                                                    <div class="row align-items-center">
-                                                                        <div class="col">
-                                                                            <h6 class="text-profile-style mb-1">< ?=$device['user_agent']?></h6>
-                                                                            <p class="d-block small opacity-50 m-0">< ?=$uploaded_time_str?> ⋅ Browser: Chrome</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </li> -->
                                                             </ul>
-
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <!-- Devices -->
 
                                             </div>
                                         </div>
                                     </div>
+                                    <?php } ?>

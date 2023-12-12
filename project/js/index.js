@@ -131,7 +131,7 @@ $(document).ready(function() {
 
 
 // This is user post delete jquery api calling
-$('#dell').on('click', function(){
+$(document).on('click', '.container #dell', function(){
     post_id = $(this).parent().attr('data-id');
     d = new Dialog("Delete Post", "Are you sure want to delete this post");
     d.setButtons([
@@ -181,6 +181,7 @@ $('#dell').on('click', function(){
 //         }
 //     });
 // });
+
 $(".btn-like").on("click", function () {
     post_id = $(this).parents("div").attr("data-id");
     like_id = "#like-" + post_id;
@@ -200,6 +201,8 @@ $(".btn-like").on("click", function () {
     } else {
         $(like_id).addClass("liked");
         $(like_id).addClass("text-danger");
+        $('.icon-liked').removeClass('d-none');
+        $('.icon-like').addClass('d-none');
         like = $(like_count).html();
         like = parseInt(like) + 1;
         $(like_count).text(like);

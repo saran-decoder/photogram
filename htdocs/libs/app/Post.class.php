@@ -119,7 +119,6 @@ class Post
     {
         $username = $_GET['username'];
         $db = Database::getConnection();
-        // $id = Session::getUser()->getID();
         $sql = "SELECT `image_uri` FROM `posts` WHERE `owner` = '$username'";
         $result = $db->query($sql);
         return iterator_to_array($result);

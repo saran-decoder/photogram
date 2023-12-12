@@ -49,7 +49,7 @@ p.font-italic.mb-0 {
 }
 
 .form-control {
-    background: var(--bg-body-color) !important;
+    background: var(--body-color) !important;
     color: var(--box-border-color) !important;
     border: none;
     box-shadow: none !important;
@@ -179,7 +179,7 @@ span.text-profile-style {
 
 /* this is the dob css */
 .form-dob {
-    background: #fff;
+    background: white;
     border-radius: 5px;
     height: 40px;
     margin: 10px;
@@ -228,7 +228,7 @@ button.btn.text.bg-success.m-2 {
 
 
 .nav-pills {
-    background: rgb(30, 33, 38);
+    background: var(--profile-colors);
     border-radius: 0.6rem;
     padding: 0.3125rem;
 }
@@ -239,17 +239,18 @@ button.btn.text.bg-success.m-2 {
     text-align: center;
 }
 .nav-link.text.active {
-    background: var(--body-color);
+    background: darkcyan;
+    color: white !important;
 }
 .list-group-item {
     position: relative;
     display: block;
     color: var(--text-color);
-    background-color: rgb(22, 25, 28);
+    background-color: var(--profile-colors);
     padding: 1.25rem 1.5rem;
     text-decoration: none;
     border-style: solid;
-    border-color: rgb(30, 33, 38);
+    border-color: var(--profile-colors);
     border-image: initial;
 }
 
@@ -275,6 +276,7 @@ button.btn.text.bg-success.m-2 {
     border-radius: 1rem;
     height: calc(1em + 0.778em);
     padding: 0.389em;
+    color: var(--text-color);
     background: var(--body-color) !important;
 }
 .badge-circle svg {
@@ -289,21 +291,22 @@ button, input, optgroup, select, textarea {
 }
 .stretched-label {
     position: absolute;
+    cursor: pointer;
     height: 100%;
     width: 100%;
     left: 0;
     top: 0;
 }
 .card-body.rounded-3 {
-    background: #1e2126;
+    background: var(--profile-colors);
 }
 .accordion-item {
     color: inherit;
-    background-color: #1e2126;
-    border: 2px solid #1e2126;
+    background-color: var(--profile-colors);
+    border: 2px solid var(--profile-colors);
 }
 a.text-reset {
-    background-color: #1e2126;
+    background-color: var(--profile-colors);
     color: var(--text-color) !important;
     text-decoration: none;
 }
@@ -315,7 +318,8 @@ a.text-reset {
     border-top: 0;
 }
 .text-muted {
-    color: #adb5bd !important;
+    color: #6c757d!important;
+    font-weight: bold;
 }
 .btn-primary {
     color: #fff;
@@ -328,17 +332,15 @@ a.text-reset {
     border-radius: 0.6rem;
 }
 label {
-    color: #f8f9fa;
+    color: var(--text-color);
 }
 h6.text-profile-style.mb-1 {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    width: 16rem;
 }
 p.d-block.small.opacity-50.m-0 {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    width: 30rem;
 }

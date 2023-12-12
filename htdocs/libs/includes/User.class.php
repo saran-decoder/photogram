@@ -26,12 +26,12 @@ class User
             if ($conn->query($sql)) {
                 $avatar = "/ava/avatar.jpg";
                 $bio = "Hey there! I am using Photogram";
+                $dob = '1000-01-01';
                 $userid = mysqli_insert_id($conn);
                 $sql = "INSERT INTO `users` (`userid`, `bio`, `avatar`, `gender`, `dob`, `linkname`, `link`, `uploaded_time`, `owner`)
-                VALUES ('$userid', '$bio', '$avatar', '', now(), '', '', now(), '$user');";
+                VALUES ('$userid', '$bio', '$avatar', '', '$dob', '', '', now(), '$user');";
                 try {
                     if ($conn->query($sql)) {
-                        echo "<script>window.location.href = '/signup?{$user}={$userid}'</script>";
                         return true;
                     } else {
                         return false;

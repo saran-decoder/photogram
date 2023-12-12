@@ -20,7 +20,7 @@ class Profile
             $image_path = get_config('avatar_path') . $image_name;
             if (move_uploaded_file($avatar, $image_path)) {
                 $avatar_path = "/ava/$image_name";
-                $update_profile = "UPDATE `users` SET `avatar`='$avatar_path' WHERE `userid`='$id'";
+                $update_profile = "UPDATE `users` SET `avatar`='$avatar_path',`uploaded_time`=now() WHERE `userid`='$id'";
                 $db = Database::getConnection();
                 if ($db->query($update_profile)) {
                     $update_postavatar = "UPDATE `posts` SET `avatar`='$avatar_path' WHERE `userid`='$id'";
@@ -179,13 +179,34 @@ class Profile
         return $result->fetch_assoc();
     }
 
-    public static function getuserAuth()
+    public static function getAuth()
     {
         $username = $_GET['username'];
         $db = Database::getConnection();
         $sql = "SELECT * FROM `auth` WHERE `username`='$username'";
         $result = $db->query($sql);
         return $result->fetch_assoc();
+    }
+
+    public static function getuserEAuth($email)
+    {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            list($user, $domain) = explode('@', $email);
+            $user = preg_replace('/(?<=.{2})./', '*',$user);
+            $domain = preg_replace('/(?<=.{1}).(?=>)/', '*', $domain);
+            $result = "$user@$domain";
+            return $result;
+        } else {
+            return false;
+        }
+    }
+    public static function getuserPAuth($phone)
+    {
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+        $hidden_part = substr($phone, 1, -2);
+        $hidden_part = str_repeat('*', strlen($hidden_part));
+        $formatted_phone = substr($phone, 0, 1) . $hidden_part . substr($phone, -2);
+        return $formatted_phone;
     }
 
     public static function getProfile()
@@ -223,36 +244,50 @@ class Profile
         $result = $db->query($sql);
         return iterator_to_array($result);
     }
-    public static function getAuthInfo($p)
-    {
-        $db = Database::getConnection();
-        $sql = "SELECT `phone`,`email` FROM `auth` WHERE `id` = '$p'";
-        $result = $db->query($sql);
-        return $result->fetch_assoc();
-    }
-    public static function getTotalLikecount($p)
-    {
-        $db = Database::getConnection();
-        $sql = "SELECT SUM(`like_count`) AS `like_count` FROM `posts` WHERE `owner` = '$p'";
-        $result = $db->query($sql);
-        return $result->fetch_assoc();
-    }
-    public static function getTotalPostcount($p)
-    {
-        $db = Database::getConnection();
-        $sql = "SELECT COUNT(*) AS 'image_uri' FROM `posts` WHERE `owner` = '$p'";
-        $result = $db->query($sql);
-        return $result->fetch_assoc();
-    }
     // Ended
 
+    // User account login activity
     public static function getDeviceInfo()
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
-        $sql = "SELECT `login_time`,`ip`,`user_agent`,`active` FROM `session` WHERE `uid`='$id'";
+        $sql = "SELECT `login_time`, `ip`, `user_agent`, `active` FROM `session` WHERE `uid`='$id' ORDER BY `login_time` DESC";
+        $result = $db->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public static function getInfo()
+    {
+        $db = Database::getConnection();
+        $id = Session::getUser()->getID();
+        $sql = "SELECT `token` FROM `session` WHERE `uid`='$id' ORDER BY `login_time` DESC";
         $result = $db->query($sql);
         return $result->fetch_assoc();
+    }
+
+    public static function extractDeviceInfo($userAgent) {
+
+        // Match browser name
+        if (preg_match('/(Chrome|Firefox|Safari|Edge|Opera)/i', $userAgent, $matches)) {
+            $browser = $matches[1];
+        } else {
+            $browser = "Unknown Browser";
+        }
+
+        // Get device name
+        // Define a regular expression pattern to match content within parentheses excluding "X11"
+        $pattern = '/\(([^)]+)\)/';
+
+        // Use preg_replace to remove "X11," "x86_64," and "KHTML, like Gecko" from the matched content
+        $cleanedContent = preg_replace('/X11;|KHTML, like Gecko|x86_64/', '', $userAgent);
+
+        if (preg_match($pattern, $cleanedContent, $matches)) {
+            $device = $matches[1];
+        } else {
+            $device = "Unknown Device";
+        }
+
+        return ['browser' => $browser, 'device' => $device];
     }
 
     public function __construct($id)

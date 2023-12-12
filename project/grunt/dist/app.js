@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 25/11/2023 @ 17:48:53*/
+/*Processed by SNA Labs on 11/12/2023 @ 11:0:41*/
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -446,7 +446,7 @@ $(document).ready(function() {
 
 
 // This is user post delete jquery api calling
-$('#dell').on('click', function(){
+$(document).on('click', '.container #dell', function(){
     post_id = $(this).parent().attr('data-id');
     d = new Dialog("Delete Post", "Are you sure want to delete this post");
     d.setButtons([
@@ -496,6 +496,7 @@ $('#dell').on('click', function(){
 //         }
 //     });
 // });
+
 $(".btn-like").on("click", function () {
     post_id = $(this).parents("div").attr("data-id");
     like_id = "#like-" + post_id;
@@ -515,6 +516,8 @@ $(".btn-like").on("click", function () {
     } else {
         $(like_id).addClass("liked");
         $(like_id).addClass("text-danger");
+        $('.icon-liked').removeClass('d-none');
+        $('.icon-like').addClass('d-none');
         like = $(like_count).html();
         like = parseInt(like) + 1;
         $(like_count).text(like);
@@ -606,36 +609,121 @@ $(document).ready(function() {
 });
 
 
-// This is edit profile user info update menu 'active' class add & remove jquery
+
 $(document).ready(function() {
 
-    // Define an array of section IDs for easier management
-    var sections = ['bio', 'user', 'email', 'num', 'gen', 'dob', 'link', 'pass'];
+    $("#Profile-Form1").submit(function() {
 
-    // Click event handler for the icons
-    $.each(sections, function(index, section) {
-        $('#' + section + 'RightIcon').click(function() {
-            $('#' + section + 'DownIcon, #' + section + 'Class').addClass('active');
-            $.each(sections, function(i, otherSection) {
-                if (otherSection !== section) {
-                    $('#' + section + 'RightIcon, #' + otherSection + 'DownIcon, #' + otherSection + 'Class').removeClass('active');
-                    $('#' + otherSection + 'RightIcon').addClass('active');
-                }
-            });
-            console.log('Yeah this righticon working cool...');
-        });
+        var username, email, number;
 
-        $('#' + section + 'DownIcon').click(function() {
-            $('#' + section + 'RightIcon').addClass('active');
-            $('#' + section + 'DownIcon, #' + section + 'Class').removeClass('active');
-            console.log('Yeah this downicon working cool...');
-        });
+        username = $('#profile-name').val();
+        email = $('#profile-email').val();
+        number = $('#profile-phone').val();
+
+        // Validate user
+        if (username === "") {
+            displayError("Username should not be empty!", '#profile-name');
+            return false;
+        }
+
+        // Validate email
+        if (email === "") {
+            displayError("Email address should not be empty!", '#profile-email');
+            return false;
+        }
+        if (!isValidEmail(email)) {
+            displayError('Please enter a valid email address!', '#profile-email');
+            return false;
+        }
+
+        // Validate phone
+        if (number === "") {
+            displayError("Phone number should not be empty!", '#profile-phone');
+            return false;
+        }
     });
+
+    $("#Profile-Form2").submit(function() {
+
+        var currentPass, newPass;
+
+        currentPass = $('#profile-current-password').val();
+        newPass = $('#profile-new-password').val();
+
+        if (currentPass === newPass) {
+            displayError("Current password should not be empty! or Current password and new password is equal", '#profile-current-password');
+            return false;
+        }
+
+        // Validate current
+        // if (currentPass === "") {
+        //     displayError("Current password should not be empty!", '#profile-current-password');
+        //     return false;
+        // }
+
+        // Validate new
+        if (newPass === "") {
+            displayError("New password should not be empty!", '#profile-new-password');
+            return false;
+        }
+    });
+
+    function isValidEmail(email) {
+        // Use a regular expression for basic email validation
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function displayError(errorMessage, elementId) {
+        new Toast('Form Validation', 'now', errorMessage + ' *', 'text-danger').show();
+        $(elementId).focus();
+        console.log(errorMessage);
+    }
 
 });
 
 
+// This is user all session delete jquery api calling
+$(document).on('click', '.tab-pane #das', function(){
+    id = $(this).closest('.device').data('id');
+    d = new Dialog("Clear All Session", "Are you sure want to clear this sessions");
+    d.setButtons([
+        {
+            'name': "Delete",
+            "class": "btn-danger",
+            "onClick": function(event){
+                console.log(`Assume this session ${id} is not delete`);
+                
+                $.post('/api/profile/das',
+                {
+                    id: id
+                }, function(data, textSuccess, xhr){
+                    console.log('HTTP Status:', xhr.status);
+                    console.log('Response:', data);
 
+                    if(textSuccess == "success"){ //means 200
+                        console.log('All most working cool.');
+                        window.location.reload();
+                    }
+                });
+
+                $(event.data.modal).modal('hide')
+            }
+        },
+        {
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        }
+    ]);
+    d.show();
+});
+
+
+
+// This is Testing
 let pressTimer;
 $(".longPress").mouseup(function () {
   clearTimeout(pressTimer);
@@ -697,36 +785,116 @@ function setCookie(name, value, daysToExpire) {
     }
   
     document.cookie = name + "=" + value + expires + "; path=/";
-}  
-// This is searching user profile side arr 'active' & 'off' class add & remove jquery
+}
+
+
+
 $(document).ready(function() {
-    // Click event handler for the icons
-    $('.arr_container').click(function() {
-        var uid = $(this).attr('id');
-        $(this).addClass('active_arr');
-        $('#' + uid + "-down").addClass('active');
-        $('#' + uid + "-down").removeClass('off');
+
+    $("#Login-Form").submit(function() {
+
+        // Validate email
+        var email = $("#email_address").val();
+        if (email === "") {
+            displayError("Please enter your username or email address!", '#email_address');
+            return false;
+        }
+
+        // Validate password
+        var password = $("#password").val();
+        if (password === "") {
+            displayError("Password should not be empty!", '#password');
+            return false;
+        }
     });
 
-    $('.cancel').click(function() {
-        var uid = $(this).attr('id');
-        $('.arr_container').removeClass('active_arr');
-        $('#' + uid + "-down").addClass('off');
-        $('#' + uid + "-down").removeClass('active');
-    });
+    function displayError(errorMessage, elementId) {
+        new Toast('Form Validation', 'now', errorMessage + ' *', 'text-danger').show();
+        $(elementId).focus();
+        console.log(errorMessage);
+    }
 });
 
 
+$(document).ready(function() {
+
+    $("#Signup-Form").submit(function() {
+
+        var username, email, number, password;
+
+        username = $('#username').val();
+        email = $('#email_address').val();
+        number = $('#phone').val();
+        password = $('#password').val();
+
+        // Validate user
+        if (username === "") {
+            displayError("Username should not be empty!", '#username');
+            return false;
+        }
+
+        // Validate email
+        if (email === "") {
+            displayError("Email address should not be empty!", '#email_address');
+            return false;
+        }
+        if (!isValidEmail(email)) {
+            displayError('Please enter a valid email address!', '#email_address');
+            return false;
+        }
+
+        // Validate phone
+        if (number === "") {
+            displayError("Phone number should not be empty!", '#phone');
+            return false;
+        }
+
+        // Validate password
+        if (password === "") {
+            displayError("Password should not be empty!", '#password');
+            return false;
+        }
+    });
+
+    function isValidEmail(email) {
+        // Use a regular expression for basic email validation
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function displayError(errorMessage, elementId) {
+        new Toast('Form Validation', 'now', errorMessage + ' *', 'text-danger').show();
+        $(elementId).focus();
+        console.log(errorMessage);
+    }
+
+});
 // This is The Searching Jquery
-$("#search").on("keyup", filter);
+// Store the initial display status of each list item
+// Store the initial display status as a data attribute
+$(".list-item").each(function() {
+    var listItem = $(this);
+    listItem.data('initial-display', listItem.css('display'));
+});
+
+$("#search").on("input", filter);
+
 function filter() {
     var term = $("#search").val().toLowerCase();
+
     $(".list-item").each(function() {
         var listItem = $(this);
-        if (listItem.html().toLowerCase().indexOf(term) !== -1) {
-            listItem.css("display", "block");
+
+        // If the search term is empty, use the initial display status
+        if (term === "") {
+            listItem.css("display", listItem.data('initial-display'));
         } else {
-            listItem.css("display", "none");
+            // Otherwise, filter based on the search term
+            if (listItem.text().toLowerCase().indexOf(term) !== -1) {
+                listItem.css("display", "block");
+            } else {
+                listItem.css("display", "none");
+            }
         }
     });
 }
@@ -745,10 +913,11 @@ C,15,a[50]),d=n(d,e,f,c,s,21,a[51]),c=n(c,d,e,f,A,6,a[52]),f=n(f,c,d,e,q,10,a[53
 4294967296);k[(h+64>>>9<<4)+15]=(l<<8|l>>>24)&16711935|(l<<24|l>>>8)&4278255360;k[(h+64>>>9<<4)+14]=(b<<8|b>>>24)&16711935|(b<<24|b>>>8)&4278255360;a.sigBytes=4*(k.length+1);this._process();a=this._hash;k=a.words;for(b=0;4>b;b++)h=k[b],k[b]=(h<<8|h>>>24)&16711935|(h<<24|h>>>8)&4278255360;return a},clone:function(){var a=t.clone.call(this);a._hash=this._hash.clone();return a}});r.MD5=t._createHelper(q);r.HmacMD5=t._createHmacHelper(q)})(Math);
 
 class Toast{
-    constructor(title, subtitle, message, options=undefined){
+    constructor(title, subtitle, message, color, options=undefined){
         this.title = title
         this.subtitle = subtitle
         this.message = message
+        this.color = color
         this.options = {
             'placement': 'top-right'
         }
@@ -782,6 +951,7 @@ class Toast{
             `);
         } else {
             //do nothiung
+            console.log('This toast is not working...')
         }
         
     }
@@ -795,7 +965,7 @@ class Toast{
                 <small class="text-muted">${this.subtitle}</small>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body ${this.color}">
                 ${this.message}
             </div>
         </div>

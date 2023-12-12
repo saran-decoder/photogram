@@ -150,9 +150,16 @@ class UserSession
         if (!$this->conn) {
             $this->conn = Database::getConnection();
         }
-        $sql = "UPDATE `session` SET `active` = 0 WHERE `uid`=$this->uid";
-
-        return $this->conn->query($sql) ? true : false;
+        $del = "DELETE * FROM `session` WHERE `uid`=$this->uid";
+        try {
+            if ($this->conn->query($del)) {
+                $sql = "UPDATE `session` SET `active` = 0 WHERE `uid`=$this->uid";
+                return $this->conn->query($sql) ? true : false;
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $del . "<br>" . $e->getMessage() . $this->conn->error;
+            return false;
+        }
     }
 
     public function isActive()
@@ -184,6 +191,18 @@ class UserSession
             } else {
                 return false;
             }
+        }
+    }
+
+    public static function DeleteSession($token)
+    {
+        $conn = Database::getConnection();
+        $uid = Session::getUser()->getID();
+        $sql = "DELETE FROM `session` WHERE `uid` = '$uid' AND `token` <> '$token'";
+        if ($conn->query($sql)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
