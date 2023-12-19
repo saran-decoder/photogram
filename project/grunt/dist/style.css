@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 11/12/2023 @ 11:0:41*/
+/*Processed by SNA Labs on 17/12/2023 @ 10:54:50*/
 .comment-container
 {
     right: 0;
@@ -844,6 +844,7 @@ body.dark .text{
     border-color: var(--body-color);
     background: var(--body-color);
     color: var(--text-color);
+    border-bottom: 1px solid var(--bg-body-color);
 }
 
 .card-img {
@@ -1550,9 +1551,10 @@ input:valid ~ span.name-holder {
     border-bottom-right-radius: 1.5rem;
 }
 
-p.font-italic.mb-0 {
-    width: 30rem;
-}
+/* p.font-italic.mb-0 {
+    padding-left: 6rem;
+    padding-right: 6rem;
+} */
 
 .imageWrapper {
     width: 30%;

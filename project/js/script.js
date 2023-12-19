@@ -117,3 +117,38 @@ $(document).ready(function() {
     }
 
 });
+
+
+// This is user account delete jquery api calling
+$(document).on('click', '#deactive', function(){
+    d = new Dialog("Delete Account", "Are you sure want to delete this account");
+    d.setButtons([
+        {
+            'name': "Delete",
+            "class": "btn-danger",
+            "onClick": function(event){
+                console.log(`Assume this account is deleted`);
+                
+                $.post('/api/auth/deactive',{}, function(data, textSuccess, xhr){
+                    console.log('HTTP Status:', xhr.status);
+                    console.log('Response:', data);
+
+                    if(textSuccess == "success"){ //means 200
+                        console.log('All most working cool.');
+                        window.location.reload();
+                    }
+                });
+
+                $(event.data.modal).modal('hide')
+            }
+        },
+        {
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        }
+    ]);
+    d.show();
+});

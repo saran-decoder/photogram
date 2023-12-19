@@ -190,8 +190,8 @@ $(".btn-like").on("click", function () {
     if ($(like_id).hasClass("liked")) {
         $(like_id).removeClass("liked");
         $(like_id).removeClass("text-danger");
-        $('.icon-liked').addClass('d-none');
-        $('.icon-like').removeClass('d-none');
+        $('.icon-liked'+like_id).addClass('d-none');
+        $('.icon-like'+like_id).removeClass('d-none');
         like = $(like_count).html();
         like = parseInt(like) - 1;
         $(like_count).text(like);
@@ -201,8 +201,8 @@ $(".btn-like").on("click", function () {
     } else {
         $(like_id).addClass("liked");
         $(like_id).addClass("text-danger");
-        $('.icon-liked').removeClass('d-none');
-        $('.icon-like').addClass('d-none');
+        $('.icon-liked'+like_id).removeClass('d-none');
+        $('.icon-like'+like_id).addClass('d-none');
         like = $(like_count).html();
         like = parseInt(like) + 1;
         $(like_count).text(like);

@@ -218,6 +218,7 @@ body.dark .text{
     border-color: var(--body-color);
     background: var(--body-color);
     color: var(--text-color);
+    border-bottom: 1px solid var(--bg-body-color);
 }
 
 .card-img {

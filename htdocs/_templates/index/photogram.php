@@ -116,7 +116,6 @@
                                 </div>
                             </div>
                         </div>
-                        <hr class="m-0">
                         <?php
 							}
 						?>

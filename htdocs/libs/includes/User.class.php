@@ -64,6 +64,38 @@ class User
         }
     }
 
+    public static function DeleteAccount()
+    {
+        $conn = Database::getConnection();
+        $id = Session::getUser()->getID();
+        $sql = "DELETE FROM `likes` WHERE `user_id` = '$id'";
+        if ($conn->query($sql)) {
+            $sql = "DELETE FROM `posts` WHERE `userid` = '$id'";
+            if ($conn->query($sql)) {
+                $sql = "DELETE FROM `session` WHERE `uid` = '$id'";
+                if ($conn->query($sql)) {
+                    $sql = "DELETE FROM `users` WHERE `userid` = '$id'";
+                    if ($conn->query($sql)) {
+                        $sql = "DELETE FROM `auth` WHERE `id` = '$id'";
+                        if ($conn->query($sql)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     //User object can be constructed with both UserID and Username.
     public function __construct($username)
     {

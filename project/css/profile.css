@@ -9,9 +9,10 @@
     border-bottom-right-radius: 1.5rem;
 }
 
-p.font-italic.mb-0 {
-    width: 30rem;
-}
+/* p.font-italic.mb-0 {
+    padding-left: 6rem;
+    padding-right: 6rem;
+} */
 
 .imageWrapper {
     width: 30%;

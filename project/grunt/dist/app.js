@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 11/12/2023 @ 11:0:41*/
+/*Processed by SNA Labs on 17/12/2023 @ 10:54:50*/
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -505,8 +505,8 @@ $(".btn-like").on("click", function () {
     if ($(like_id).hasClass("liked")) {
         $(like_id).removeClass("liked");
         $(like_id).removeClass("text-danger");
-        $('.icon-liked').addClass('d-none');
-        $('.icon-like').removeClass('d-none');
+        $('.icon-liked'+like_id).addClass('d-none');
+        $('.icon-like'+like_id).removeClass('d-none');
         like = $(like_count).html();
         like = parseInt(like) - 1;
         $(like_count).text(like);
@@ -516,8 +516,8 @@ $(".btn-like").on("click", function () {
     } else {
         $(like_id).addClass("liked");
         $(like_id).addClass("text-danger");
-        $('.icon-liked').removeClass('d-none');
-        $('.icon-like').addClass('d-none');
+        $('.icon-liked'+like_id).removeClass('d-none');
+        $('.icon-like'+like_id).addClass('d-none');
         like = $(like_count).html();
         like = parseInt(like) + 1;
         $(like_count).text(like);
@@ -868,6 +868,41 @@ $(document).ready(function() {
         console.log(errorMessage);
     }
 
+});
+
+
+// This is user account delete jquery api calling
+$(document).on('click', '#deactive', function(){
+    d = new Dialog("Delete Account", "Are you sure want to delete this account");
+    d.setButtons([
+        {
+            'name': "Delete",
+            "class": "btn-danger",
+            "onClick": function(event){
+                console.log(`Assume this account is deleted`);
+                
+                $.post('/api/auth/deactive',{}, function(data, textSuccess, xhr){
+                    console.log('HTTP Status:', xhr.status);
+                    console.log('Response:', data);
+
+                    if(textSuccess == "success"){ //means 200
+                        console.log('All most working cool.');
+                        window.location.reload();
+                    }
+                });
+
+                $(event.data.modal).modal('hide')
+            }
+        },
+        {
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        }
+    ]);
+    d.show();
 });
 // This is The Searching Jquery
 // Store the initial display status of each list item
