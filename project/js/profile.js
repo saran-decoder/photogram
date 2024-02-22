@@ -110,7 +110,7 @@ $(document).on('click', '.tab-pane #das', function(){
     d = new Dialog("Clear All Session", "Are you sure want to clear this sessions");
     d.setButtons([
         {
-            'name': "Delete",
+            'name': "Clear All",
             "class": "btn-danger",
             "onClick": function(event){
                 console.log(`Assume this session ${id} is not delete`);

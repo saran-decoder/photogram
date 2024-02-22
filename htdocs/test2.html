@@ -1,506 +1,326 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	
-	
-	<title>General Search Results - Bootdey.com</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <!DOCTYPE html>
+<html>
+	<head>
+		<title>Crop Image Before Upload using CropperJS with PHP</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>        
+		<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+		<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+		<script src="https://unpkg.com/dropzone"></script>
+		<script src="https://unpkg.com/cropperjs"></script>
+		
+		<style>
+
+		.image_area {
+		  position: relative;
+		}
+
+		img {
+		  	display: block;
+		  	max-width: 100%;
+		}
+
+		.preview {
+  			overflow: hidden;
+  			width: 160px; 
+  			height: 160px;
+  			margin: 10px;
+  			border: 1px solid red;
+		}
+
+		.modal-lg{
+  			max-width: 1000px !important;
+		}
+
+		.overlay {
+		  position: absolute;
+		  bottom: 10px;
+		  left: 0;
+		  right: 0;
+		  background-color: rgba(255, 255, 255, 0.5);
+		  overflow: hidden;
+		  height: 0;
+		  transition: .5s ease;
+		  width: 100%;
+		}
+
+		.image_area:hover .overlay {
+		  height: 50%;
+		  cursor: pointer;
+		}
+
+		.text {
+		  color: #333;
+		  font-size: 20px;
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		  -webkit-transform: translate(-50%, -50%);
+		  -ms-transform: translate(-50%, -50%);
+		  transform: translate(-50%, -50%);
+		  text-align: center;
+		}
+
+        .cropper-view-box,
+        .cropper-face {
+            cursor: grab;
+        }
+
+		
+		</style>
 	</head>
 	<body>
-		<div class="container">
+		<div class="container" aligne="center">
 			<div class="row">
-				<div class="col-lg-12 card-margin">
-					<div class="card search-form">
-						<div class="card-body p-0">
-							<form id="search-form">
-								<div class="row">
-									<div class="col-12">
-										<div class="row no-gutters">
-											<div class="col-lg-3 col-md-3 col-sm-12 p-0">
-												<select class="form-control" id="exampleFormControlSelect1">
-													<option>Location</option>
-													<option>London</option>
-													<option>Boston</option>
-													<option>Mumbai</option>
-													<option>New York</option>
-													<option>Toronto</option>
-													<option>Paris</option>
-												</select>
-											</div>
-											<div class="col-lg-8 col-md-6 col-sm-12 p-0">
-												<input type="text" placeholder="Search..." class="form-control" id="search" name="search">
-											</div>
-											<div class="col-lg-1 col-md-3 col-sm-12 p-0">
-												<button type="submit" class="btn btn-base">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-												</button>
-											</div>
-										</div>
-									</div>
+				<div class="col-md-4">&nbsp;</div>
+				<div class="col-md-4">
+					<div class="image_area">
+						<form method="post">
+							<label for="upload_image">
+								<img src="assets/images/default/profile-1.jpg" id="uploaded_image" class="img-responsive img-circle" />
+								<div class="overlay">
+									<div class="text">Click to Change Profile Image</div>
 								</div>
-							</form>
-						</div>
+								<input type="file" name="image" class="image" id="upload_image" style="display:none" />
+							</label>
+						</form>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<div class="card card-margin">
-						<div class="card-body">
-							<div class="row search-body">
-								<div class="col-lg-12">
-									<div class="search-result">
-										<div class="result-header">
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="records">Showing: <b>1-20</b> of <b>200</b> result</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="result-actions">
-														<div class="result-sorting">
-															<span>Sort By:</span>
-															<select class="form-control border-0" id="exampleOption">
-																<option value="1">Relevance</option>
-																<option value="2">Names (A-Z)</option>
-																<option value="3">Names (Z-A)</option>
-															</select>
-														</div>
-														<div class="result-views">
-															<button type="button" class="btn btn-soft-base btn-icon">
-																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
-																	<line x1="8" y1="6" x2="21" y2="6"></line>
-																	<line x1="8" y1="12" x2="21" y2="12"></line>
-																	<line x1="8" y1="18" x2="21" y2="18"></line>
-																	<line x1="3" y1="6" x2="3" y2="6"></line>
-																	<line x1="3" y1="12" x2="3" y2="12"></line>
-																	<line x1="3" y1="18" x2="3" y2="18"></line>
-																</svg>
-															</button>
-															<button type="button" class="btn btn-soft-base btn-icon">
-																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
-																	<rect x="3" y="3" width="7" height="7"></rect>
-																	<rect x="14" y="3" width="7" height="7"></rect>
-																	<rect x="14" y="14" width="7" height="7"></rect>
-																	<rect x="3" y="14" width="7" height="7"></rect>
-																</svg>
-															</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="result-body">
-											<div class="table-responsive">
-												<table class="table widget-26">
-													<tbody>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Senior Software Engineer / Developer</a>
-																	<p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span class="text-muted time">1 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Full-Time</p>
-																	<p class="text-muted m-0">in <span class="location">London, UK</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 50/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-base">
-																	<i class="indicator bg-base"></i>
-																	<span>Software Development</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Marketing &amp; Communication Supervisor</a>
-																	<p class="m-0"><a href="#" class="employer-name">AxiomUI Llc.</a> <span class="text-muted time">2 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">New York, US</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 60/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-warning">
-																	<i class="indicator bg-warning"></i>
-																	<span>Marketing</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Senior Data Analyst / Scientist</a>
-																	<p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span class="text-muted time">4 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">New York, US</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 60/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-success">
-																	<i class="indicator bg-success"></i>
-																	<span>Artificial Intelligence</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">UX Designer &amp; UI Developer</a>
-																	<p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span class="text-muted time">5 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">Toronto, CAN</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 35/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-danger">
-																	<i class="indicator bg-danger"></i>
-																	<span>Design</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Information Security Analyst / Expert</a>
-																	<p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span class="text-muted time">6 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">Mumbai, IN</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 70/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-info">
-																	<i class="indicator bg-info"></i>
-																	<span>Infra Supervision</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star starred">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Senior Software Engineer / Developer</a>
-																	<p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span class="text-muted time">1 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Full-Time</p>
-																	<p class="text-muted m-0">in <span class="location">London, UK</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 50/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-base">
-																	<i class="indicator bg-base"></i>
-																	<span>Software Development</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Marketing &amp; Communication Supervisor</a>
-																	<p class="m-0"><a href="#" class="employer-name">AxiomUI Llc.</a> <span class="text-muted time">2 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">New York, US</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 60/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-warning">
-																	<i class="indicator bg-warning"></i>
-																	<span>Marketing</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Senior Data Analyst / Scientist</a>
-																	<p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span class="text-muted time">4 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">New York, US</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 60/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-success">
-																	<i class="indicator bg-success"></i>
-																	<span>Artificial Intelligence</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">UX Designer &amp; UI Developer</a>
-																	<p class="m-0"><a href="#" class="employer-name">AxiomUI Inc.</a> <span class="text-muted time">5 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">Toronto, CAN</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 35/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-danger">
-																	<i class="indicator bg-danger"></i>
-																	<span>Design</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<div class="widget-26-job-emp-img">
-																	<img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Company" />
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-title">
-																	<a href="#">Information Security Analyst / Expert</a>
-																	<p class="m-0"><a href="#" class="employer-name">Axiom Corp.</a> <span class="text-muted time">6 days ago</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-info">
-																	<p class="type m-0">Part-Time</p>
-																	<p class="text-muted m-0">in <span class="location">Mumbai, IN</span></p>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-salary">$ 70/hr</div>
-															</td>
-															<td>
-																<div class="widget-26-job-category bg-soft-info">
-																	<i class="indicator bg-info"></i>
-																	<span>Infra Supervision</span>
-																</div>
-															</td>
-															<td>
-																<div class="widget-26-job-starred">
-																	<a href="#">
-																		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star starred">
-																			<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-																		</svg>
-																	</a>
-																</div>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<nav class="d-flex justify-content-center">
-								<ul class="pagination pagination-base pagination-boxed pagination-square mb-0">
-									<li class="page-item">
-										<a class="page-link no-border" href="#">
-											<span aria-hidden="true">«</span>
-											<span class="sr-only">Previous</span>
-										</a>
-									</li>
-									<li class="page-item active"><a class="page-link no-border" href="#">1</a></li>
-									<li class="page-item"><a class="page-link no-border" href="#">2</a></li>
-									<li class="page-item"><a class="page-link no-border" href="#">3</a></li>
-									<li class="page-item"><a class="page-link no-border" href="#">4</a></li>
-									<li class="page-item">
-										<a class="page-link no-border" href="#">
-											<span aria-hidden="true">»</span>
-											<span class="sr-only">Next</span>
-										</a>
-									</li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
-			</div>
+			    </div>
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Crop Image Before Upload</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">X</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="img-container">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <img src="" id="sample_image" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="preview"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="crop" class="btn btn-primary">Crop</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+            </div>		
 		</div>
-		<script src="assets/dist/js/jquery-3.6.3.min.js"></script>
-		<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
-		<script type="text/javascript">
-			
-		</script>
-	</body>
-	</html>
+
+
+<script>
+$(document).ready(function(){
+    var $modal = $('#modal');
+    var image = document.getElementById('sample_image');
+    var cropper;
+
+    $('#upload_image').change(function(event){
+        var files = event.target.files;
+
+        var done = function(url){
+            image.src = url;
+            $modal.modal('show');
+        };
+
+        if(files && files.length > 0) {
+            reader = new FileReader();
+            reader.onload = function(event) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    });
+
+    $modal.on('shown.bs.modal', function() {
+        cropper = new Cropper(image, {
+            aspectRatio: 1,
+            viewMode: 3,
+            preview: '.preview',
+            movable: false, // Disable moving the whole cropper
+            cropBoxMovable: true, // Enable moving the crop box
+            cropBoxResizable: true // Enable resizing the crop box
+        });
+
+        var initialTop = cropper.getCropBoxData().top;
+        var startY;
+
+        $('.cropper-view-box, .cropper-face').on('mousedown', function (e) {
+            if ($(e.target).hasClass('cropper-view-box') || $(e.target).hasClass('cropper-face')) {
+                e.preventDefault();
+                startY = e.clientY;
+            }
+        });
+
+        $(document).on('mousemove', function (e) {
+            if (startY !== undefined) {
+                var deltaY = e.clientY - startY;
+
+                cropper.setCropBoxData({
+                    top: initialTop + deltaY
+                });
+            }
+        }).on('mouseup', function () {
+            startY = undefined;
+        });
+
+        // Add a reset button click event
+        $('#resetCrop').click(function () {
+            cropper.reset();
+        });
+    }).on('hidden.bs.modal', function(){
+        // Destroy the cropper instance when modal is hidden
+        cropper.destroy();
+        cropper = null;
+    });
+
+    $('#crop').click(function(){
+        canvas = cropper.getCroppedCanvas({
+            width: 400,
+            height: 400
+        });
+
+        canvas.toBlob(function(blob){
+            url = URL.createObjectURL(blob);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function(){
+                var base64data = reader.result;
+                $.ajax({
+                    url:'upload.php',
+                    method:'POST',
+                    data:{image:base64data},
+                    success:function(data)
+                    {
+                        // Hide the modal
+                        $modal.modal('hide');
+                        // Set the uploaded image source
+                        $('#uploaded_image').attr('src', data);
+                    }
+                });
+            };
+        });
+    });
+});
+</script>
+
+        
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>PHP Mysql Image Crop & Upload using JQuery Ajax</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
+</head>
+<body>  
+        <div class="container">
+          <br /> 
+      <h3 align="center">PHP Mysql Image Crop & Upload using JQuery Ajax</h3>
+      <br />
+      <br />
+   <div class="panel panel-default">
+      <div class="panel-heading">Select Profile Image</div>
+      <div class="panel-body" align="center">
+       <input type="file" name="upload_image" id="upload_image" accept="image/*" />
+       <br />
+       <div id="uploaded_image"></div>
+      </div>
+     </div>
+    </div>
+ 
+<div id="uploadimageModal" class="modal" role="dialog">
+ <div class="modal-dialog">
+  <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Upload & Crop Image</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+       <div class="col-md-8 text-center">
+        <div id="image_demo" style="width:350px; margin-top:30px"></div>
+       </div>
+       <div class="col-md-4" style="padding-top:30px;">
+        <br />
+        <br />
+        <br/>
+        <button class="btn btn-success crop_image">Crop & Upload Image</button>
+     </div>
+    </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+     </div>
+    </div>
+</div>
+ 
+<script>  
+$(document).ready(function(){
+ 
+ $image_crop = $('#image_demo').croppie({
+    enableExif: true,
+    viewport: {
+      width:200,
+      height:200,
+      type:'square' //circle
+    },
+    boundary:{
+      width:300,
+      height:300
+    }
+  });
+ 
+  $('#upload_image').on('change', function(){
+    var reader = new FileReader();
+    reader.onload = function (event) {
+      $image_crop.croppie('bind', {
+        url: event.target.result
+      }).then(function(){
+        console.log('jQuery bind complete');
+      });
+    }
+    reader.readAsDataURL(this.files[0]);
+    $('#uploadimageModal').modal('show');
+  });
+ 
+  $('.crop_image').click(function(event){
+    $image_crop.croppie('result', {
+      type: 'canvas',
+      size: 'viewport'
+    }).then(function(response){
+      $.ajax({
+        url:"upload.php",
+        type: "POST",
+        data:{"image": response},
+        success:function(data)
+        {
+          $('#uploadimageModal').modal('hide');
+          $('#uploaded_image').html(data);
+        }
+      });
+    })
+  });
+ 
+});  
+</script>
+ </body>
+</html>
+

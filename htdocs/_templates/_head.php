@@ -20,4 +20,8 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
 	<link href="https://fonts.googleapis.com/css?family=KoHo" rel="stylesheet"> -->
 
+	<!-- Image Croper -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css"/>
+
+
 </head>

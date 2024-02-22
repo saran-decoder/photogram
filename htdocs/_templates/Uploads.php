@@ -45,7 +45,7 @@ if (isset($_POST['post_text']) and isset($_FILES['post_image'])) {
                                 <p class="image-count"></p>
                             </div>
 
-                            <input type="file" accept="image/*" name="post_image" class="custom-file-input file form__file" id="chooseFile" multiple required>
+                            <input type="file" accept="image/*" name="post_image" class="custom-file-input file form__file" id="post_image" multiple required>
                         </div>
                         <div class="field field_btns d-flex justify-content-between position-relative px-3 m-0">
                             <a href="/" class="firstClose close" id="upclose">Close</a>

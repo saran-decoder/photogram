@@ -20,23 +20,23 @@ if ($result) {
 
 <?php
 
-session_start();
+// session_start();
 
-// Function to store device information
-function storeDeviceInformation($userAgent) {
-    $_SESSION['device_info'] = $userAgent;
-}
+// // Function to store device information
+// function storeDeviceInformation($userAgent) {
+//     $_SESSION['device_info'] = $userAgent;
+// }
 
-// Function to get device information
-function getDeviceInformation() {
-    return isset($_SESSION['device_info']) ? $_SESSION['device_info'] : 'Unknown Device';
-}
+// // Function to get device information
+// function getDeviceInformation() {
+//     return isset($_SESSION['device_info']) ? $_SESSION['device_info'] : 'Unknown Device';
+// }
 
-// Simulate a user logging in
-$userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36";
-$hi = storeDeviceInformation($userAgent);
+// // Simulate a user logging in
+// $userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36";
+// $hi = storeDeviceInformation($userAgent);
 
-echo($hi);
+// echo($hi);
 
 // require 'vendor/autoload.php';
 // use Carbon\Carbon; //including a namespace

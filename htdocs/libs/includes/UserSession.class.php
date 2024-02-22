@@ -205,4 +205,5 @@ class UserSession
             return false;
         }
     }
+
 }

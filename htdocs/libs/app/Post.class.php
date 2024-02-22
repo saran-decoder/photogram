@@ -15,36 +15,65 @@ class Post
 
     public static function registerPost($text, $image_tmp)
     {
-        if (is_file($image_tmp) and exif_imagetype($image_tmp) !== false) {
-            $userid = Session::getUser()->getID();
-            $author = Session::getUser()->getUsername();
-            $image_name = md5($author.time()) . image_type_to_extension(exif_imagetype($image_tmp));
-            $image_path = get_config('upload_path') . $image_name;
-            if (move_uploaded_file($image_tmp, $image_path)) {
-                $db = Database::getConnection();
+        $userid = Session::getUser()->getID();
+        $author = Session::getUser()->getUsername();
 
-                // Fetch the avatar value
-                $avatarQuery = "SELECT `avatar` FROM `users` WHERE `owner` = '$author'";
-                $avatarResult = $db->query($avatarQuery);
-                $avatar = $avatarResult->fetch_assoc();
-                
-                $Useravatar = $avatar['avatar']; // Get the avatar value
+        // Decode base64-encoded image data
+        $image_data = base64_decode($image_tmp);
 
-                $image_uri = "/files/$image_name";
-                $insert_command = "INSERT INTO `posts` (`userid`, `post_text`, `multiple_images`, `image_uri`, `avatar`, `like_count`, `uploaded_time`, `owner`) VALUES ('$userid', '$text', 0, '$image_uri', '$Useravatar', 0, now(), '$author')";
-                // die(var_dump($insert_command));
-                if ($db->query($insert_command)) {
-                    $id = mysqli_insert_id($db);
-                    return new Post($id);
+        if ($image_data !== false) {
+            // Determine the image extension based on the actual image type
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_type = finfo_buffer($finfo, $image_data);
+            finfo_close($finfo);
+
+            $valid_extensions = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png',
+                'image/gif' => 'gif',
+            ];
+
+            if (array_key_exists($mime_type, $valid_extensions)) {
+                $image_extension = '.' . $valid_extensions[$mime_type];
+
+                // Generate a unique image name
+                $image_name = md5($author . time()) . $image_extension;
+
+                // Specify the path where the image will be saved
+                $image_path = get_config('upload_path') . $image_name;
+
+                // Save the image
+                if (file_put_contents($image_path, $image_data)) {
+                    $db = Database::getConnection();
+
+                    // Fetch the avatar value
+                    $avatarQuery = "SELECT `avatar` FROM `users` WHERE `owner` = '$author'";
+                    $avatarResult = $db->query($avatarQuery);
+                    $avatar = $avatarResult->fetch_assoc();
+
+                    $Useravatar = $avatar['avatar']; // Get the avatar value
+
+                    $image_uri = "/files/$image_name";
+                    $insert_command = "INSERT INTO `posts` (`userid`, `post_text`, `multiple_images`, `image_uri`, `avatar`, `like_count`, `uploaded_time`, `owner`) VALUES ('$userid', '$text', 0, '$image_uri', '$Useravatar', 0, now(), '$author')";
+
+                    if ($db->query($insert_command)) {
+                        $id = mysqli_insert_id($db);
+                        return new Post($id);
+                    } else {
+                        echo "<script>window.location.href = '/Uploads?error'</script>";
+                        return false;
+                    }
                 } else {
-                    echo "<script>window.location.href = '/Uploads?error'</script>";
-                    return false;
+                    throw new Exception("Failed to save the image");
                 }
+            } else {
+                throw new Exception("Invalid image type: $mime_type");
             }
         } else {
-            throw new Exception("Image not uploaded check image extension");
+            throw new Exception("Failed to decode base64 image data");
         }
     }
+
 
     public function like()
     {

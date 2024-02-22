@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 17/12/2023 @ 10:54:50*/
+/*Processed by SNA Labs on 17/2/2024 @ 18:19:37*/
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -577,6 +577,85 @@ $.post('/api/profile/count', {
     console.log(data);
     $('#total-posts').html("Total Posts: " + data.count);
 });
+
+
+// New UI Post Dropdown Hidden and other thinks JS
+$(document).ready(function() {
+    $('.button.dd').click(function(event) {
+        event.stopPropagation(); // Prevent the document click event from being triggered immediately
+        var post_id = $(this).attr("id");
+        console.log('This is the post id ' + post_id);
+        $(".dropdown").not("#" + post_id).removeClass("open"); // Close other dropdowns
+        $(".dropdown#" + post_id).toggleClass("open");
+    });
+
+    $(".dropdown a").click(function() {
+        $(".dropdown a").removeClass("clicked");
+        $(this).toggleClass("clicked");
+    });
+
+    // Close the dropdown when clicking outside
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.dropdown').length) {
+            // If the clicked element is outside the dropdown, close it
+            $(".dropdown").removeClass("open");
+        }
+    });
+});
+
+// this is Search result js
+// This is The Searching Jquery
+// Store the initial display status of each list item
+// Store the initial display status as a data attribute
+$(".list-item").each(function() {
+    var listItem = $(this);
+    listItem.data('initial-display', listItem.css('display', 'none'));
+});
+
+$(".search-txt").on("input", filter);
+
+function filter() {
+    var term = $(".search-txt").val().toLowerCase();
+    var noResultsMessage = $(".no-results-message");
+
+    var anyListItemVisible = false;
+
+    $(".list-item").each(function() {
+        var listItem = $(this);
+
+        // If the search term is empty, use the initial display status
+        if (term === "") {
+            listItem.css("display", listItem.data('initial-display'));
+            anyListItemVisible = true;
+        } else {
+            // Otherwise, filter based on the search term
+            if (listItem.text().toLowerCase().indexOf(term) !== -1) {
+                listItem.css("display", "block");
+                anyListItemVisible = true;
+            } else {
+                listItem.css("display", "none");
+            }
+        }
+    });
+
+    // Show or hide the "No results found" message based on visibility of list items
+    noResultsMessage.css("display", anyListItemVisible ? "none" : "block");
+}
+
+
+// Side menu bar hidden js
+$(document).ready(function(){
+    $(".user-pro-mob").on("click", function(){
+        $('.bg-body-tertiary.left').toggleClass("hidden");
+    });
+});
+
+// Search hidden and show js
+$(document).ready(function(){
+    $(".nav-search, .search-back").on("click", function(){
+        $('.bg-body-tertiary.right').toggleClass("hidden");
+    });
+});
 // This is edit profile image preview jquery
 $(document).ready(function() {
     let profileinput = $('.file-input'),
@@ -689,7 +768,7 @@ $(document).on('click', '.tab-pane #das', function(){
     d = new Dialog("Clear All Session", "Are you sure want to clear this sessions");
     d.setButtons([
         {
-            'name': "Delete",
+            'name': "Clear All",
             "class": "btn-danger",
             "onClick": function(event){
                 console.log(`Assume this session ${id} is not delete`);

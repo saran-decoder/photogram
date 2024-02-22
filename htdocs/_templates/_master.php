@@ -19,9 +19,9 @@
 				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 					<div class="modal-content blur">
 						<div class="modal-header">
-							<h4 class="modal-title"></h4>
+							<h4 class="modal-title text"></h4>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body text">
 						</div>
 						<div class="modal-footer">
 						</div>
@@ -40,6 +40,10 @@
 	<script src="<?=get_config('base_path')?>assets/dist/js/jquery-3.6.3.min.js"></script>
 
 	<script src="/js/app.min.js"></script>
+	<script src="/js/crop.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
 	
 	<script>
 		// Initialize the agent at application startup.
