@@ -209,13 +209,13 @@ a.nav-link.link-body-emphasis {
 
 /* Navigation avatar styles */
 .nav-avatar {
-    background: var(--bs-danger-border-subtle);
+    background: var(--bg-body-color);
     filter: brightness(1);
 }
 
 span.fs-4.hidden-text.text {
     color: #FFF !important;
-    filter: drop-shadow(2px 4px 6px black);
+    filter: drop-shadow(2px 4px 6px var(--text-color));
 }
 
 /* Card hover styles */

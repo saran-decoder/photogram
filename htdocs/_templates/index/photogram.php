@@ -23,7 +23,7 @@
                 <?php $profile = Profile::getProfile(); ?>
                 <div>
                     <a type="button" class="user-pro-mob d-block">
-                        <img class="rounded-circle" src="<?=$profile['avatar'];?>" width="25" alt="">
+                        <img class="rounded-circle" src="<?=$profile['avatar'];?>" width="25" alt="User Profile">
                     </a>
                 </div>
                 <div class="upload-btn-2 d-none">

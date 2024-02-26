@@ -90,11 +90,11 @@
             </div>
 
             <b class="my-4 mb-4 d-none side-head">Avatar</b>
-            <div class="nav-avatar d-none align-items-end justify-content-center rounded-5 position-relative">
-                <img src="/assets/images/Footer/avatar.png" width="250" alt="">
+            <div class="nav-avatar d-none align-items-end justify-content-center rounded-5 position-relative overflow-visible hcf-masonry-card">
+                <img src="/assets/images/Footer/avatar.png" width="250" class="card-img img-fluid" alt="Photogram">
                 <div class="text nav-link d-none align-items-center avatar-title">
                     <a href="/" class="d-flex align-items-center justify-content-center text-decoration-none">
-                        <span class="fs-4 hidden-text text">𝓹𝓱𝓸𝓽𝓸𝓰𝓻𝓪𝓶</span>
+                        <span class="fs-4 hidden-text text card-img img-fluid">𝓹𝓱𝓸𝓽𝓸𝓰𝓻𝓪𝓶</span>
                     </a>
                 </div>
             </div>

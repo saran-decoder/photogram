@@ -24,4 +24,13 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css"/>
 
 
+
+	<!-- Font Awesome -->
+  	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  	<!-- CSS links-->
+  	<!-- fancybox -->
+  	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css'>
+  	<!-- magnific-popup -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" />
+
 </head>

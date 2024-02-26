@@ -33,7 +33,7 @@
 	</body>
 
 
-	<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script src="<?=get_config('base_path')?>assets/dist/js/bootstrap.bundle.min.js"></script>
@@ -60,6 +60,40 @@
 				// set a cookie 
 				setCookie('fingerprint', visitorId, 1);
 			})
+	</script>
+
+
+	<!-- JS Links -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<!-- Mixitup -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.2.2/mixitup.min.js'></script>
+	<!-- fancybox -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js'></script>
+	<!-- Fancybox js -->
+	<script>
+		/*Downloaded from https://www.codeseek.co/ezra_siton/mixitup-fancybox3-JydYqm */
+		// 1. querySelector
+		var containerEl = document.querySelector(".portfolio-item");
+		// 2. Passing the configuration object inline
+		//https://www.kunkalabs.com/mixitup/docs/configuration-object/
+		var mixer = mixitup(containerEl, {
+		animation: {
+			effects: "fade translateZ(-100px)",
+			effectsIn: "fade translateY(-100%)",
+			easing: "cubic-bezier(0.645, 0.045, 0.355, 1)"
+		}
+		});
+		// fancybox insilaze & options //
+		$("[data-fancybox]").fancybox({
+		loop: true,
+		hash: true,
+		transitionEffect: "slide",
+		/* zoom VS next////////////////////
+		clickContent - i modify the deafult - now when you click on the image you go to the next image - i more like this approach than zoom on desktop (This idea was in the classic/first lightbox) */
+		clickContent: function(current, event) {
+			return current.type === "image" ? "next" : false;
+		}
+		});
 	</script>
 
 </html>

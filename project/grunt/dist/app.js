@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 17/2/2024 @ 18:19:37*/
+/*Processed by SNA Labs on 26/2/2024 @ 16:50:31*/
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -829,6 +829,24 @@ $(document).ready(function() {
         }
     });
 });
+
+// This is the user post image show js
+// let id = $('#posts .hcf-masonry-card.rounded').closest('a').data('id');
+// var id = $('#posts .hcf-masonry-card.rounded').attr("id");
+// console.log("ID: " + id);
+// $(document).on('click', '#posts #post-' + id + '.modal', function() {
+//     $('#post-' + id).modal('show');
+// });
+
+// This is the user post image show js
+$(document).on('click', '.hcf-masonry-card.rounded', function() {
+    // Extract the post ID from the clicked element's id attribute
+    var postId = $(this).attr("id").split('-')[1];
+    
+    // Show the modal corresponding to the post ID
+    $('#post-' + postId + '.modal').modal('show');
+});
+
 $(document).ready(function() {
     const darkSwitch = $("#darkSwitch");
 
