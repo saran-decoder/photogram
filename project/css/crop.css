@@ -1,7 +1,8 @@
 /* Modal colors */
 .modal-content {
-    box-shadow: 0 0 1px var(--timer-color);
+    border-radius: 10px;
     background-color: var(--body-color);
+    box-shadow: 0 0 1px var(--bg-body-color);
 }
 
 .modal-header, .modal-footer {

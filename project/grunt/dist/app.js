@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 26/2/2024 @ 16:50:31*/
+/*Processed by SNA Labs on 27/2/2024 @ 17:11:3*/
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -845,6 +845,13 @@ $(document).on('click', '.hcf-masonry-card.rounded', function() {
     
     // Show the modal corresponding to the post ID
     $('#post-' + postId + '.modal').modal('show');
+});
+$(document).on('click', '.modal-content .close', function() {
+    // Find the closest modal to the clicked close button
+    var modal = $(this).closest('.modal');
+
+    // Hide the modal
+    $(modal).modal('hide');
 });
 
 $(document).ready(function() {

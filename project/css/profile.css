@@ -89,6 +89,7 @@
     width: 34px;
     height: 34px;
     justify-content: center;
+    border: none;
 }
 
 .profile-pick {
@@ -151,6 +152,18 @@
 .tab-pane.fade {
     display: none;
 }
+
+/* This is the post modal CSS */
+/* Modal Styles */
+.custom-wh {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    border-start-start-radius: 7px;
+    border-start-end-radius: 7px;
+}
+
+
+
 
 
 /* About CSS */

@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 26/2/2024 @ 16:50:31*/
+/*Processed by SNA Labs on 27/2/2024 @ 17:11:3*/
 .comment-container
 {
     right: 0;
@@ -45,8 +45,9 @@
 }
 /* Modal colors */
 .modal-content {
-    box-shadow: 0 0 1px var(--timer-color);
+    border-radius: 10px;
     background-color: var(--body-color);
+    box-shadow: 0 0 1px var(--bg-body-color);
 }
 
 .modal-header, .modal-footer {
@@ -1773,6 +1774,7 @@ input:valid ~ span.name-holder {
     width: 34px;
     height: 34px;
     justify-content: center;
+    border: none;
 }
 
 .profile-pick {
@@ -1835,6 +1837,18 @@ input:valid ~ span.name-holder {
 .tab-pane.fade {
     display: none;
 }
+
+/* This is the post modal CSS */
+/* Modal Styles */
+.custom-wh {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    border-start-start-radius: 7px;
+    border-start-end-radius: 7px;
+}
+
+
+
 
 
 /* About CSS */

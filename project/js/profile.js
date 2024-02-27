@@ -188,3 +188,10 @@ $(document).on('click', '.hcf-masonry-card.rounded', function() {
     // Show the modal corresponding to the post ID
     $('#post-' + postId + '.modal').modal('show');
 });
+$(document).on('click', '.modal-content .close', function() {
+    // Find the closest modal to the clicked close button
+    var modal = $(this).closest('.modal');
+
+    // Hide the modal
+    $(modal).modal('hide');
+});

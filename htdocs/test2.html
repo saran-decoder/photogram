@@ -219,7 +219,7 @@ $(document).ready(function(){
 </html> -->
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
  <head>
   <title>PHP Mysql Image Crop & Upload using JQuery Ajax</title>
@@ -322,5 +322,105 @@ $(document).ready(function(){
 });  
 </script>
  </body>
-</html>
+</html> -->
 
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments UI App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css'>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <!-- Comments Block -->
+    <div class="card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <div>
+                <h2>Comments</h2>
+                <div class="badge badge-primary">12</div>
+            </div>
+            <div class="btn-group" role="group">
+                <label class="btn btn-outline-primary active">
+                    <input type="radio" name="options" id="latest" checked> Latest
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" name="options" id="popular"> Popular
+                </label>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Writing Section -->
+            <div class="writing mb-4">
+                <div contenteditable="true" class="form-control textarea" autofocus spellcheck="false">
+                    <p>Hi <a class="tagged-user">@Jo</a></p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-format btn-group">
+                        <button class="btn"><i class="ri-bold"></i></button>
+                        <button class="btn"><i class="ri-italic"></i></button>
+                        <button class="btn"><i class="ri-underline"></i></button>
+                        <button class="btn"><i class="ri-list-unordered"></i></button>
+                    </div>
+                    <div class="group-button">
+                        <button class="btn"><i class="ri-at-line"></i></button>
+                        <button class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment Section -->
+            <div class="comment mb-4">
+                <div class="user-banner d-flex justify-content-between align-items-center">
+                    <div class="user d-flex align-items-center">
+                        <div class="avatar">
+                            <img src="https://randomuser.me/api/portraits/men/86.jpg" class="img-fluid rounded-circle" alt="User Avatar">
+                            <span class="stat grey"></span>
+                        </div>
+                        <h5>Floyd Miles</h5>
+                    </div>
+                    <button class="btn dropdown"><i class="ri-more-line"></i></button>
+                </div>
+                <div class="content">
+                    <p>Actually, now that I try out the links on my message, above, none of them take me to the secure site. Only my shortcut on my desktop, which I created years ago.</p>
+                </div>
+                <div class="footer d-flex align-items-center">
+                    <button class="btn"><i class="ri-emotion-line"></i></button>
+                    <div class="reactions">
+                        <button class="btn react"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/thumbs-up_1f44d.png" alt="">4</button>
+                        <button class="btn react"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/angry-face-with-horns_1f47f.png" alt="">1</button>
+                    </div>
+                    <div class="divider mx-2"></div>
+                    <a href="#" class="mr-2">Reply</a>
+                    <div class="divider mx-2"></div>
+                    <span class="is-mute">6 hours</span>
+                </div>
+            </div>
+
+            <!-- Another Comment -->
+            <!-- Add more comment sections as needed -->
+
+            <!-- Load More Section -->
+            <div class="load text-center">
+                <span><i class="ri-refresh-line"></i>Loading</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
