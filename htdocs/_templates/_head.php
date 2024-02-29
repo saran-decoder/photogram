@@ -14,23 +14,7 @@
 	
 	<link rel="stylesheet" href="/css/style.css">
 
-
-	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Marck+Script">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rakkas">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
-	<link href="https://fonts.googleapis.com/css?family=KoHo" rel="stylesheet"> -->
-
 	<!-- Image Croper -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css"/>
-
-
-
-	<!-- Font Awesome -->
-  	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  	<!-- CSS links-->
-  	<!-- fancybox -->
-  	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css'>
-  	<!-- magnific-popup -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" />
 
 </head>

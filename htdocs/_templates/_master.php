@@ -40,7 +40,8 @@
 	<script src="<?=get_config('base_path')?>assets/dist/js/jquery-3.6.3.min.js"></script>
 
 	<script src="/js/app.min.js"></script>
-	<script src="/js/crop.js"></script>
+	<script src="/js/post-crop.js"></script>
+	<script src="/js/profile-crop.js"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>

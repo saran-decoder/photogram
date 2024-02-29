@@ -497,7 +497,7 @@ $(document).on('click', '.container #dell', function(){
 //     });
 // });
 
-$(".btn-like").on("click", function () {
+$(document).on("click", "button.btn-like", function () {
     post_id = $(this).parents("div").attr("data-id");
     like_id = "#like-" + post_id;
     like_count = '#like-count-' + post_id;
