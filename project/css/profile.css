@@ -171,6 +171,7 @@
     border-radius: 7px !important;
 }
 #pick_view  .cr-slider-wrap {
+    display: none;
     height: 20px;
     position: absolute;
     bottom: 0;
@@ -244,5 +245,9 @@
 
     .position-relative.p-2 {
         padding: 1rem !important;
+    }
+
+    #pick_view  .cr-slider-wrap {
+        display: block;
     }
 }

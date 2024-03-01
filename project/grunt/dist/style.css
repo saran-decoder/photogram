@@ -1856,6 +1856,7 @@ input:valid ~ span.name-holder {
     border-radius: 7px !important;
 }
 #pick_view  .cr-slider-wrap {
+    display: none;
     height: 20px;
     position: absolute;
     bottom: 0;
@@ -1929,6 +1930,10 @@ input:valid ~ span.name-holder {
 
     .position-relative.p-2 {
         padding: 1rem !important;
+    }
+
+    #pick_view  .cr-slider-wrap {
+        display: block;
     }
 }
 .list-group-item.rounded-3.py-3.text.d-flex.align-items-center.justify-content-between.setting {

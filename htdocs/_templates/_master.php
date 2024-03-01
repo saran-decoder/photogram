@@ -40,11 +40,11 @@
 	<script src="<?=get_config('base_path')?>assets/dist/js/jquery-3.6.3.min.js"></script>
 
 	<script src="/js/app.min.js"></script>
-	<script src="/js/post-crop.js"></script>
-	<script src="/js/profile-crop.js"></script>
+	<script src="/js/post_crop.js"></script>
+	<script src="/js/profile_crop.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
 	
 	<script>
 		// Initialize the agent at application startup.
@@ -72,28 +72,22 @@
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js'></script>
 	<!-- Fancybox js -->
 	<script>
-		/*Downloaded from https://www.codeseek.co/ezra_siton/mixitup-fancybox3-JydYqm */
-		// 1. querySelector
 		var containerEl = document.querySelector(".portfolio-item");
-		// 2. Passing the configuration object inline
-		//https://www.kunkalabs.com/mixitup/docs/configuration-object/
 		var mixer = mixitup(containerEl, {
-		animation: {
-			effects: "fade translateZ(-100px)",
-			effectsIn: "fade translateY(-100%)",
-			easing: "cubic-bezier(0.645, 0.045, 0.355, 1)"
-		}
+			animation: {
+				effects: "fade translateZ(-100px)",
+				effectsIn: "fade translateY(-100%)",
+				easing: "cubic-bezier(0.645, 0.045, 0.355, 1)"
+			}
 		});
-		// fancybox insilaze & options //
+		// fancybox insilaze & options
 		$("[data-fancybox]").fancybox({
-		loop: true,
-		hash: true,
-		transitionEffect: "slide",
-		/* zoom VS next////////////////////
-		clickContent - i modify the deafult - now when you click on the image you go to the next image - i more like this approach than zoom on desktop (This idea was in the classic/first lightbox) */
-		clickContent: function(current, event) {
-			return current.type === "image" ? "next" : false;
-		}
+			loop: true,
+			hash: true,
+			transitionEffect: "slide",
+			clickContent: function(current, event) {
+				return current.type === "image" ? "next" : false;
+			}
 		});
 	</script>
 

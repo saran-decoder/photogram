@@ -14,34 +14,52 @@ class Profile
     {
         $id = Session::getUser()->getID();
         $owner = Session::getUser()->getUsername();
-        $headid = md5(Session::getUser()->getUsername());
-        if (is_file($avatar) && exif_imagetype($avatar) !== false) {
-            $image_name = md5($owner . time()) . image_type_to_extension(exif_imagetype($avatar));
-            $image_path = get_config('avatar_path') . $image_name;
-            if (move_uploaded_file($avatar, $image_path)) {
-                $avatar_path = "/ava/$image_name";
-                $update_profile = "UPDATE `users` SET `avatar`='$avatar_path',`uploaded_time`=now() WHERE `userid`='$id'";
-                $db = Database::getConnection();
-                if ($db->query($update_profile)) {
-                    $update_postavatar = "UPDATE `posts` SET `avatar`='$avatar_path' WHERE `userid`='$id'";
-                    if ($db->query($update_postavatar)) {
-                        echo "<script>window.location.href = '/profile/{$owner}?savedavatars={$headid}'</script>";
-                        return true;
-                    } else {
-                        echo "<script>window.location.href = '/profile/{$owner}?updatepostavatarerror'</script>";
-                        return false;
-                    }
+
+        // Check if the uploaded file is an image
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_buffer($finfo, $avatar);
+
+        if (strpos($mime_type, 'image/') !== 0) {
+            finfo_close($finfo);
+            throw new Exception('Invalid file type. Only images are allowed.');
+        }
+
+        finfo_close($finfo);
+
+        $extensions = ['jpg', 'jpeg', 'png']; // Add other valid image extensions
+        $randomExtension = $extensions[array_rand($extensions)];
+
+        $image_name = md5($owner . time()) . '.' . $randomExtension;
+        $image_path = get_config('avatar_path') . $image_name;
+
+        // Use file_put_contents to move the file
+        if (file_put_contents($image_path, $avatar)) {
+            $avatar_path = "/ava/$image_name";
+
+            // Update user's avatar in the database
+            $update_profile = "UPDATE `users` SET `avatar`='$avatar_path',`uploaded_time`=now() WHERE `userid`='$id'";
+            $db = Database::getConnection();
+
+            if ($db->query($update_profile)) {
+                // Update avatar in user's posts
+                $update_postavatar = "UPDATE `posts` SET `avatar`='$avatar_path' WHERE `userid`='$id'";
+
+                if ($db->query($update_postavatar)) {
+                    echo "Profile updated successfully.";
+                    return true;
                 } else {
-                    echo "<script>window.location.href = '/profile/{$owner}?updateavatarerror'</script>";
+                    echo "Error updating post avatars" . $db->error;
                     return false;
                 }
             } else {
-                throw new Exception("Profile avatar could not be moved.");
+                echo "Error updating user profile: " . $db->error;
+                return false;
             }
         } else {
-            echo "<script>window.location.href = '/profile/{$owner}'</script>";
+            throw new Exception('Error moving the file to the destination path');
         }
     }
+
 
     public static function profileinfo($user, $email, $phone, $bio)
     {
