@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 27/2/2024 @ 17:11:3*/
+/*Processed by SNA Labs on 1/3/2024 @ 17:42:21*/
 .comment-container
 {
     right: 0;
@@ -1843,8 +1843,7 @@ input:valid ~ span.name-holder {
 .custom-wh {
     width: -webkit-fill-available;
     height: -webkit-fill-available;
-    border-start-start-radius: 7px;
-    border-start-end-radius: 7px;
+    border-radius: 7px;
 }
 .custom-right {
     right: 0;
@@ -1857,13 +1856,13 @@ input:valid ~ span.name-holder {
 }
 #pick_view  .cr-slider-wrap {
     display: none;
-    height: 20px;
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    width: -webkit-fill-available;
-    margin: 10px;
-    filter: drop-shadow(0 0 0 #000);
+}
+
+#banner_view .cr-boundary {
+    border-radius: 7px;
+}
+#banner_view  .cr-slider-wrap {
+    display: none;
 }
 
 
@@ -1930,10 +1929,6 @@ input:valid ~ span.name-holder {
 
     .position-relative.p-2 {
         padding: 1rem !important;
-    }
-
-    #pick_view  .cr-slider-wrap {
-        display: block;
     }
 }
 .list-group-item.rounded-3.py-3.text.d-flex.align-items-center.justify-content-between.setting {

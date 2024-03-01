@@ -30,6 +30,35 @@
 			</div>
 		</div>
 
+		<!-- Post modal -->
+		<div id="uploadimageModal" class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-live="assertive" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title text">Image Crop & Post</h5>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-9 w-100">
+								<style>textarea#post_message::placeholder{ color: var(--timer-color); }</style>
+								<textarea class="form-control input-sm px-2" type="textarea" name="post_text" id="post_message" placeholder="What's on Your Mind?" maxlength="200" rows="6"></textarea>
+								<span class="help-block d-flex justify-content-end">
+									<p id="characterLeft" class="help-block" style="margin-top: -2rem; margin-right: 1rem; color: var(--text-color);">You have reached the limit</p>
+								</span>
+							</div>
+							<div class="col">
+								<div id="image_demo"></div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a type="button" href="/" class="btn btn-outline-secondary text" data-dismiss="modal">Close</a>
+						<button class="btn btn-outline-success text" id="share-memory">Crop & Post</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 
 
@@ -40,8 +69,6 @@
 	<script src="<?=get_config('base_path')?>assets/dist/js/jquery-3.6.3.min.js"></script>
 
 	<script src="/js/app.min.js"></script>
-	<script src="/js/post_crop.js"></script>
-	<script src="/js/profile_crop.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
@@ -64,23 +91,11 @@
 	</script>
 
 
-	<!-- JS Links -->
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<!-- Mixitup -->
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.2.2/mixitup.min.js'></script>
 	<!-- fancybox -->
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js'></script>
-	<!-- Fancybox js -->
-	<script>
-		var containerEl = document.querySelector(".portfolio-item");
-		var mixer = mixitup(containerEl, {
-			animation: {
-				effects: "fade translateZ(-100px)",
-				effectsIn: "fade translateY(-100%)",
-				easing: "cubic-bezier(0.645, 0.045, 0.355, 1)"
-			}
-		});
-		// fancybox insilaze & options
+  	<script src='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js'></script>
+  	<!-- Fancybox js -->
+  	<script>
+		// fancybox insilaze & options //
 		$("[data-fancybox]").fancybox({
 			loop: true,
 			hash: true,
@@ -89,6 +104,6 @@
 				return current.type === "image" ? "next" : false;
 			}
 		});
-	</script>
+  	</script>
 
 </html>

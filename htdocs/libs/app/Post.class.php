@@ -15,35 +15,43 @@ class Post
 
     public static function registerPost($text, $image_tmp)
     {
-        if (is_file($image_tmp) and exif_imagetype($image_tmp) !== false) {
-            $userid = Session::getUser()->getID();
-            $author = Session::getUser()->getUsername();
-            $image_name = md5($author.time()) . image_type_to_extension(exif_imagetype($image_tmp));
-            $image_path = get_config('upload_path') . $image_name;
-            die(var_dump($image_path));
-            if (file_put_contents($image_path, $image_tmp)) {
-                $db = Database::getConnection();
+        $userid = Session::getUser()->getID();
+        $author = Session::getUser()->getUsername();
+        // Check if the uploaded file is an image
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_buffer($finfo, $image_tmp);
 
-                // Fetch the avatar value
-                $avatarQuery = "SELECT `avatar` FROM `users` WHERE `owner` = '$author'";
-                $avatarResult = $db->query($avatarQuery);
-                $avatar = $avatarResult->fetch_assoc();
-                
-                $Useravatar = $avatar['avatar']; // Get the avatar value
+        if (strpos($mime_type, 'image/') !== 0) {
+            finfo_close($finfo);
+            throw new Exception('Invalid file type. Only images are allowed.');
+        }
 
-                $image_uri = "/files/$image_name";
-                $insert_command = "INSERT INTO `posts` (`userid`, `post_text`, `multiple_images`, `image_uri`, `avatar`, `like_count`, `uploaded_time`, `owner`) VALUES ('$userid', '$text', 0, '$image_uri', '$Useravatar', 0, now(), '$author')";
-                // die(var_dump($insert_command));
-                if ($db->query($insert_command)) {
-                    $id = mysqli_insert_id($db);
-                    return new Post($id);
-                } else {
-                    echo "<script>window.location.href = '/Uploads?error'</script>";
-                    return false;
-                }
+        finfo_close($finfo);
+
+        $extensions = ['jpg', 'jpeg', 'png']; // Add other valid image extensions
+        $randomExtension = $extensions[array_rand($extensions)];
+
+        $image_name = md5($author . time()) . '.' . $randomExtension;
+        $image_path = get_config('upload_path') . $image_name;
+        if (file_put_contents($image_path, $image_tmp)) {
+            $db = Database::getConnection();
+
+            // Fetch the avatar value
+            $avatarQuery = "SELECT `avatar` FROM `users` WHERE `owner` = '$author'";
+            $avatarResult = $db->query($avatarQuery);
+            $avatar = $avatarResult->fetch_assoc();
+            
+            $Useravatar = $avatar['avatar']; // Get the avatar value
+
+            $image_uri = "/files/$image_name";
+            $insert_command = "INSERT INTO `posts` (`userid`, `post_text`, `multiple_images`, `image_uri`, `avatar`, `like_count`, `uploaded_time`, `owner`) VALUES ('$userid', '$text', 0, '$image_uri', '$Useravatar', 0, now(), '$author')";
+
+            if ($db->query($insert_command)) {
+                $id = mysqli_insert_id($db);
+                return new Post($id);
+            } else {
+                throw new Exception("Error while trying to insert post into database.");
             }
-        } else {
-            throw new Exception("Image not uploaded check image extension. image: {$image_tmp} & Test: {$text}");
         }
     }
 

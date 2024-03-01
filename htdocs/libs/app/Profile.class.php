@@ -37,7 +37,7 @@ class Profile
             $avatar_path = "/ava/$image_name";
 
             // Update user's avatar in the database
-            $update_profile = "UPDATE `users` SET `avatar`='$avatar_path',`uploaded_time`=now() WHERE `userid`='$id'";
+            $update_profile = "UPDATE `users` SET `avatar`='$avatar_path' WHERE `userid`='$id'";
             $db = Database::getConnection();
 
             if ($db->query($update_profile)) {
@@ -53,6 +53,48 @@ class Profile
                 }
             } else {
                 echo "Error updating user profile: " . $db->error;
+                return false;
+            }
+        } else {
+            throw new Exception('Error moving the file to the destination path');
+        }
+    }
+
+    public static function banner($banner)
+    {
+        $id = Session::getUser()->getID();
+        $owner = Session::getUser()->getUsername();
+
+        // Check if the uploaded file is an image
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_buffer($finfo, $banner);
+
+        if (strpos($mime_type, 'image/') !== 0) {
+            finfo_close($finfo);
+            throw new Exception('Invalid file type. Only images are allowed.');
+        }
+
+        finfo_close($finfo);
+
+        $extensions = ['jpg', 'jpeg', 'png']; // Add other valid image extensions
+        $randomExtension = $extensions[array_rand($extensions)];
+
+        $image_name = md5($owner . time()) . '.' . $randomExtension;
+        $image_path = get_config('bgavatar_path') . $image_name;
+
+        // Use file_put_contents to move the file
+        if (file_put_contents($image_path, $banner)) {
+            $bgavatar_path = "/bgava/$image_name";
+
+            // Update user's avatar in the database
+            $update_profile = "UPDATE `users` SET `bgavatar`='$bgavatar_path' WHERE `userid`='$id'";
+            $db = Database::getConnection();
+
+            if ($db->query($update_profile)) {
+                    echo "Profile banner updated successfully.";
+                    return true;
+            } else {
+                echo "Error updating user profile banner: " . $db->error;
                 return false;
             }
         } else {

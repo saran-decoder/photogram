@@ -24,9 +24,9 @@ class User
         //PHP 8.1 - all MySQLi errors are throws as Exceptions
         try {
             if ($conn->query($sql)) {
-                $avatar = "/ava/avatar.jpg";
+                $avatar = "/assets/images/default/avatar.jpg";
                 $bio = "Hey there! I am using Photogram";
-                $dob = '1000-01-01';
+                $dob = '0000-00-00';
                 $userid = mysqli_insert_id($conn);
                 $sql = "INSERT INTO `users` (`userid`, `bio`, `avatar`, `gender`, `dob`, `linkname`, `link`, `uploaded_time`, `owner`)
                 VALUES ('$userid', '$bio', '$avatar', '', '$dob', '', '', now(), '$user');";

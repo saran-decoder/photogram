@@ -172,13 +172,6 @@ $(document).ready(function() {
     });
 });
 
-// This is the user post image show js
-// let id = $('#posts .hcf-masonry-card.rounded').closest('a').data('id');
-// var id = $('#posts .hcf-masonry-card.rounded').attr("id");
-// console.log("ID: " + id);
-// $(document).on('click', '#posts #post-' + id + '.modal', function() {
-//     $('#post-' + id).modal('show');
-// });
 
 // This is the user post image show js
 $(document).on('click', '.hcf-masonry-card.rounded', function() {

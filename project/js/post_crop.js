@@ -2,8 +2,9 @@ $(document).ready(function(){
     $image_crop = $('.modal #image_demo').croppie({
         enableExif: true,
         viewport: {
-            width: 200,
-            height: 200,
+            width: 300,
+            height: 300,
+            // square & circle
             type: 'square'
         },
         boundary: {
@@ -12,49 +13,58 @@ $(document).ready(function(){
         }
     });
 
-    $('.custom-file-input.file#post_image').on('change', function () { 
+    $('.file#post_image').on('change', function () { 
         var reader = new FileReader();
+        var input = this;
+
         reader.onload = function (e) {
+            // Validate file type
+            if (!isValidImageType(input)) {
+                new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
+                $('.modal#uploadimageModal').modal('hide');
+            }
+
             $image_crop.croppie('bind', {
                 url: e.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
             });         
         }
+
         reader.readAsDataURL(this.files[0]);
         $('.modal#uploadimageModal').modal('show');
     });
     
-    $('#share-memory').on('click', function (ev) {
+    $('#share-memory').on('click', function () {
         var postText = $("#post_message").val();
 
         $image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
-        }).then(function (response) {
+        }).then(function(response) {
             // Create a FormData object
             const formData = new FormData();
             formData.append('post_image', response);
             formData.append('post_text', postText);
     
             // Make the fetch request
-            fetch('/api/posts/memory', {
+            fetch('/api/posts/memorys', {
                 method: 'POST',
                 body: formData,
             })
-            .then(response => response.json())
             .then(data => {
                 console.log('Server Response:', data);
-                console.log('Post Message:', data.postText);
-                console.log('Post Image:', data.response);
-
-                // Continue with the rest of your code
+                $('.modal#uploadimageModal').modal('hide');
             })
             .catch(error => console.error('Error:', error));
-
-            $('.modal#uploadimageModal').modal('hide');
-
         });
     });
 
+    // Function to validate image type
+    function isValidImageType(input) {
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        var fileType = input.files[0].type;
+        
+        return allowedTypes.includes(fileType);
+    }
 });

@@ -1,4 +1,68 @@
-/*Processed by SNA Labs on 27/2/2024 @ 17:11:3*/
+/*Processed by SNA Labs on 1/3/2024 @ 17:42:21*/
+$(document).ready(function(){
+    $image_crop = $('#banner_view').croppie({
+        enableExif: true,
+        viewport: {
+            width: 300,
+            height: 100,
+            // square & circle
+            type: 'square'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+
+    $('.file#banner_pick').on('change', function () { 
+        var reader = new FileReader();
+        var input = this;
+
+        reader.onload = function (e) {
+            // Validate file type
+            if (!isValidImageType(input)) {
+                new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
+                $('#uploadbannerpick.modal').modal('hide');
+            }
+
+            $image_crop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });         
+        }
+
+        reader.readAsDataURL(this.files[0]);
+        $('#uploadbannerpick.modal').modal('show');
+    });
+    
+    $('#update-banner-pick').on('click', function () {
+
+        $image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function(response) {
+            $.ajax({
+                url: '/api/profile/banner',
+                type: "POST",
+                data: {'banner_pick': response},
+                success:function(data) {
+                    console.log('Server Response:', data);
+                    $('#uploadbannerpick.modal').modal('hide');
+                    location.reload();
+                }
+            });
+        });
+    });
+
+    // Function to validate image type
+    function isValidImageType(input) {
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        var fileType = input.files[0].type;
+        
+        return allowedTypes.includes(fileType);
+    }
+});
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -656,6 +720,213 @@ $(document).ready(function(){
         $('.bg-body-tertiary.right').toggleClass("hidden");
     });
 });
+(function($) {
+    var methods;
+    methods = {
+      init: function(elements, options) {
+        $(window).scroll(function() {
+          methods.animate(elements, options);
+        });
+        $(window).trigger('scroll');
+      },
+      animate: function(elements, options) {
+        var viewBottom, viewHeight, viewTop;
+        viewHeight = $(window).height();
+        viewTop = $(window).scrollTop();
+        viewBottom = viewTop + viewHeight;
+        $.each(elements, function() {
+          var elementAnimated, elementAnimation, elementBottom, elementDelay, elementDuration, elementHeight, elementIteration, elementOffset, elementTop;
+          elementAnimated = 'animated';
+          elementAnimation = $(this).data('animate');
+          elementOffset = $(this).data('offset');
+          elementDuration = $(this).data('duration');
+          elementDelay = $(this).data('delay');
+          elementIteration = $(this).data('iteration');
+          elementHeight = $(this).outerHeight();
+          elementTop = $(this).offset().top;
+          elementBottom = elementTop + elementHeight;
+          if (elementOffset) {
+            elementTop = elementTop + elementOffset;
+            elementBottom = elementBottom - elementOffset;
+          }
+          if (options.animateCssVersion === 4) {
+            elementAnimated = 'animate__animated';
+            elementAnimation = 'animate__' + elementAnimation;
+          }
+          $(this).css({
+            '-webkit-animation-duration': elementDuration,
+            'animation-duration': elementDuration
+          });
+          $(this).css({
+            '-webkit-animation-delay': elementDelay,
+            'animation-delay': elementDelay
+          });
+          $(this).css({
+            '-webkit-animation-iteration-count': elementIteration,
+            'animation-iteration-count': elementIteration
+          });
+          if (elementBottom >= viewTop && elementTop <= viewBottom) {
+            $(this).css('visibility', 'visible');
+            $(this).addClass(elementAnimation);
+            $(this).addClass(elementAnimated);
+          } else {
+            if (options.once === false) {
+              $(this).css('visibility', 'hidden');
+              $(this).removeClass(elementAnimation);
+              $(this).removeClass(elementAnimated);
+            }
+          }
+        });
+      }
+    };
+    jQuery.fn.scrolla = function(options) {
+      options = $.extend({
+        mobile: false,
+        once: false,
+        animateCssVersion: 4
+      }, options);
+      if (options.mobile === false) {
+        if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          return false;
+        }
+      }
+      methods.init(this, options);
+    };
+})(jQuery);  
+$(document).ready(function(){
+    $image_crop = $('.modal #image_demo').croppie({
+        enableExif: true,
+        viewport: {
+            width: 300,
+            height: 300,
+            // square & circle
+            type: 'square'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+
+    $('.file#post_image').on('change', function () { 
+        var reader = new FileReader();
+        var input = this;
+
+        reader.onload = function (e) {
+            // Validate file type
+            if (!isValidImageType(input)) {
+                new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
+                $('.modal#uploadimageModal').modal('hide');
+            }
+
+            $image_crop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });         
+        }
+
+        reader.readAsDataURL(this.files[0]);
+        $('.modal#uploadimageModal').modal('show');
+    });
+    
+    $('#share-memory').on('click', function () {
+        var postText = $("#post_message").val();
+
+        $image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function(response) {
+            // Create a FormData object
+            const formData = new FormData();
+            formData.append('post_image', response);
+            formData.append('post_text', postText);
+    
+            // Make the fetch request
+            fetch('/api/posts/memorys', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(data => {
+                console.log('Server Response:', data);
+                $('.modal#uploadimageModal').modal('hide');
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // Function to validate image type
+    function isValidImageType(input) {
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        var fileType = input.files[0].type;
+        
+        return allowedTypes.includes(fileType);
+    }
+});
+$(document).ready(function(){
+    $image_crop = $('#pick_view').croppie({
+        enableExif: true,
+        viewport: {
+            width: 300,
+            height: 300,
+            // square & circle
+            type: 'circle'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+
+    $('.file#profile_pick').on('change', function () { 
+        var reader = new FileReader();
+        var input = this;
+
+        reader.onload = function (e) {
+            // Validate file type
+            if (!isValidImageType(input)) {
+                new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
+                $('#uploadprofilepick.modal').modal('hide');
+            }
+
+            $image_crop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });         
+        }
+
+        reader.readAsDataURL(this.files[0]);
+        $('#uploadprofilepick.modal').modal('show');
+    });
+    
+    $('#update-profile-pick').on('click', function () {
+
+        $image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function(response) {
+            $.ajax({
+                url: '/api/profile/avatar',
+                type: "POST",
+                data: {'profile_pick': response},
+                success:function(data) {
+                    console.log('Server Response:', data);
+                    $('#uploadprofilepick.modal').modal('hide');
+                    location.reload();
+                }
+            });
+        });
+    });
+
+    // Function to validate image type
+    function isValidImageType(input) {
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        var fileType = input.files[0].type;
+        
+        return allowedTypes.includes(fileType);
+    }
+});
 // This is edit profile image preview jquery
 $(document).ready(function() {
     let profileinput = $('.file-input'),
@@ -830,13 +1101,6 @@ $(document).ready(function() {
     });
 });
 
-// This is the user post image show js
-// let id = $('#posts .hcf-masonry-card.rounded').closest('a').data('id');
-// var id = $('#posts .hcf-masonry-card.rounded').attr("id");
-// console.log("ID: " + id);
-// $(document).on('click', '#posts #post-' + id + '.modal', function() {
-//     $('#post-' + id).modal('show');
-// });
 
 // This is the user post image show js
 $(document).on('click', '.hcf-masonry-card.rounded', function() {

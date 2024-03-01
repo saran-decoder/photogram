@@ -21,18 +21,29 @@
                             <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
                         </svg>
                     </a>
+                    <?php
+                        if (Session::isOwnerOf($profile['owner'])) {
+                    ?>
                     <a class="text profile-icon" href="#">
-                        <!-- TODO: Implement the banner image -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                            <g fill="none" stroke="currentColor" stroke-width="1.5">
-                                <circle cx="12" cy="13" r="3"></circle>
-                                <path stroke-linecap="round" d="M2 13.364c0-3.065 0-4.597.749-5.697a4.38 4.38 0 0 1 1.226-1.204c.72-.473 1.622-.642 3.003-.702c.659 0 1.226-.49 1.355-1.125A2.064 2.064 0 0 1 10.366 3h3.268c.988 0 1.839.685 2.033 1.636c.129.635.696 1.125 1.355 1.125c1.38.06 2.282.23 3.003.702c.485.318.902.727 1.226 1.204c.749 1.1.749 2.632.749 5.697c0 3.064 0 4.596-.749 5.697a4.408 4.408 0 0 1-1.226 1.204C18.904 21 17.343 21 14.222 21H9.778c-3.121 0-4.682 0-5.803-.735A4.406 4.406 0 0 1 2.75 19.06A3.43 3.43 0 0 1 2.277 18M19 10h-1"></path>
-                            </g>
-                        </svg>
+                        <label>
+                            <input type="file" accept="image/*" name="banner_pick" class="file" id="banner_pick" multiple required hidden>
+                            <span class="upload-button d-flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <circle cx="12" cy="13" r="3"></circle>
+                                        <path stroke-linecap="round" d="M2 13.364c0-3.065 0-4.597.749-5.697a4.38 4.38 0 0 1 1.226-1.204c.72-.473 1.622-.642 3.003-.702c.659 0 1.226-.49 1.355-1.125A2.064 2.064 0 0 1 10.366 3h3.268c.988 0 1.839.685 2.033 1.636c.129.635.696 1.125 1.355 1.125c1.38.06 2.282.23 3.003.702c.485.318.902.727 1.226 1.204c.749 1.1.749 2.632.749 5.697c0 3.064 0 4.596-.749 5.697a4.408 4.408 0 0 1-1.226 1.204C18.904 21 17.343 21 14.222 21H9.778c-3.121 0-4.682 0-5.803-.735A4.406 4.406 0 0 1 2.75 19.06A3.43 3.43 0 0 1 2.277 18M19 10h-1"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                        </label>
                     </a>
+                    <?php } ?>
                 </div>
                 <div class="row profile-avatar">
                     <div class="col d-flex align-items-end ps-3 justify-content-end">
+                        <?php
+                            if (Session::isOwnerOf($profile['owner'])) {
+                        ?>
                         <div class="profile-pick">
                             <label>
                                 <input type="file" accept="image/*" name="profile_pick" class="file" id="profile_pick" multiple required hidden>
@@ -47,30 +58,8 @@
                                 </span>
                             </label>
                         </div>
-                        <!-- <div class="upload-btn-2 d-none">
-                            <label class="upload-area">
-                                <input type="file" accept="image/*" name="post_image" class="custom-file-input file pe-2" id="post_image" multiple required hidden>
-                                <span class="upload-button d-flex">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                        <g fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path stroke-linecap="round" d="m2 12.5l1.752-1.533a2.3 2.3 0 0 1 3.14.105l4.29 4.29a2 2 0 0 0 2.564.222l.299-.21a3 3 0 0 1 3.731.225L21 18.5"/>
-                                            <path d="m18.562 2.935l.417-.417a1.77 1.77 0 0 1 2.503 2.503l-.417.417m-2.503-2.503s.052.887.834 1.669c.782.782 1.669.834 1.669.834m-2.503-2.503L14.727 6.77c-.26.26-.39.39-.5.533a2.948 2.948 0 0 0-.338.545c-.078.164-.136.338-.252.686l-.372 1.116m7.8-4.212L17.23 9.273c-.26.26-.39.39-.533.5a2.946 2.946 0 0 1-.545.338c-.164.078-.338.136-.686.252l-1.116.372m0 0l-.722.24a.477.477 0 0 1-.604-.603l.241-.722m1.085 1.085L13.265 9.65"/>
-                                            <path stroke-linecap="round" d="M22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12c0-1.128 0-2.122.02-3M12 2C7.286 2 4.929 2 3.464 3.464c-.424.425-.726.925-.94 1.536"/>
-                                        </g>
-                                    </svg>
-                                </span>
-                            </label>
-                        </div> -->
-
-
-                            
-
-
-
-
-
-
-                        <a href="<?=$profile['avatar']?>" data-fancybox="images">
+                        <?php } ?>
+                        <a data-fancybox="item" title="click to zoom-in" href="<?=$profile['avatar']?>" data-size="1200x600">
                             <img src="<?=$profile['avatar']?>" alt="User Avarat" class="profile-img">
                         </a>
                     </div>
@@ -151,12 +140,16 @@
                         </g>
                     </svg>
                 </a>
+                <?php
+                    if (Session::isOwnerOf($profile['owner'])) {
+                ?>
                 <a href="settings" class="col profile-menu-link text">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
                         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
                         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
                     </svg>
                 </a>
+                <?php } ?>
             </div>
 
         </div>
@@ -175,6 +168,28 @@
 
     <?php Session::loadTemplate('index/search'); ?>
 
+    <!-- Banner modal -->
+    <div id="uploadbannerpick" class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-live="assertive" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+            <div class="modal-content w-auto">
+                <button type="button" class="close text profile-icon position-absolute mt-2 ms-2 z-2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m12 10.587l4.95-4.95l1.414 1.414l-4.95 4.95l4.95 4.95l-1.415 1.414l-4.95-4.95l-4.949 4.95l-1.414-1.415l4.95-4.95l-4.95-4.95L7.05 5.638z"/>
+                        </svg>
+                    </span>
+                </button>
+                <button id="update-banner-pick" title="Crop & Upload" type="button" class="text profile-icon position-absolute custom-right mt-2 me-2 z-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                    </svg>
+                </button>
+                <div id="banner_view"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile modal -->
     <div id="uploadprofilepick" class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-live="assertive" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
             <div class="modal-content w-auto">

@@ -4,7 +4,8 @@ $(document).ready(function(){
         viewport: {
             width: 300,
             height: 300,
-            type: 'square'
+            // square & circle
+            type: 'circle'
         },
         boundary: {
             width: 300,
@@ -34,7 +35,7 @@ $(document).ready(function(){
         $('#uploadprofilepick.modal').modal('show');
     });
     
-    $('#uploadprofilepick').on('click', function () {
+    $('#update-profile-pick').on('click', function () {
 
         $image_crop.croppie('result', {
             type: 'canvas',
@@ -43,7 +44,7 @@ $(document).ready(function(){
             $.ajax({
                 url: '/api/profile/avatar',
                 type: "POST",
-                data: {'post_image': response},
+                data: {'profile_pick': response},
                 success:function(data) {
                     console.log('Server Response:', data);
                     $('#uploadprofilepick.modal').modal('hide');
