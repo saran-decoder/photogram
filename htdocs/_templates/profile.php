@@ -24,7 +24,7 @@
                     <?php
                         if (Session::isOwnerOf($profile['owner'])) {
                     ?>
-                    <a class="text profile-icon" href="#">
+                    <a class="text profile-icon" type="button">
                         <label>
                             <input type="file" accept="image/*" name="banner" class="file" id="banner" multiple required hidden>
                             <span class="upload-button d-flex">

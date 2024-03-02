@@ -40,12 +40,12 @@
                     ?>
                     <li class="col-3 col-md-3 col-lg-3 list-item" id="pro-<?=$p['id']?>">
                         <div class="w-auto">
-                            <a href="profile<?=get_config('base_path');?><?=$p['owner']?>">
+                            <a href="<?=get_config('base_path');?>profile<?=get_config('base_path');?><?=$p['owner']?>">
                                 <img class="custom-wh" src="<?=$p['avatar']?>" alt="User profile">
                             </a>
                         </div>
                         <div class="w-auto text-center mt-1">
-                            <a href="profile<?=get_config('base_path');?><?=$p['owner']?>" class="text">
+                            <a href="<?=get_config('base_path');?>profile<?=get_config('base_path');?><?=$p['owner']?>" class="text">
                                 <p class="search-name m-0 w-auto"><?=$p['owner']?></p>
                             </a>
                         </div>

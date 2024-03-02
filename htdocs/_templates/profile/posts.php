@@ -36,7 +36,7 @@
                                                             </svg>
                                                         </button>
                                                         <div class="dropdown mt-3 me-3" id="post-<?=$post['id']?>">
-                                                            <a class="dropdown-item" href="#">
+                                                            <a class="dropdown-item" type="button">
                                                                 <svg class="pe-2 pb-1" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
                                                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
                                                                         <path d="M22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12s0-7.071 1.464-8.536C4.93 2 7.286 2 12 2"/>
@@ -45,7 +45,7 @@
                                                                     </g>
                                                                 </svg>Download post
                                                             </a>
-                                                            <a class="dropdown-item" href="#">
+                                                            <a class="dropdown-item" type="button">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 48 48" class="pe-2 pb-1">
                                                                     <path fill="currentColor" d="M31.605 6.838a1.25 1.25 0 0 0-2.105.912v5.472c-.358.008-.775.03-1.24.072c-1.535.142-3.616.526-5.776 1.505c-4.402 1.995-8.926 6.374-9.976 15.56a1.25 1.25 0 0 0 2.073 1.075c4.335-3.854 8.397-5.513 11.336-6.219a17.713 17.713 0 0 1 3.486-.497l.097-.003v5.535a1.25 1.25 0 0 0 2.105.912l12-11.25a1.25 1.25 0 0 0 0-1.824zm-.999 8.904l.02.002h.002h-.001A1.25 1.25 0 0 0 32 14.5v-3.865L40.922 19L32 27.365V23.5c0-.63-.454-1.16-1.095-1.24h-.003l-.004-.001l-.01-.001l-.028-.003a8.425 8.425 0 0 0-.41-.03a13.505 13.505 0 0 0-1.134-.006c-.966.034-2.33.17-3.983.566c-2.68.643-6.099 1.971-9.778 4.653c1.486-6.08 4.863-8.958 7.96-10.362c1.841-.834 3.635-1.168 4.975-1.292c.668-.062 1.216-.07 1.591-.064a9.837 9.837 0 0 1 .525.022M12.25 8A6.25 6.25 0 0 0 6 14.25v21.5A6.25 6.25 0 0 0 12.25 42h21.5A6.25 6.25 0 0 0 40 35.75V33.5a1.25 1.25 0 0 0-2.5 0v2.25a3.75 3.75 0 0 1-3.75 3.75h-21.5a3.75 3.75 0 0 1-3.75-3.75v-21.5a3.75 3.75 0 0 1 3.75-3.75h8.25a1.25 1.25 0 1 0 0-2.5z"/>
                                                                 </svg>Share this post
@@ -64,7 +64,7 @@
                                                             <?php
                                                                 } else {
                                                             ?>
-                                                            <a class="dropdown-item text-danger" href="#">
+                                                            <a class="dropdown-item text-danger" type="button">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle pe-2 pb-1" viewBox="0 0 16 16">
                                                                     <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
                                                                     <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
@@ -78,7 +78,7 @@
                                                 </div>
                                                 <div class="col col-lg-6 p-3">     
                                                     <div class="font-weight-bold w-100 d-flex align-items-center justify-content-between" data-id="<?=$post['id']?>">
-                                                        <a href="profile/<?=$post['owner']?>" class="text-decoration-none d-flex align-items-center text-capitalize text user-name">
+                                                        <a href="<?=get_config('base_path');?>profile<?=get_config('base_path');?><?=$post['owner']?>" class="text-decoration-none d-flex align-items-center text-capitalize text user-name">
                                                             <img class="rounded-circle me-2" src="<?=$p->getAvatar();?>" width="35" alt="">
                                                             <p class="user-name m-0"><?=$post['owner']?></p>
                                                         </a>

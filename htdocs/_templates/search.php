@@ -43,12 +43,12 @@
             <div class="card p-2 border-0">
                 <div class="row d-flex flex-row align-items-center">
                     <div class="w-auto">
-                        <a href="profile/<?=$p['owner']?>">
+                        <a href="<?=get_config('base_path');?>profile<?=get_config('base_path');?><?=$p['owner']?>">
                             <img class="rounded-5" src="<?=$p['avatar']?>" width="50" alt="Company" />
                         </a>
                     </div>
                     <div class="w-auto">
-                        <p class="m-0 user-name"><a href="profile/<?=$p['owner']?>" class="text"><?=$p['owner']?></a></p>
+                        <p class="m-0 user-name"><a href="<?=get_config('base_path');?>profile<?=get_config('base_path');?><?=$p['owner']?>" class="text"><?=$p['owner']?></a></p>
                         <p class="text m-0 user-bio"><?=$p['bio']?></p>
                     </div>
                 </div>

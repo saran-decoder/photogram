@@ -8,7 +8,7 @@
 ?>
         <!-- Left Side Navbar Started -->
         <div class="flex-column p-0 bg-body-tertiary left">
-            <a href="profile<?=get_config('base_path');?><?=$profile['owner']?>" class="user-pro d-none align-items-center p-2 rounded-3 link-body-emphasis text-decoration-none">
+            <a href="<?=get_config('base_path');?>profile<?=get_config('base_path');?><?=$profile['owner']?>" class="user-pro d-none align-items-center p-2 rounded-3 link-body-emphasis text-decoration-none">
                 <img class="rounded-circle mx-2" src="<?=$profile['avatar']?>" width="40" alt="">
                 <div class="d-flex flex-column user-pro-name">
                     <span class="fs-6"><?=$profile['owner']?></span>
@@ -61,16 +61,17 @@
                                 <span class="upload-button">
                                     <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 48 48">
                                         <g fill="none">
-                                            <path fill="currentColor" d="M44 24a2 2 0 1 0-4 0zM24 8a2 2 0 1 0 0-4zm15 32H9v4h30zM8 39V9H4v30zm32-15v15h4V24zM9 8h15V4H9zm0 32a1 1 0 0 1-1-1H4a5 5 0 0 0 5 5zm30 4a5 5 0 0 0 5-5h-4a1 1 0 0 1-1 1zM8 9a1 1 0 0 1 1-1V4a5 5 0 0 0-5 5z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="m6 35l10.693-9.802a2 2 0 0 1 2.653-.044L32 36m-4-5l4.773-4.773a2 2 0 0 1 2.615-.186L42 31m-5-13V6m-5 5l5-5l5 5"/>
+                                            <path fill="currentColor" d="M44 24a2 2 0 1 0-4 0zM24 8a2 2 0 1 0 0-4zm15 32H9v4h30zM8 39V9H4v30zm32-15v15h4V24zM9 8h15V4H9zm0 32a1 1 0 0 1-1-1H4a5 5 0 0 0 5 5zm30 4a5 5 0 0 0 5-5h-4a1 1 0 0 1-1 1zM8 9a1 1 0 0 1 1-1V4a5 5 0 0 0-5 5z"/>
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="m6 35l10.693-9.802a2 2 0 0 1 2.653-.044L32 36m-4-5l4.773-4.773a2 2 0 0 1 2.615-.186L42 31m-5-13V6m-5 5l5-5l5 5"/>
                                         </g>
-                                    </svg>
+                                    </svg><?=get_config('base_path');?>
                                 </span>
                             </label>
                             <span class="text nav-text">Uploads</span>
                         </a>
                     </li>
                     <li class="nav-link m-2 d-none nav-setting">
-                        <a href="settings">
+                        <a href="<?=get_config('base_path');?>settings">
                             <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
                                 <g fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3.082 13.945c-.529-.95-.793-1.426-.793-1.945c0-.519.264-.994.793-1.944L4.43 7.63l1.426-2.381c.559-.933.838-1.4 1.287-1.66c.45-.259.993-.267 2.08-.285L12 3.26l2.775.044c1.088.018 1.631.026 2.08.286c.45.26.73.726 1.288 1.659L19.57 7.63l1.35 2.426c.528.95.792 1.425.792 1.944c0 .519-.264.994-.793 1.944L19.57 16.37l-1.426 2.381c-.559.933-.838 1.4-1.287 1.66c-.45.259-.993.267-2.08.285L12 20.74l-2.775-.044c-1.088-.018-1.631-.026-2.08-.286c-.45-.26-.73-.726-1.288-1.659L4.43 16.37z"/>
@@ -81,7 +82,7 @@
                         </a>
                     </li>
                     <li class="nav-link m-2 d-block nav-smr">
-                        <a href="profile<?=get_config('base_path');?><?=$profile['owner']?>" class="justify-content-center">
+                        <a href="<?=get_config('base_path');?>profile<?=get_config('base_path');?><?=$profile['owner']?>" class="justify-content-center">
                             <img class="rounded-circle" src="<?=$profile['avatar']?>" width="25" alt="">
                             <span class="text nav-text"><?=$profile['owner']?></span>
                         </a>
