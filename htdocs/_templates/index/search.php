@@ -15,7 +15,7 @@
                             </g>
                         </svg>
                     </div>
-                    <input id="search" type="text" name="search" class="search-txt" placeholder="Search...">
+                    <input id="search" type="text" name="search" class="search-txt" placeholder="Search..." autocomplete="off">
                 </div>
                 <div class="upload-btn d-none p-3">
                     <label class="upload-area">
@@ -32,20 +32,22 @@
 
             <b class="my-3 side-head">Users</b>
             <div class="container">
-                <ul class="row list-unstyled">
-                    <div class="no-results-message d-none">No results found</div>
+                <ul class="row list-unstyled mt-3">
+                    <div class="no-results-message text justify-content-center" style="display: none;">No results found</div>
                     <?php
                         $pro = Profile::getAllUser();
                         foreach ($pro as $p) {
                     ?>
-                    <li class="col col-md-4 col-lg-4" id="pro-<?=$p['id']?>">
+                    <li class="col-3 col-md-3 col-lg-3 list-item" id="pro-<?=$p['id']?>">
                         <div class="w-auto">
                             <a href="profile<?=get_config('base_path');?><?=$p['owner']?>">
                                 <img class="custom-wh" src="<?=$p['avatar']?>" alt="User profile">
                             </a>
                         </div>
-                        <div class="w-auto text-center">
-                            <a href="profile<?=get_config('base_path');?><?=$p['owner']?>" class="text"><?=$p['owner']?></a>
+                        <div class="w-auto text-center mt-1">
+                            <a href="profile<?=get_config('base_path');?><?=$p['owner']?>" class="text">
+                                <p class="search-name m-0 w-auto"><?=$p['owner']?></p>
+                            </a>
                         </div>
                     </li>
                     <?php } ?>

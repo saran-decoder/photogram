@@ -26,7 +26,7 @@
                     ?>
                     <a class="text profile-icon" href="#">
                         <label>
-                            <input type="file" accept="image/*" name="banner_pick" class="file" id="banner_pick" multiple required hidden>
+                            <input type="file" accept="image/*" name="banner" class="file" id="banner" multiple required hidden>
                             <span class="upload-button d-flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                     <g fill="none" stroke="currentColor" stroke-width="1.5">
@@ -169,7 +169,7 @@
     <?php Session::loadTemplate('index/search'); ?>
 
     <!-- Banner modal -->
-    <div id="uploadbannerpick" class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-live="assertive" aria-hidden="true">
+    <div id="banner" class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-live="assertive" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
             <div class="modal-content w-auto">
                 <button type="button" class="close text profile-icon position-absolute mt-2 ms-2 z-2" data-dismiss="modal" aria-label="Close">
@@ -188,7 +188,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Profile modal -->
     <div id="uploadprofilepick" class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-live="assertive" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">

@@ -6,7 +6,7 @@
                         </div>
                     </section> -->
                     <div class="container">
-                        <div class="row">
+                        <div class="row" data-masonry='{"percentPosition": true }'>
                             <?php
                                 $posts = Post::getAllPosts();
                                 use Carbon\Carbon;

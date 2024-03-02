@@ -30,7 +30,9 @@ class Profile
         $randomExtension = $extensions[array_rand($extensions)];
 
         $image_name = md5($owner . time()) . '.' . $randomExtension;
+        
         $image_path = get_config('avatar_path') . $image_name;
+
 
         // Use file_put_contents to move the file
         if (file_put_contents($image_path, $avatar)) {

@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="nav-link mt-2 mx-2 nav-search">
-                        <a href="#">
+                        <a type="button">
                             <svg class="icons" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24">
                                 <g fill="none" stroke="currentColor" stroke-width="2">
                                     <circle cx="11" cy="11" r="7"/>
@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li class="nav-link mt-2 mx-2 d-block nav-smr">
-                        <a href="#">
+                        <a type="button">
                             <label class="upload-area">
                                 <input type="file" accept="image/*" name="post_image" class="custom-file-input file pe-2" id="post_image" multiple required hidden>
                                 <span class="upload-button">

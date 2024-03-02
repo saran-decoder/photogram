@@ -1,68 +1,4 @@
-/*Processed by SNA Labs on 1/3/2024 @ 17:42:21*/
-$(document).ready(function(){
-    $image_crop = $('#banner_view').croppie({
-        enableExif: true,
-        viewport: {
-            width: 300,
-            height: 100,
-            // square & circle
-            type: 'square'
-        },
-        boundary: {
-            width: 300,
-            height: 300
-        }
-    });
-
-    $('.file#banner_pick').on('change', function () { 
-        var reader = new FileReader();
-        var input = this;
-
-        reader.onload = function (e) {
-            // Validate file type
-            if (!isValidImageType(input)) {
-                new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
-                $('#uploadbannerpick.modal').modal('hide');
-            }
-
-            $image_crop.croppie('bind', {
-                url: e.target.result
-            }).then(function(){
-                console.log('jQuery bind complete');
-            });         
-        }
-
-        reader.readAsDataURL(this.files[0]);
-        $('#uploadbannerpick.modal').modal('show');
-    });
-    
-    $('#update-banner-pick').on('click', function () {
-
-        $image_crop.croppie('result', {
-            type: 'canvas',
-            size: 'viewport'
-        }).then(function(response) {
-            $.ajax({
-                url: '/api/profile/banner',
-                type: "POST",
-                data: {'banner_pick': response},
-                success:function(data) {
-                    console.log('Server Response:', data);
-                    $('#uploadbannerpick.modal').modal('hide');
-                    location.reload();
-                }
-            });
-        });
-    });
-
-    // Function to validate image type
-    function isValidImageType(input) {
-        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-        var fileType = input.files[0].type;
-        
-        return allowedTypes.includes(fileType);
-    }
-});
+/*Processed by SNA Labs on 2/3/2024 @ 13:43:58*/
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -667,45 +603,6 @@ $(document).ready(function() {
     });
 });
 
-// this is Search result js
-// This is The Searching Jquery
-// Store the initial display status of each list item
-// Store the initial display status as a data attribute
-$(".list-item").each(function() {
-    var listItem = $(this);
-    listItem.data('initial-display', listItem.css('display', 'none'));
-});
-
-$(".search-txt").on("input", filter);
-
-function filter() {
-    var term = $(".search-txt").val().toLowerCase();
-    var noResultsMessage = $(".no-results-message");
-
-    var anyListItemVisible = false;
-
-    $(".list-item").each(function() {
-        var listItem = $(this);
-
-        // If the search term is empty, use the initial display status
-        if (term === "") {
-            listItem.css("display", listItem.data('initial-display'));
-            anyListItemVisible = true;
-        } else {
-            // Otherwise, filter based on the search term
-            if (listItem.text().toLowerCase().indexOf(term) !== -1) {
-                listItem.css("display", "block");
-                anyListItemVisible = true;
-            } else {
-                listItem.css("display", "none");
-            }
-        }
-    });
-
-    // Show or hide the "No results found" message based on visibility of list items
-    noResultsMessage.css("display", anyListItemVisible ? "none" : "block");
-}
-
 
 // Side menu bar hidden js
 $(document).ready(function(){
@@ -720,79 +617,6 @@ $(document).ready(function(){
         $('.bg-body-tertiary.right').toggleClass("hidden");
     });
 });
-(function($) {
-    var methods;
-    methods = {
-      init: function(elements, options) {
-        $(window).scroll(function() {
-          methods.animate(elements, options);
-        });
-        $(window).trigger('scroll');
-      },
-      animate: function(elements, options) {
-        var viewBottom, viewHeight, viewTop;
-        viewHeight = $(window).height();
-        viewTop = $(window).scrollTop();
-        viewBottom = viewTop + viewHeight;
-        $.each(elements, function() {
-          var elementAnimated, elementAnimation, elementBottom, elementDelay, elementDuration, elementHeight, elementIteration, elementOffset, elementTop;
-          elementAnimated = 'animated';
-          elementAnimation = $(this).data('animate');
-          elementOffset = $(this).data('offset');
-          elementDuration = $(this).data('duration');
-          elementDelay = $(this).data('delay');
-          elementIteration = $(this).data('iteration');
-          elementHeight = $(this).outerHeight();
-          elementTop = $(this).offset().top;
-          elementBottom = elementTop + elementHeight;
-          if (elementOffset) {
-            elementTop = elementTop + elementOffset;
-            elementBottom = elementBottom - elementOffset;
-          }
-          if (options.animateCssVersion === 4) {
-            elementAnimated = 'animate__animated';
-            elementAnimation = 'animate__' + elementAnimation;
-          }
-          $(this).css({
-            '-webkit-animation-duration': elementDuration,
-            'animation-duration': elementDuration
-          });
-          $(this).css({
-            '-webkit-animation-delay': elementDelay,
-            'animation-delay': elementDelay
-          });
-          $(this).css({
-            '-webkit-animation-iteration-count': elementIteration,
-            'animation-iteration-count': elementIteration
-          });
-          if (elementBottom >= viewTop && elementTop <= viewBottom) {
-            $(this).css('visibility', 'visible');
-            $(this).addClass(elementAnimation);
-            $(this).addClass(elementAnimated);
-          } else {
-            if (options.once === false) {
-              $(this).css('visibility', 'hidden');
-              $(this).removeClass(elementAnimation);
-              $(this).removeClass(elementAnimated);
-            }
-          }
-        });
-      }
-    };
-    jQuery.fn.scrolla = function(options) {
-      options = $.extend({
-        mobile: false,
-        once: false,
-        animateCssVersion: 4
-      }, options);
-      if (options.mobile === false) {
-        if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-          return false;
-        }
-      }
-      methods.init(this, options);
-    };
-})(jQuery);  
 $(document).ready(function(){
     $image_crop = $('.modal #image_demo').croppie({
         enableExif: true,
@@ -913,6 +737,73 @@ $(document).ready(function(){
                 success:function(data) {
                     console.log('Server Response:', data);
                     $('#uploadprofilepick.modal').modal('hide');
+                    location.reload();
+                }
+            });
+        });
+    });
+
+    // Function to validate image type
+    function isValidImageType(input) {
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        var fileType = input.files[0].type;
+        
+        return allowedTypes.includes(fileType);
+    }
+});
+
+
+
+$(document).ready(function(){
+    $image_crop = $('#banner_view').croppie({
+        enableExif: true,
+        viewport: {
+            width: 300,
+            height: 100,
+            // square & circle
+            type: 'square'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
+
+    $('.file#banner').on('change', function () { 
+        var reader = new FileReader();
+        var input = this;
+
+        reader.onload = function (e) {
+            // Validate file type
+            if (!isValidImageType(input)) {
+                new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
+                $('#banner.modal').modal('hide');
+            }
+
+            $image_crop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });
+        }
+
+        reader.readAsDataURL(this.files[0]);
+        $('#banner.modal').modal('show');
+    });
+    
+    $('#update-banner-pick').on('click', function () {
+
+        $image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function(response) {
+            $.ajax({
+                url: '/api/profile/banner',
+                type: "POST",
+                data: {'banner_pick': response},
+                success:function(data) {
+                    console.log('Server Response:', data);
+                    $('#banner.modal').modal('hide');
                     location.reload();
                 }
             });
@@ -1275,15 +1166,13 @@ $(document).on('click', '#deactive', function(){
 // This is The Searching Jquery
 // Store the initial display status of each list item
 // Store the initial display status as a data attribute
-$(".list-item").each(function() {
-    var listItem = $(this);
-    listItem.data('initial-display', listItem.css('display'));
-});
-
-$("#search").on("input", filter);
+$(".search-txt").on("input", filter);
 
 function filter() {
-    var term = $("#search").val().toLowerCase();
+    var term = $(".search-txt").val().toLowerCase();
+    var noResultsMessage = $(".no-results-message");
+
+    var anyListItemVisible = false;
 
     $(".list-item").each(function() {
         var listItem = $(this);
@@ -1291,15 +1180,21 @@ function filter() {
         // If the search term is empty, use the initial display status
         if (term === "") {
             listItem.css("display", listItem.data('initial-display'));
+            listItem.css("display", "block");
+            anyListItemVisible = true;
         } else {
             // Otherwise, filter based on the search term
             if (listItem.text().toLowerCase().indexOf(term) !== -1) {
                 listItem.css("display", "block");
+                anyListItemVisible = true;
             } else {
                 listItem.css("display", "none");
             }
         }
     });
+
+    // Show or hide the "No results found" message based on visibility of list items
+    noResultsMessage.css("display", anyListItemVisible ? "none" : "flex");
 }
 var CryptoJS=CryptoJS||function(s,p){var m={},l=m.lib={},n=function(){},r=l.Base={extend:function(b){n.prototype=this;var h=new n;b&&h.mixIn(b);h.hasOwnProperty("init")||(h.init=function(){h.$super.init.apply(this,arguments)});h.init.prototype=h;h.$super=this;return h},create:function(){var b=this.extend();b.init.apply(b,arguments);return b},init:function(){},mixIn:function(b){for(var h in b)b.hasOwnProperty(h)&&(this[h]=b[h]);b.hasOwnProperty("toString")&&(this.toString=b.toString)},clone:function(){return this.init.prototype.extend(this)}},
 q=l.WordArray=r.extend({init:function(b,h){b=this.words=b||[];this.sigBytes=h!=p?h:4*b.length},toString:function(b){return(b||t).stringify(this)},concat:function(b){var h=this.words,a=b.words,j=this.sigBytes;b=b.sigBytes;this.clamp();if(j%4)for(var g=0;g<b;g++)h[j+g>>>2]|=(a[g>>>2]>>>24-8*(g%4)&255)<<24-8*((j+g)%4);else if(65535<a.length)for(g=0;g<b;g+=4)h[j+g>>>2]=a[g>>>2];else h.push.apply(h,a);this.sigBytes+=b;return this},clamp:function(){var b=this.words,h=this.sigBytes;b[h>>>2]&=4294967295<<

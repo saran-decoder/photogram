@@ -341,6 +341,13 @@ button.btn.text-white.border-0 {
 }
 
 /* Search text input styles */
+.search-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 5rem;
+}
+
 .search-txt {
     border: none;
     background: none;
@@ -629,6 +636,10 @@ button.active:after {
 
     .search-back {
         display: none !important;
+    }
+
+    .row.list-unstyled.mt-3 {
+        margin-top: auto !important;
     }
 
     .bg-body-tertiary.right.hidden {
