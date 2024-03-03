@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 2/3/2024 @ 13:43:58*/
+/*Processed by SNA Labs on 3/3/2024 @ 21:17:43*/
 .comment-container
 {
     right: 0;
@@ -1942,7 +1942,28 @@ input:valid ~ span.name-holder {
         padding: 1rem !important;
     }
 }
-.list-group-item.rounded-3.py-3.text.d-flex.align-items-center.justify-content-between.setting {
-    box-shadow: none !important;
+.side-setting {
+    border: 1px solid;
+}
+
+/* Mobile responsive */
+@media (min-width: 992px) {
+    .nav-item .nav-link span {
+        display: block !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .overflow-auto.main-display {
+        flex-direction: row !important;
+    }
+
+    .nav-item.mb-0 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .nav-icon.list-unstyled {
+        flex-direction: column !important;
+    }
 }
 /*# sourceMappingURL=style.css.map */

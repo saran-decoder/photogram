@@ -1,58 +1,57 @@
                     <div class="tab-pane show active fade" id="nav-account-tab">
                         <!-- Account settings START -->
-                        <div class="card my-3">
+                        <div class="setting p-3">
                             
                             <!-- Title START -->
-                            <div class="card-header border-0 pb-0">
-                                <h1 class="h5 card-title">Account Settings</h1>
-                                <p class="mb-0">He moonlights difficult engrossed it, sportsmen. Interested has all Devonshire difficulty gay assistance joy. Unaffected at ye of compliment alteration to.</p>
+                            <div class="border-0 mb-3 d-flex align-items-center justify-content-between">
+                                <a class="text profile-icon" href="/">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
+                                    </svg>
+                                </a>
+                                <h1 class="h5 text m-0">Account Settings</h1>
                             </div>
                             <!-- Card header START -->
                             <!-- Card body START -->
-                            <div class="card-body">
+                            <div class="setting-body">
                                 <!-- Form settings START -->
                                 <form class="row g-3">
-                                    <!-- First name -->
-                                    <div class="col-sm-6 col-lg-4">
-                                        <label class="form-label">First name</label>
-                                        <input type="text" class="form-control" placeholder="" value="Sam">
-                                    </div>
-                                    <!-- Last name -->
-                                    <div class="col-sm-6 col-lg-4">
-                                        <label class="form-label">Last name</label>
-                                        <input type="text" class="form-control" placeholder="" value="Lanson">
-                                    </div>
-                                    <!-- Additional name -->
-                                    <div class="col-sm-6 col-lg-4">
-                                        <label class="form-label">Additional name</label>
-                                        <input type="text" class="form-control" placeholder="" value="">
-                                    </div>
                                     <!-- User name -->
                                     <div class="col-sm-6">
                                         <label class="form-label">User name</label>
                                         <input type="text" class="form-control" placeholder="" value="@samlanson">
                                     </div>
-                                    <!-- Birthday -->
-                                    <div class="col-lg-6">
-                                        <label class="form-label">Birthday </label>
-                                        <input type="text" class="form-control flatpickr" value="12/12/1990">
-                                    </div>
-                                    <!-- Allow checkbox -->
-                                    <div class="col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="allowChecked" checked="checked">
-                                            <label class="form-check-label" for="allowChecked">Allow anyone to add you to their team</label>
-                                        </div>
+                                    <!-- Email Address -->
+                                    <div class="col-sm-6">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control" placeholder="" value="sam@webestica.com">
                                     </div>
                                     <!-- Phone number -->
                                     <div class="col-sm-6">
                                         <label class="form-label">Phone number</label>
                                         <input type="text" class="form-control" placeholder="" value="(678) 324-1251">
                                     </div>
-                                    <!-- Phone number -->
+                                    <!-- Birthday -->
                                     <div class="col-sm-6">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" class="form-control" placeholder="" value="sam@webestica.com">
+                                        <label class="form-label">Birthday </label>
+                                        <input type="text" class="form-control flatpickr" value="12/12/1990">
+                                    </div>
+                                    <!-- Gender -->
+                                    <div class="col-sm-6">
+                                        <label class="form-label">Gender </label>
+                                        <div class="form-row flex-center">
+                                            <input type="radio" name="gender" id="Male" value="Male" class="form-inputs" required>
+                                            <label for="Male" class="form-label m-0">Male</label>
+                                        </div>
+                                        <div class="form-row flex-center">
+                                            <input type="radio" name="gender" id="Female" value="Female" class="form-inputs" required>
+                                            <label for="Female" class="form-label m-0">Female</label>
+                                        </div>
+                                    </div>
+                                    <!-- Link -->
+                                    <div class="col-sm-6">
+                                        <label class="form-label">Link </label>
+                                        <input type="text" class="form-control" value="http://example.com/">
                                     </div>
                                     <!-- Page information -->
                                     <div class="col-12">
