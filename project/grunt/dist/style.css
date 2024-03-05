@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 3/3/2024 @ 21:17:43*/
+/*Processed by SNA Labs on 5/3/2024 @ 17:23:21*/
 .comment-container
 {
     right: 0;
@@ -1945,6 +1945,32 @@ input:valid ~ span.name-holder {
 .side-setting {
     border: 1px solid;
 }
+
+.no-outline {
+    outline: none;
+    color: var(--bs-body-color);
+}
+
+.no-outline:checked {
+    outline: none;
+    color: var(--text-color);
+}
+
+.input-group-text {
+    background-color: var(--body-color) !important;
+    border: 1px solid var(--bg-body-color) !important;
+}
+.setting-form-control {
+    background-color: var(--body-color);
+    border: 1px solid var(--bg-body-color);
+}
+.setting-form-control:focus {
+    box-shadow: none;
+    background-color: var(--bg-body-color);
+    border: none;
+    color: var(--text-color);
+}
+
 
 /* Mobile responsive */
 @media (min-width: 992px) {

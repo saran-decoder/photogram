@@ -2,6 +2,8 @@
     
     <?php Session::loadTemplate('_header'); ?>
 
+    <style>.setting-form-control::placeholder{ color: var(--timer-color); }</style>
+
     <div class="d-flex flex-column-reverse justify-content-end overflow-auto main-display w-100">
 
         <div class="container overflow-auto">
@@ -72,7 +74,7 @@
                     <!-- Card body START -->
                     <div class="setting-body p-3">
                         <!-- Side Nav START -->
-                        <ul class="nav-icon list-unstyled d-flex align-items-center m-0 border-0">
+                        <ul class="nav-icon list-unstyled d-flex justify-content-around m-0 border-0">
                             <li class="nav-item mb-0" data-bs-dismiss="offcanvas">
                                 <a class="nav-link text d-flex mb-0 active" href="#nav-account-tab" data-bs-toggle="tab">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 16">

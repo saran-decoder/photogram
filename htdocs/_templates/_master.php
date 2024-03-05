@@ -72,7 +72,18 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
-	
+
+	<!-- Flatpickr Date -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+	<script>
+		$(".flatpickr").flatpickr({
+			enableTime: true,
+			dateFormat: "Y-m-d H:i",
+			altInput: true,        
+			altFormat: "m/d/Y", 
+    	});
+	</script>
+
 	<script>
 		// Initialize the agent at application startup.
 		const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3')
