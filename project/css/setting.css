@@ -27,6 +27,17 @@
     color: var(--text-color);
 }
 
+a.nav-link.text {
+    color: var(--text-color);
+}
+a.nav-link.text:hover {
+    color: var(--text-color);
+}
+a.nav-link.text.active {
+    background-color: var(--bg-body-color);
+    padding: 8px;
+    border-radius: 5px;
+}
 
 /* Mobile responsive */
 @media (min-width: 992px) {

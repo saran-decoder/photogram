@@ -77,10 +77,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
 	<script>
 		$(".flatpickr").flatpickr({
-			enableTime: true,
-			dateFormat: "Y-m-d H:i",
-			altInput: true,        
-			altFormat: "m/d/Y", 
+			dateFormat: "Y-m-d"
     	});
 	</script>
 
