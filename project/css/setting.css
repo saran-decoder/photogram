@@ -13,6 +13,7 @@
 }
 
 .input-group-text {
+    cursor: pointer;
     background-color: var(--body-color) !important;
     border: 1px solid var(--bg-body-color) !important;
 }

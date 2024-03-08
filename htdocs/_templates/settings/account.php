@@ -19,7 +19,6 @@
                                 </a>
                                 <h1 class="h5 text m-0">Account Settings</h1>
                             </div>
-                            <!-- Card header START -->
                             <!-- Card body START -->
                             <div class="setting-body">
                                 <!-- Form settings START -->
@@ -39,7 +38,7 @@
                                 ?>
                                 <form class="row g-3" method="post" action="" autocomplete="off" id="Profile-Form1" novalidate>
                                     <!-- User name -->
-                                    <div class="col-sm-6 mb-2">
+                                    <div class="col-sm-6 mb-2 mt-4">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">

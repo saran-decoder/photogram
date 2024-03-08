@@ -59,6 +59,7 @@ class Profile
             }
         } else {
             throw new Exception('Error moving the file to the destination path');
+            return false;
         }
     }
 
@@ -93,14 +94,15 @@ class Profile
             $db = Database::getConnection();
 
             if ($db->query($update_profile)) {
-                    echo "Profile banner updated successfully.";
-                    return true;
+                echo "Profile banner updated successfully.";
+                return true;
             } else {
                 echo "Error updating user profile banner: " . $db->error;
                 return false;
             }
         } else {
             throw new Exception('Error moving the file to the destination path');
+            return false;
         }
     }
 
@@ -108,63 +110,66 @@ class Profile
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
-        $owner = Session::getUser()->getUsername();
-        $headid = md5(Session::getUser()->getUsername());
         $update_profile = "UPDATE `users` SET `dob`='$dob', `gender`='$gender', `status`='$status', `location`='$location', `link`='$link', `bio`='$bio' WHERE `userid`='$id'";
         try {
             if ($db->query($update_profile)) {
                 $u_profile ="UPDATE `auth` SET `username`='$user', `email`='$email', `phone`='$phone' WHERE `id`='$id'";
                 if ($db->query($u_profile)) {
-                    echo "<script>window.location.href = '/profile/{$owner}?savedprofileinfo={$headid}'</script>";
+                    header("Location: /settings");
                     return true;
                 } else {
-                    echo "<script>window.location.href = '/profile/{$owner}?notsavesomeerror'</script>";
+                    throw new Exception('This is auth info error:' . mysqli_error($db));
                     return false;
                 }
             } else {
-                echo "<script>window.location.href = '/profile/{$owner}?updatebioerror'</script>";
+                throw new Exception('This is users info error' . mysqli_error($db));
                 return false;
             }
         } catch (Exception $e) {
-            echo "<script>window.location.href = '/profile?{$e->getMessage()}'</script>";
+            echo "This is profile info error: {$e->getMessage()}";
             return false;
         }
     }
 
 
-    public static function newPassword($current_password, $password)
+    public static function newPassword($current_password, $password, $confirm_password)
     {
-        $db = Database::getConnection();
-        $id = Session::getUser()->getID();
-        $owner = Session::getUser()->getUsername();
-        $headid = md5(Session::getUser()->getUsername());
-        $query = "SELECT `password` FROM `auth` WHERE `id` = '$id'";
-        $result = $db->query($query);
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            if (password_verify($current_password, $row['password'])) {
-                $options = [
-                    'cost' => 9,
-                ];
-                $password = password_hash($password, PASSWORD_BCRYPT, $options);
-                $update_profile = "UPDATE `auth` SET `password`='$password' WHERE `id`='$id'";
-                try {
-                    if ($db->query($update_profile)) {
-                        echo "<script>window.location.href = '/profile/{$owner}?savenewpass={$headid}'</script>";
-                        return true;
-                    } else {
-                        echo "<script>window.location.href = '/profile/{$owner}?updatepasserror'</script>";
+        if ($password === $confirm_password) {
+            $db = Database::getConnection();
+            $id = Session::getUser()->getID();
+            $query = "SELECT `password` FROM `auth` WHERE `id` = '$id'";
+            $result = $db->query($query);
+            if ($result->num_rows == 1) {
+                $row = $result->fetch_assoc();
+                if (password_verify($current_password, $row['password'])) {
+                    $options = [
+                        'cost' => 9,
+                    ];
+                    $password = password_hash($password, PASSWORD_BCRYPT, $options);
+                    $update_profile = "UPDATE `auth` SET `password`='$password' WHERE `id`='$id'";
+                    try {
+                        if ($db->query($update_profile)) {
+                            echo "<script>alert('Password Updated!');</script>";
+                            return true;
+                        } else {
+                            throw new Exception('Password Update Error: ' . mysqli_error($db));
+                            return false;
+                        }
+                    } catch (Exception $e) {
+                        echo "<script>alert('Password Error: {$e->getMessage()}');</script>";
                         return false;
                     }
-                } catch (Exception $e) {
-                    echo "<script>window.location.href = '/profile?{$e->getMessage()}'</script>";
+                } else {
+                    echo "<script>alert('Verify Password Error.');window.location.href = '/settings';</script>";
+                    throw new Exception('Verify Password Error.');
                     return false;
                 }
             } else {
-                echo "<script>window.location.href = '/profile/{$owner}?verifypasserror'</script>";
                 return false;
             }
         } else {
+            echo "<script>alert('Confirmation does not match the password.');</script>";
+            throw new Exception('Confirmation does not match the password.');
             return false;
         }
     }

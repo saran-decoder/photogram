@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 6/3/2024 @ 20:29:49*/
+/*Processed by SNA Labs on 8/3/2024 @ 20:32:16*/
 .comment-container
 {
     right: 0;
@@ -1957,6 +1957,7 @@ input:valid ~ span.name-holder {
 }
 
 .input-group-text {
+    cursor: pointer;
     background-color: var(--body-color) !important;
     border: 1px solid var(--bg-body-color) !important;
 }
