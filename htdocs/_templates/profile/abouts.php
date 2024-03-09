@@ -16,15 +16,24 @@
                             </div>
                             <!-- Card header END -->
                             <!-- Card body START -->
+                            <?php if (!empty($profile && $AE_profile && $AP_profile)) { ?>
                             <div class="card-body">
+
+                                <!-- About START -->
+                                <?php if (!empty($profile['bio'])) { ?>
                                 <div class="rounded border px-3 py-2 mb-3"> 
                                     <div class="d-flex align-items-center justify-content-between about-color">
                                        <h6>About:</h6>
                                     </div>
                                     <p class="card-about m-0"><?=$profile['bio']?></p>
                                 </div>
+                                <?php } ?>
+                                <!-- About END -->
+                                
                                 <div class="row g-4">
+
                                     <!-- Birthday START -->
+                                    <?php if (!empty($profile['dob'])) { ?>
                                     <div class="col-sm-6">
                                         <div class="d-flex align-items-center rounded border px-3 py-2"> 
                                             <p class="mb-0 card-info-name d-flex align-items-center">
@@ -34,9 +43,11 @@
                                             </p>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                     <!-- Birthday END -->
 
                                     <!-- Status START -->
+                                    <?php if (!empty($profile['status'])) { ?>
                                     <div class="col-sm-6">
                                         <div class="d-flex align-items-center rounded border px-3 py-2"> 
                                             <p class="mb-0 card-info-name d-flex align-items-center">
@@ -46,9 +57,11 @@
                                             </p>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                     <!-- Status END -->
 
                                     <!-- Phone START -->
+                                    <!-- TODO: implement full phone number display or not -->
                                     <div class="col-sm-6">
                                         <div class="d-flex align-items-center rounded border px-3 py-2"> 
                                             <p class="mb-0 card-info-name d-flex align-items-center">
@@ -62,6 +75,7 @@
                                     <!-- Phone END -->
 
                                     <!-- Email START -->
+                                    <!-- TODO: implement full email address display or not -->
                                     <div class="col-sm-6">
                                         <div class="d-flex align-items-center rounded border px-3 py-2"> 
                                             <p class="mb-0 card-info-name d-flex align-items-center">
@@ -75,6 +89,7 @@
                                     <!-- Email END -->
 
                                     <!-- Location START -->
+                                    <?php if (!empty($profile['location'])) { ?>
                                     <div class="col-sm-6">
                                         <div class="d-flex align-items-center rounded border px-3 py-2"> 
                                             <p class="mb-0 card-info-name d-flex align-items-center">
@@ -85,9 +100,11 @@
                                             </p>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                     <!-- Location END -->
 
                                     <!-- Link START -->
+                                    <?php if (!empty($profile['link'])) { ?>
                                     <div class="col-sm-6">
                                         <div class="d-flex align-items-center rounded border px-3 py-2"> 
                                             <p class="mb-0 card-info-name d-flex align-items-center">
@@ -100,10 +117,14 @@
                                             </p>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                     <!-- Link END -->
 
                                 </div>
                             </div>
+                            <?php } else { ?>
+                                <h5 class="text-muted text-center mt-4">No information available.</h5>
+                            <?php } ?>
                             <!-- Card body END -->
                         </div>
                     </div>

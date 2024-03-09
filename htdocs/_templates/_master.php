@@ -59,6 +59,33 @@
 			</div>
 		</div>
 
+		<!-- Blog modal -->
+		<div id="uploadblog" class="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-live="assertive" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title text">Image Crop & Blog Post</h5>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col">
+								<div id="preview_blogs"></div>
+							</div>
+							<div class="col-9 w-100">
+								<input class="form-control input-sm px-2 mb-3" type="text" placeholder="Title" required>
+								<style>textarea#post_message::placeholder{ color: var(--timer-color); }</style>
+								<textarea class="form-control input-sm px-2" type="textarea" name="blog_text" placeholder="Blog Content?" rows="6"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="close btn btn-outline-secondary text" data-dismiss="modal" aria-label="Close">Close</a>
+						<button class="btn btn-outline-success text" id="share-blog">Crop & blog Post</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 
 

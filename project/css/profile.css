@@ -210,6 +210,12 @@
 }
 
 
+/* Blog post css */
+.blog-post {
+    background-color: var(--text-color);
+}
+
+
 
 
 

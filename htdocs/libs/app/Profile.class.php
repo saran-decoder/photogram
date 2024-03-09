@@ -110,12 +110,12 @@ class Profile
     {
         $db = Database::getConnection();
         $id = Session::getUser()->getID();
-        $update_profile = "UPDATE `users` SET `dob`='$dob', `gender`='$gender', `status`='$status', `location`='$location', `link`='$link', `bio`='$bio' WHERE `userid`='$id'";
+        $update_profile = "UPDATE `users` SET `dob`='$dob', `gender`='$gender', `status`='$status', `location`='$location', `link`='$link', `bio`='$bio', `owner`='$user' WHERE `userid`='$id'";
         try {
             if ($db->query($update_profile)) {
                 $u_profile ="UPDATE `auth` SET `username`='$user', `email`='$email', `phone`='$phone' WHERE `id`='$id'";
                 if ($db->query($u_profile)) {
-                    header("Location: /settings");
+                    echo  "<div class=\"alert alert-success\">Profile information has been saved.</div>";
                     return true;
                 } else {
                     throw new Exception('This is auth info error:' . mysqli_error($db));
@@ -149,7 +149,7 @@ class Profile
                     $update_profile = "UPDATE `auth` SET `password`='$password' WHERE `id`='$id'";
                     try {
                         if ($db->query($update_profile)) {
-                            echo "<script>alert('Password Updated!');</script>";
+                            echo "<script>alert('Password has been changed.');</script>";
                             return true;
                         } else {
                             throw new Exception('Password Update Error: ' . mysqli_error($db));

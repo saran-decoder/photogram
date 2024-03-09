@@ -4,11 +4,12 @@
                         <?php
                             $userPosts = Post::getUserposts();
                             use Carbon\Carbon;
-
-                            foreach ($userPosts as $post) {
-                                $p = new Post($post['id']);
-                                $uploaded_time = Carbon::parse($p->getUploadedTime());
-                                $uploaded_time_str = $uploaded_time->diffForHumans();
+                            
+                            if (!empty($userPosts)) {
+                                foreach ($userPosts as $post) {
+                                    $p = new Post($post['id']);
+                                    $uploaded_time = Carbon::parse($p->getUploadedTime());
+                                    $uploaded_time_str = $uploaded_time->diffForHumans();
                         ?>
                         <div class="col-12 col-md-6 col-lg-4 hcf-isotope-item">
                             <a class="hcf-masonry-card rounded rounded-4" type="button" id="post-<?=$post['id']?>">
@@ -133,7 +134,14 @@
                             </div>
                             <!-- Modal Ends -->
                         </div>
-                        <?php } ?>
+                        <?php
+                                }
+                            } else {
+                        ?>
+                            <h5 class="text-muted text-center mt-4">No Posts</h5>
+                        <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
