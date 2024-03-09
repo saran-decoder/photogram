@@ -428,7 +428,7 @@ $(document).ready(function(){
 
 // This is the post upload button spinner
 $(document).ready(function() {
-    $('#post').click(function() {
+    $('#share-memory').click(function() {
         $(this).html('<div class="spinner-grow text-primary"></div>');
         setTimeout(() => {
             console.log('This Working!');
@@ -818,39 +818,6 @@ $(document).ready(function(){
         return allowedTypes.includes(fileType);
     }
 });
-// This is edit profile image preview jquery
-$(document).ready(function() {
-    let profileinput = $('.file-input'),
-        selectinput = $('.profile_input'),
-        curElement = $('.view_image'); // Cache the image element
-    
-    /** CLICK LISTENER */
-    selectinput.click(function() {
-        console.log('Update image clicked!');
-        profileinput.click();
-        console.log('Opening Your File & Processing!');
-    });
-
-    $(profileinput).change(function(){
-        console.log('File image select & Opened!');
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            // Check if the event has a target result
-            if (e.target.result) {
-                // Create a Blob URL from the loaded data and set it as the image source
-                curElement.attr('src', URL.createObjectURL(new Blob([e.target.result])));
-                $('.change-avatar').removeClass('d-none');
-            }
-        };
-
-        // read the image file as a data URL
-        reader.readAsArrayBuffer(this.files[0]);
-    });
-});
-
-
-
 $(document).ready(function() {
 
     $("#Profile-Form1").submit(function() {
@@ -891,11 +858,6 @@ $(document).ready(function() {
         currentPass = $('#current-password').val();
         newPass = $('#new-password').val();
         confirmPass = $('#confirm-password').val();
-
-        // if (currentPass === newPass) {
-        //     displayError("Current password should not be empty! or Current password and new password is equal", '#current-password');
-        //     return false;
-        // }
 
         // Validate current
         if (currentPass === "") {
@@ -1019,13 +981,13 @@ $(document).on('click', '.tab-pane #das', function(){
 // This is Testing
 let pressTimer;
 $(".longPress").mouseup(function () {
-  clearTimeout(pressTimer);
-  return false;
+    clearTimeout(pressTimer);
+    return false;
 }).mousedown(function () {
-  pressTimer = window.setTimeout(function () {
-    window.location.href = "#";
-  }, 1000);
-  return false;
+    pressTimer = window.setTimeout(function () {
+        window.location.href = "#";
+    }, 1000);
+    return false;
 });
 
 
@@ -1061,6 +1023,26 @@ $(document).on('click', '.modal-content .close', function() {
     $(modal).modal('hide');
 });
 
+
+// This is the Text length calculat Javascript
+$(document).ready(function () {
+    var maxLength = 300; // Change this to your desired character limit
+
+    $('#profile-bio').on('input', function () {
+        var value = $(this).val();
+        var length = value.length;
+        var lengthRemaining = maxLength - length;
+
+        if (lengthRemaining < 0) {
+            $(this).val(value.substring(0, maxLength)); // truncate the input
+            $('#profile-bio-len').html("<small class='text-danger'>You've reached the limit</small>");
+            $('#profile-bio-len').addClass('red');
+        } else {
+            $('#profile-bio-len').text(lengthRemaining);
+            $('#profile-bio-len').removeClass('red');
+        }
+    });
+});
 $(document).ready(function() {
     const darkSwitch = $("#darkSwitch");
 
@@ -1184,10 +1166,17 @@ $(document).ready(function() {
 
 // This is user account delete jquery api calling
 $(document).on('click', '#deactive', function(){
-    d = new Dialog("Delete Account", "Are you sure want to delete this account");
+    d = new Dialog("Delete Account", "<h6>If you delete your account, you will lose your all datas like.</h6><ul><li>Photo's</li><li>Blog's</li><li>like's</li></ul>");
     d.setButtons([
         {
-            'name': "Delete",
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        },
+        {
+            'name': "Delete my account",
             "class": "btn-danger",
             "onClick": function(event){
                 console.log(`Assume this account is deleted`);
@@ -1203,13 +1192,6 @@ $(document).on('click', '#deactive', function(){
                 });
 
                 $(event.data.modal).modal('hide')
-            }
-        },
-        {
-            'name': "Cancel",
-            "class": "btn-secondary",
-            "onClick": function(event){
-                $(event.data.modal).modal('hide');
             }
         }
     ]);

@@ -121,10 +121,17 @@ $(document).ready(function() {
 
 // This is user account delete jquery api calling
 $(document).on('click', '#deactive', function(){
-    d = new Dialog("Delete Account", "Are you sure want to delete this account");
+    d = new Dialog("Delete Account", "<h6>If you delete your account, you will lose your all datas like.</h6><ul><li>Photo's</li><li>Blog's</li><li>like's</li></ul>");
     d.setButtons([
         {
-            'name': "Delete",
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        },
+        {
+            'name': "Delete my account",
             "class": "btn-danger",
             "onClick": function(event){
                 console.log(`Assume this account is deleted`);
@@ -140,13 +147,6 @@ $(document).on('click', '#deactive', function(){
                 });
 
                 $(event.data.modal).modal('hide')
-            }
-        },
-        {
-            'name': "Cancel",
-            "class": "btn-secondary",
-            "onClick": function(event){
-                $(event.data.modal).modal('hide');
             }
         }
     ]);

@@ -2,7 +2,16 @@
     
     <?php Session::loadTemplate('_header'); ?>
 
-    <style>.setting-form-control::placeholder{ color: var(--timer-color); }</style>
+    <style>
+        .setting-form-control::placeholder {
+            color: var(--timer-color);
+        }
+        @media (min-width: 992px) {
+            .bg-body-tertiary {
+                width: 332px !important;
+            }
+        }
+    </style>
 
     <div class="d-flex flex-column-reverse justify-content-end overflow-auto main-display w-100">
 
@@ -22,39 +31,6 @@
                         <!-- Password tab START -->
                         <?php Session::loadTemplate('settings/pass'); ?>
                         <!-- Password tab END -->
-
-
-                        <!-- Close account tab START -->
-                        <div class="tab-pane fade" id="nav-close-tab">
-                            <!-- Card START -->
-                            <div class="card">
-                                <!-- Card header START -->
-                                <div class="card-header border-0 pb-0">
-                                    <h5 class="card-title">Delete account</h5>
-                                    <p class="mb-0">He moonlights difficult engrossed it, sportsmen. Interested has all Devonshire difficulty gay assistance joy. Unaffected at ye of compliment alteration to.</p>
-                                </div>
-                                <!-- Card header START -->
-                                <!-- Card body START -->
-                                <div class="card-body">
-                                    <!-- Delete START -->
-                                    <h6>Before you go...</h6>
-                                    <ul>
-                                        <li>Take a backup of your data <a href="#">Here</a> </li>
-                                        <li>If you delete your account, you will lose your all data.</li>
-                                    </ul>
-                                    <div class="form-check form-check-md my-4">
-                                        <input class="form-check-input" type="checkbox" value="" id="deleteaccountCheck">
-                                        <label class="form-check-label" for="deleteaccountCheck">Yes, I'd like to delete my account</label>
-                                    </div>
-                                    <a href="#" class="btn btn-success-soft btn-sm mb-2 mb-sm-0">Keep my account</a>
-                                    <a href="#" class="btn btn-danger btn-sm mb-0">Delete my account</a>
-                                    <!-- Delete END -->
-                                </div>
-                                <!-- Card body END -->
-                            </div>
-                            <!-- Card END -->
-                        </div>
-                        <!-- Close account tab END -->
 
                     </div>
                     <!-- Setting Tab content END -->
@@ -91,8 +67,8 @@
                                     <span class="d-none ms-3">Change Password</span>
                                 </a>
                             </li>
-                            <li class="nav-item mb-0 me-4">
-                                <a class="nav-link text-danger d-flex align-items-center justify-content-center p-2 mb-0" data-bs-toggle="pill" href="#nav-close-tab" role="tab" aria-controls="close" aria-selected="true">
+                            <li class="nav-item mb-0 me-4 cursor-pointer">
+                                <a class="nav-link text-danger d-flex align-items-center justify-content-center p-2 mb-0" id="deactive">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 48 48">
                                         <path fill="currentColor" d="M20 10.5v.5h8v-.5a4 4 0 0 0-8 0m-2.5.5v-.5a6.5 6.5 0 1 1 13 0v.5h11.25a1.25 1.25 0 1 1 0 2.5h-2.917l-2 23.856A7.25 7.25 0 0 1 29.608 44H18.392a7.25 7.25 0 0 1-7.224-6.644l-2-23.856H6.25a1.25 1.25 0 1 1 0-2.5zm-3.841 26.147a4.75 4.75 0 0 0 4.733 4.353h11.216a4.75 4.75 0 0 0 4.734-4.353L36.324 13.5H11.676zM21.5 20.25a1.25 1.25 0 1 0-2.5 0v14.5a1.25 1.25 0 1 0 2.5 0zM27.75 19c.69 0 1.25.56 1.25 1.25v14.5a1.25 1.25 0 1 1-2.5 0v-14.5c0-.69.56-1.25 1.25-1.25"/>
                                     </svg>

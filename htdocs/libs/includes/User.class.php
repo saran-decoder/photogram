@@ -25,15 +25,17 @@ class User
         try {
             if ($conn->query($sql)) {
                 $avatar = "/assets/images/default/avatar.jpg";
+                $bgavatar = "/assets/images/default/bgavatar.png";
                 $bio = "Hey there! I am using Photogram";
                 $dob = '0001-01-01';
                 $userid = mysqli_insert_id($conn);
-                $sql = "INSERT INTO `users` (`userid`, `bio`, `avatar`, `gender`, `dob`, `linkname`, `link`, `uploaded_time`, `owner`)
-                VALUES ('$userid', '$bio', '$avatar', '', '$dob', '', '', now(), '$user');";
+                $sql = "INSERT INTO `users` (`userid`, `bio`, `avatar`, `bgavatar`, `gender`, `dob`, `location`, `link`, `status`, `uploaded_time`, `owner`)
+                VALUES ('$userid', '$bio', '$avatar', '$bgavatar', '', '$dob', '', '', '', now(), '$user');";
                 try {
-                    if ($conn->query($sql)) {
+                    if ($conn->query($sql)) {;
                         return true;
                     } else {
+                        throw new Exception("Error creating user profile: " . $conn->error);
                         return false;
                     }
                 } catch (Exception $e) {
@@ -78,20 +80,26 @@ class User
                     if ($conn->query($sql)) {
                         $sql = "DELETE FROM `auth` WHERE `id` = '$id'";
                         if ($conn->query($sql)) {
+                            header("Location: index");
                             return true;
                         } else {
+                            throw new Exception("Failed to delete user from auth table");
                             return false;
                         }
                     } else {
+                        throw new Exception("Failed to delete posts related to the user");
                         return false;
                     }
                 } else {
+                    throw new Exception("Failed to remove session data for this user");
                     return false;
                 }
             } else {
+                throw new Exception("Failed to delete likes related to the user");
                 return false;
             }
         } else {
+            throw new Exception("No such user found in database");
             return false;
         }
     }

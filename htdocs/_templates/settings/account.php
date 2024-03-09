@@ -38,7 +38,7 @@
                                 ?>
                                 <form class="row g-3" method="post" action="" autocomplete="off" id="Profile-Form1" novalidate>
                                     <!-- User name -->
-                                    <div class="col-sm-6 mb-2 mt-4">
+                                    <div class="col-sm-6 mb-2">
                                         <div class="input-group">
                                             <span class="input-group-text">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -157,11 +157,11 @@
                                             </span>
                                             <textarea class="setting-form-control form-control" name="bio" id="profile-bio" rows="4" placeholder="About"><?=$profile['bio']?></textarea>
                                         </div>
-                                        <small class="text">Character limit: 300</small>
+                                        <small class="text text-end" id="profile-bio-len"></small>
                                     </div>
                                     <!-- Button  -->
                                     <div class="col-12 text-end">
-                                        <button type="submit" class="btn btn-sm btn-primary mb-0">Save changes</button>
+                                        <button type="submit" id="update-info" class="btn btn-sm btn-primary mb-0">Save changes</button>
                                     </div>
                                 </form>
                                 <!-- Settings END -->

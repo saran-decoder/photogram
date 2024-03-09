@@ -113,7 +113,7 @@ $(document).ready(function(){
 
 // This is the post upload button spinner
 $(document).ready(function() {
-    $('#post').click(function() {
+    $('#share-memory').click(function() {
         $(this).html('<div class="spinner-grow text-primary"></div>');
         setTimeout(() => {
             console.log('This Working!');

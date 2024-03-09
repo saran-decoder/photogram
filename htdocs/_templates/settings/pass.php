@@ -75,7 +75,7 @@
                                 </div>
                                 <!-- Button  -->
                                 <div class="col-12 text-end">
-                                    <button type="submit" class="btn btn-sm btn-primary mb-0">Update password</button>
+                                    <button type="submit" id="update-info" class="btn btn-sm btn-primary mb-0">Update password</button>
                                 </div>
                             </form>
                             <!-- Settings END -->

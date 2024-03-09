@@ -12,6 +12,10 @@
     color: var(--text-color);
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .input-group-text {
     cursor: pointer;
     background-color: var(--body-color) !important;

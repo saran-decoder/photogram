@@ -1,36 +1,3 @@
-// This is edit profile image preview jquery
-$(document).ready(function() {
-    let profileinput = $('.file-input'),
-        selectinput = $('.profile_input'),
-        curElement = $('.view_image'); // Cache the image element
-    
-    /** CLICK LISTENER */
-    selectinput.click(function() {
-        console.log('Update image clicked!');
-        profileinput.click();
-        console.log('Opening Your File & Processing!');
-    });
-
-    $(profileinput).change(function(){
-        console.log('File image select & Opened!');
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            // Check if the event has a target result
-            if (e.target.result) {
-                // Create a Blob URL from the loaded data and set it as the image source
-                curElement.attr('src', URL.createObjectURL(new Blob([e.target.result])));
-                $('.change-avatar').removeClass('d-none');
-            }
-        };
-
-        // read the image file as a data URL
-        reader.readAsArrayBuffer(this.files[0]);
-    });
-});
-
-
-
 $(document).ready(function() {
 
     $("#Profile-Form1").submit(function() {
@@ -71,11 +38,6 @@ $(document).ready(function() {
         currentPass = $('#current-password').val();
         newPass = $('#new-password').val();
         confirmPass = $('#confirm-password').val();
-
-        // if (currentPass === newPass) {
-        //     displayError("Current password should not be empty! or Current password and new password is equal", '#current-password');
-        //     return false;
-        // }
 
         // Validate current
         if (currentPass === "") {
@@ -199,13 +161,13 @@ $(document).on('click', '.tab-pane #das', function(){
 // This is Testing
 let pressTimer;
 $(".longPress").mouseup(function () {
-  clearTimeout(pressTimer);
-  return false;
+    clearTimeout(pressTimer);
+    return false;
 }).mousedown(function () {
-  pressTimer = window.setTimeout(function () {
-    window.location.href = "#";
-  }, 1000);
-  return false;
+    pressTimer = window.setTimeout(function () {
+        window.location.href = "#";
+    }, 1000);
+    return false;
 });
 
 
@@ -239,4 +201,25 @@ $(document).on('click', '.modal-content .close', function() {
 
     // Hide the modal
     $(modal).modal('hide');
+});
+
+
+// This is the Text length calculat Javascript
+$(document).ready(function () {
+    var maxLength = 300; // Change this to your desired character limit
+
+    $('#profile-bio').on('input', function () {
+        var value = $(this).val();
+        var length = value.length;
+        var lengthRemaining = maxLength - length;
+
+        if (lengthRemaining < 0) {
+            $(this).val(value.substring(0, maxLength)); // truncate the input
+            $('#profile-bio-len').html("<small class='text-danger'>You've reached the limit</small>");
+            $('#profile-bio-len').addClass('red');
+        } else {
+            $('#profile-bio-len').text(lengthRemaining);
+            $('#profile-bio-len').removeClass('red');
+        }
+    });
 });
