@@ -44,6 +44,29 @@
     border-radius: 5px;
 }
 
+/* This is The Full Page Light Mode and Dark Mode CSS */
+.sun-mode {
+    opacity: 1;
+}
+
+body.dark .sun-mode {
+    display: none;
+    opacity: 0;
+}
+
+.moon-mode {
+    display: none;
+    opacity: 0;
+}
+
+body.dark .moon-mode {
+    left: 0;
+    opacity: 1;
+    display: block;
+    position: inherit;
+}
+/* Ending The Full Page Light Mode and Dark Mode CSS */
+
 /* Mobile responsive */
 @media (min-width: 992px) {
     .nav-item .nav-link span {

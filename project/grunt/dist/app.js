@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 9/3/2024 @ 21:28:6*/
+/*Processed by SNA Labs on 12/3/2024 @ 21:9:53*/
 // $(document).ready(function(){
 //     $image_crop = $('#preview_blogs').croppie({
 //         enableExif: true,
@@ -1131,6 +1131,8 @@ $(document).ready(function() {
             localStorage.setItem("darkSwitch", "dark");
         } else {
             $("body").removeClass("dark");
+            $(".sun-mode.icon").removeClass("d-none");
+            $(".moon-mode.icon").addClass("d-none");
             localStorage.removeItem("darkSwitch");
         }
     });
