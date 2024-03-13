@@ -1,7 +1,7 @@
 <?php
 
 include 'libs/load.php';
-$upload_path = get_config('post_path');
+$upload_path = get_config('blog_path');
 $fname = $_GET['name'];
 $image_path = $upload_path . $fname;
 

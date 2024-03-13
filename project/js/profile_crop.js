@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $image_crop = $('#pick_view').croppie({
+    $profile_image_crop = $('#pick_view').croppie({
         enableExif: true,
         viewport: {
             width: 300,
@@ -24,7 +24,7 @@ $(document).ready(function(){
                 $('#uploadprofilepick.modal').modal('hide');
             }
 
-            $image_crop.croppie('bind', {
+            $profile_image_crop.croppie('bind', {
                 url: e.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
@@ -37,7 +37,7 @@ $(document).ready(function(){
     
     $('#update-profile-pick').on('click', function () {
 
-        $image_crop.croppie('result', {
+        $profile_image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function(response) {
@@ -66,7 +66,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-    $image_crop = $('#banner_view').croppie({
+    $banner_image_crop = $('#banner_view').croppie({
         enableExif: true,
         viewport: {
             width: 300,
@@ -91,7 +91,7 @@ $(document).ready(function(){
                 $('#banner.modal').modal('hide');
             }
 
-            $image_crop.croppie('bind', {
+            $banner_image_crop.croppie('bind', {
                 url: e.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
@@ -104,7 +104,7 @@ $(document).ready(function(){
     
     $('#update-banner-pick').on('click', function () {
 
-        $image_crop.croppie('result', {
+        $banner_image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function(response) {

@@ -69,12 +69,12 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col">
-								<div id="preview_blogs"></div>
+								<div class="bv" id="preview_blogs"></div>
 							</div>
 							<div class="col-9 w-100">
-								<input class="form-control input-sm px-2 mb-3" type="text" placeholder="Title" required>
+								<input class="form-control input-sm px-2 mb-3" id="blog-title" type="text" placeholder="Title" required>
 								<style>textarea#post_message::placeholder{ color: var(--timer-color); }</style>
-								<textarea class="form-control input-sm px-2" type="textarea" name="blog_text" placeholder="Blog Content?" rows="6"></textarea>
+								<textarea class="form-control input-sm px-2" type="textarea" name="blog_text" id="blog-text" placeholder="Blog Content?" rows="6" required></textarea>
 							</div>
 						</div>
 					</div>

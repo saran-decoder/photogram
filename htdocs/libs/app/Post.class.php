@@ -32,7 +32,7 @@ class Post
         $randomExtension = $extensions[array_rand($extensions)];
 
         $image_name = md5($author . time()) . '.' . $randomExtension;
-        $image_path = get_config('upload_path') . $image_name;
+        $image_path = get_config('post_path') . $image_name;
         if (file_put_contents($image_path, $image_tmp)) {
             $db = Database::getConnection();
 
@@ -51,6 +51,40 @@ class Post
                 return new Post($id);
             } else {
                 throw new Exception("Error while trying to insert post into database.");
+            }
+        }
+    }
+
+    public static function registerBlog($title, $text, $image_tmp)
+    {
+        $userid = Session::getUser()->getID();
+        $author = Session::getUser()->getUsername();
+        // Check if the uploaded file is an image
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_buffer($finfo, $image_tmp);
+
+        if (strpos($mime_type, 'image/') !== 0) {
+            finfo_close($finfo);
+            throw new Exception('Invalid file type. Only images are allowed.');
+        }
+
+        finfo_close($finfo);
+
+        $extensions = ['jpg', 'jpeg', 'png']; // Add other valid image extensions
+        $randomExtension = $extensions[array_rand($extensions)];
+
+        $image_name = md5($author . time()) . '.' . $randomExtension;
+        $image_path = get_config('blog_path') . $image_name;
+        if (file_put_contents($image_path, $image_tmp)) {
+            $conn = Database::getConnection();
+            $banner_uri = "/filesb/$image_name";
+            $insert_command = "INSERT INTO `blogs` (`userid`, `banner`, `title`, `content`, `like_count`, `uploaded_time`, `author`) VALUES ('$userid', '$banner_uri', '$title', '$text', 0, now(), '$author');";
+
+            if ($conn->query($insert_command)) {
+                $bid = mysqli_insert_id($conn);
+                return new Post($bid);
+            } else {
+                throw new Exception("Error while trying to insert blog into database.");
             }
         }
     }

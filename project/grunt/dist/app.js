@@ -1,74 +1,76 @@
-/*Processed by SNA Labs on 12/3/2024 @ 21:9:53*/
-// $(document).ready(function(){
-//     $image_crop = $('#preview_blogs').croppie({
-//         enableExif: true,
-//         viewport: {
-//             width: 300,
-//             height: 300,
-//             // square & circle
-//             type: 'square'
-//         },
-//         boundary: {
-//             width: 300,
-//             height: 300
-//         }
-//     });
+/*Processed by SNA Labs on 13/3/2024 @ 16:41:46*/
+$(document).ready(function(){
+    $blog_image_crop = $('.bv#preview_blogs').croppie({
+        enableExif: true,
+        viewport: {
+            width: 300,
+            height: 300,
+            // square & circle
+            type: 'square'
+        },
+        boundary: {
+            width: 300,
+            height: 300
+        }
+    });
 
-//     $('.file#blog_image').on('change', function () { 
-//         var reader = new FileReader();
-//         var input = this;
+    $('.file#blog_image').on('change', function () { 
+        var reader = new FileReader();
+        var input = this;
 
-//         reader.onload = function (e) {
-//             // Validate file type
-//             if (!isValidImageType(input)) {
-//                 new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
-//                 $('.modal#uploadblog').modal('hide');
-//             }
+        reader.onload = function (e) {
+            // Validate file type
+            if (!isValidImageType(input)) {
+                new Toast('File Validation', 'now', 'Invalid file type. Please select an image.', 'text-danger').show();
+                $('.modal#uploadblog').modal('hide');
+            }
 
-//             $image_crop.croppie('bind', {
-//                 url: e.target.result
-//             }).then(function(){
-//                 console.log('jQuery bind complete');
-//             });         
-//         }
+            $blog_image_crop.croppie('bind', {
+                url: e.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });         
+        }
 
-//         reader.readAsDataURL(this.files[0]);
-//         $('.modal#uploadblog').modal('show');
-//     });
+        reader.readAsDataURL(this.files[0]);
+        $('.modal#uploadblog').modal('show');
+    });
     
-//     $('#share-blog').on('click', function () {
-//         var postText = $("#post_message").val();
+    $('#share-blog').on('click', function () {
+        var blogTitle = $("#blog-title").val();
+        var blogText  = $("#blog-text").val();
 
-//         $image_crop.croppie('result', {
-//             type: 'canvas',
-//             size: 'viewport'
-//         }).then(function(response) {
-//             // Create a FormData object
-//             const formData = new FormData();
-//             formData.append('post_image', response);
-//             formData.append('post_text', postText);
-    
-//             // Make the fetch request
-//             fetch('/api/posts/memorys', {
-//                 method: 'POST',
-//                 body: formData,
-//             })
-//             .then(data => {
-//                 console.log('Server Response:', data);
-//                 $('.modal#uploadblog').modal('hide');
-//             })
-//             .catch(error => console.error('Error:', error));
-//         });
-//     });
+        $blog_image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function(response) {
+            // Create a FormData object
+            const blogData = new FormData();
+            blogData.append('blog_title', blogTitle);
+            blogData.append('blog_text', blogText);
+            blogData.append('blog_image', response);
 
-//     // Function to validate image type
-//     function isValidImageType(input) {
-//         var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-//         var fileType = input.files[0].type;
+            // Make the fetch request
+            fetch('/api/posts/blogs', {
+                method: 'POST',
+                body: blogData,
+            })
+            .then(data => {
+                console.log('Server Response:', data);
+                $('.modal#uploadblog').modal('hide');
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // Function to validate image type
+    function isValidImageType(input) {
+        var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+        var fileType = input.files[0].type;
         
-//         return allowedTypes.includes(fileType);
-//     }
-// });
+        return allowedTypes.includes(fileType);
+    }
+});
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -688,7 +690,7 @@ $(document).ready(function(){
     });
 });
 $(document).ready(function(){
-    $image_crop = $('.modal #image_demo').croppie({
+    $posts_image_crop = $('.modal #image_demo').croppie({
         enableExif: true,
         viewport: {
             width: 300,
@@ -713,7 +715,7 @@ $(document).ready(function(){
                 $('.modal#uploadimageModal').modal('hide');
             }
 
-            $image_crop.croppie('bind', {
+            $posts_image_crop.croppie('bind', {
                 url: e.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
@@ -727,7 +729,7 @@ $(document).ready(function(){
     $('#share-memory').on('click', function () {
         var postText = $("#post_message").val();
 
-        $image_crop.croppie('result', {
+        $posts_image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function(response) {
@@ -758,7 +760,7 @@ $(document).ready(function(){
     }
 });
 $(document).ready(function(){
-    $image_crop = $('#pick_view').croppie({
+    $profile_image_crop = $('#pick_view').croppie({
         enableExif: true,
         viewport: {
             width: 300,
@@ -783,7 +785,7 @@ $(document).ready(function(){
                 $('#uploadprofilepick.modal').modal('hide');
             }
 
-            $image_crop.croppie('bind', {
+            $profile_image_crop.croppie('bind', {
                 url: e.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
@@ -796,7 +798,7 @@ $(document).ready(function(){
     
     $('#update-profile-pick').on('click', function () {
 
-        $image_crop.croppie('result', {
+        $profile_image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function(response) {
@@ -825,7 +827,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-    $image_crop = $('#banner_view').croppie({
+    $banner_image_crop = $('#banner_view').croppie({
         enableExif: true,
         viewport: {
             width: 300,
@@ -850,7 +852,7 @@ $(document).ready(function(){
                 $('#banner.modal').modal('hide');
             }
 
-            $image_crop.croppie('bind', {
+            $banner_image_crop.croppie('bind', {
                 url: e.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
@@ -863,7 +865,7 @@ $(document).ready(function(){
     
     $('#update-banner-pick').on('click', function () {
 
-        $image_crop.croppie('result', {
+        $banner_image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function(response) {
@@ -1113,6 +1115,17 @@ $(document).ready(function () {
         }
     });
 });
+
+
+// This is the post upload button spinner
+$(document).ready(function() {
+    $('#share-blog').click(function() {
+        $(this).html('<div class="spinner-grow text-primary"></div>');
+        setTimeout(() => {
+            console.log('This Working!');
+        }, 5000);
+    });
+});
 $(document).ready(function() {
     const darkSwitch = $("#darkSwitch");
 
@@ -1131,8 +1144,6 @@ $(document).ready(function() {
             localStorage.setItem("darkSwitch", "dark");
         } else {
             $("body").removeClass("dark");
-            $(".sun-mode.icon").removeClass("d-none");
-            $(".moon-mode.icon").addClass("d-none");
             localStorage.removeItem("darkSwitch");
         }
     });

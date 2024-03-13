@@ -223,3 +223,14 @@ $(document).ready(function () {
         }
     });
 });
+
+
+// This is the post upload button spinner
+$(document).ready(function() {
+    $('#share-blog').click(function() {
+        $(this).html('<div class="spinner-grow text-primary"></div>');
+        setTimeout(() => {
+            console.log('This Working!');
+        }, 5000);
+    });
+});

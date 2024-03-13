@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $image_crop = $('.modal #image_demo').croppie({
+    $posts_image_crop = $('.modal #image_demo').croppie({
         enableExif: true,
         viewport: {
             width: 300,
@@ -24,7 +24,7 @@ $(document).ready(function(){
                 $('.modal#uploadimageModal').modal('hide');
             }
 
-            $image_crop.croppie('bind', {
+            $posts_image_crop.croppie('bind', {
                 url: e.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
@@ -38,7 +38,7 @@ $(document).ready(function(){
     $('#share-memory').on('click', function () {
         var postText = $("#post_message").val();
 
-        $image_crop.croppie('result', {
+        $posts_image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function(response) {
