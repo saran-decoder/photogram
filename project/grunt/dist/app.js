@@ -1,10 +1,10 @@
-/*Processed by SNA Labs on 13/3/2024 @ 16:41:46*/
+/*Processed by SNA Labs on 13/3/2024 @ 20:35:29*/
 $(document).ready(function(){
     $blog_image_crop = $('.bv#preview_blogs').croppie({
         enableExif: true,
         viewport: {
             width: 300,
-            height: 300,
+            height: 200,
             // square & circle
             type: 'square'
         },

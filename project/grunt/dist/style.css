@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 13/3/2024 @ 16:41:46*/
+/*Processed by SNA Labs on 13/3/2024 @ 20:35:29*/
 .comment-container
 {
     right: 0;
@@ -1093,8 +1093,6 @@ button.active:after {
 .blog-card-image {
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
 }
   
 .blog-card-header {

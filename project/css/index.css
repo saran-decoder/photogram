@@ -452,8 +452,6 @@ button.active:after {
 .blog-card-image {
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
 }
   
 .blog-card-header {

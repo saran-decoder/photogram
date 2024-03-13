@@ -12,6 +12,8 @@ class Post
     public $conn;
     public $table;
     public $table2;
+    public $table3;
+    public $table4;
 
     public static function registerPost($text, $image_tmp)
     {
@@ -81,8 +83,8 @@ class Post
             $insert_command = "INSERT INTO `blogs` (`userid`, `banner`, `title`, `content`, `like_count`, `uploaded_time`, `author`) VALUES ('$userid', '$banner_uri', '$title', '$text', 0, now(), '$author');";
 
             if ($conn->query($insert_command)) {
-                $bid = mysqli_insert_id($conn);
-                return new Post($bid);
+                $id = mysqli_insert_id($conn);
+                return new Post($id);
             } else {
                 throw new Exception("Error while trying to insert blog into database.");
             }
@@ -93,7 +95,6 @@ class Post
     public function like()
     {
         try {
-            $author = Session::getUser()->getUsername();
             $sql = "UPDATE `$this->table` SET `like_count` = like_count + 1 WHERE `id` = $this->id";
             $result = $this->conn->query($sql);
             if ($result) {
@@ -109,7 +110,6 @@ class Post
     public function unlike()
     {
         try {
-            $author = Session::getUser()->getUsername();
             $sql = "UPDATE `$this->table` SET `like_count` = like_count - 1 WHERE `id` = '$this->id'";
             $result = $this->conn->query($sql);
             if ($result) {
@@ -142,10 +142,69 @@ class Post
         }
     }
 
+    public function B_like()
+    {
+        try {
+            $sql = "UPDATE `$this->table3` SET `like_count` = like_count + 1 WHERE `id` = $this->id";
+            $result = $this->conn->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(Exception $e) {
+            throw new Exception(__CLASS__."::_set_data() -> , function unavailable.");
+        }
+    }
+
+    public function B_unlike()
+    {
+        try {
+            $sql = "UPDATE `$this->table3` SET `like_count` = like_count - 1 WHERE `id` = '$this->id'";
+            $result = $this->conn->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(Exception $e) {
+            throw new Exception(__CLASS__."::_set_data() -> , function unavailable.");
+        }
+    }
+
+    public function B_delete()
+    {
+        try {
+            //TODO: Delete the image before deleting the post entry
+            $sql = "DELETE FROM `$this->table3` WHERE `id`=$this->id;";
+            if ($this->conn->query($sql)) {
+                $like_sql = "DELETE FROM `$this->table4` WHERE `blog_id`=$this->id;";
+                if ($this->conn->query($like_sql)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            throw new Exception(__CLASS__."::delete, data unavailable.");
+        }
+    }
+
+
     public static function getAllPosts()
     {
         $db = Database::getConnection();
         $sql = "SELECT * FROM `posts` ORDER BY `uploaded_time` DESC";
+        $result = $db->query($sql);
+        return iterator_to_array($result);
+    }
+
+    public static function getAllBlogs()
+    {
+        $db = Database::getConnection();
+        $sql = "SELECT * FROM `blogs` ORDER BY `uploaded_time` DESC";
         $result = $db->query($sql);
         return iterator_to_array($result);
     }
@@ -182,5 +241,7 @@ class Post
         $this->conn = Database::getConnection();
         $this->table = 'posts';
         $this->table2 = 'likes';
+        $this->table3 = 'blogs';
+        $this->table4 = 'b_likes';
     }
 }

@@ -52,7 +52,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<a type="button" href="/" class="btn btn-outline-secondary text" data-dismiss="modal">Close</a>
+						<a type="button" class="close btn btn-outline-secondary text" data-dismiss="modal" aria-label="Close">Close</a>
 						<button class="btn btn-outline-success text" id="share-memory">Crop & Post</button>
 					</div>
 				</div>

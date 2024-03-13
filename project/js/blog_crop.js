@@ -3,7 +3,7 @@ $(document).ready(function(){
         enableExif: true,
         viewport: {
             width: 300,
-            height: 300,
+            height: 200,
             // square & circle
             type: 'square'
         },
