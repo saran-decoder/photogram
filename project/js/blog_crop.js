@@ -57,6 +57,7 @@ $(document).ready(function(){
             .then(data => {
                 console.log('Server Response:', data);
                 $('.modal#uploadblog').modal('hide');
+                location.reload(); // Reloads the current page
             })
             .catch(error => console.error('Error:', error));
         });

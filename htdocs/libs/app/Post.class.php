@@ -226,6 +226,14 @@ class Post
         $result = $db->query($sql);
         return iterator_to_array($result);
     }
+    public static function getUserblogs()
+    {
+        $username = $_GET['username'];
+        $db = Database::getConnection();
+        $sql = "SELECT * FROM `blogs` WHERE `author` = '$username'";
+        $result = $db->query($sql);
+        return iterator_to_array($result);
+    }
 
     public static function countAllPosts()
     {

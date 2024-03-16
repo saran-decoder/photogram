@@ -138,7 +138,7 @@
                                 }
                             } else {
                         ?>
-                            <h5 class="text-muted text-center mt-4">No Posts</h5>
+                            <h5 class="text-muted text-center mt-4">No Post's</h5>
                         <?php
                             }
                         ?>

@@ -58,6 +58,7 @@ $(document).ready(function(){
             .then(data => {
                 console.log('Server Response:', data);
                 $('.modal#uploadblog').modal('hide');
+                location.reload(); // Reloads the current page
             })
             .catch(error => console.error('Error:', error));
         });
@@ -1093,6 +1094,15 @@ $(document).on('click', '.modal-content .close', function() {
 
     // Hide the modal
     $(modal).modal('hide');
+});
+
+// This is the user blog image show js
+$(document).on('click', '.blog-card-image.viewer', function() {
+    // Extract the post ID from the clicked element's id attribute
+    var blogId = $('.blog-card-list').attr("data-id");
+    
+    // Show the modal corresponding to the post ID
+    $('#blog-' + blogId + '.modal').modal('show');
 });
 
 

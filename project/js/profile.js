@@ -203,6 +203,15 @@ $(document).on('click', '.modal-content .close', function() {
     $(modal).modal('hide');
 });
 
+// This is the user blog image show js
+$(document).on('click', '.blog-card-image.viewer', function() {
+    // Extract the post ID from the clicked element's id attribute
+    var blogId = $('.blog-card-list').attr("data-id");
+    
+    // Show the modal corresponding to the post ID
+    $('#blog-' + blogId + '.modal').modal('show');
+});
+
 
 // This is the Text length calculat Javascript
 $(document).ready(function () {
