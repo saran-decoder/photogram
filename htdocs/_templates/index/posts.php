@@ -11,10 +11,11 @@
                                 $posts = Post::getAllPosts();
                                 use Carbon\Carbon;
 
-                                foreach ($posts as $post) {
-                                    $p = new Post($post['id']);
-                                    $uploaded_time = Carbon::parse($p->getUploadedTime());
-                                    $uploaded_time_str = $uploaded_time->diffForHumans();
+                                if (!empty($posts)) {
+                                    foreach ($posts as $post) {
+                                        $p = new Post($post['id']);
+                                        $uploaded_time = Carbon::parse($p->getUploadedTime());
+                                        $uploaded_time_str = $uploaded_time->diffForHumans();
                             ?> 
                             <div class="col-lg-6 col-md-6 col-sm-12 pt-4 wrap" id="post-<?=$post['id']?>">
                                 <div class="card position-relative d-flex align-items-end rounded-4 border-0 w-100">
@@ -130,6 +131,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                                    }
+                                } else {
+                            ?>
+                                <h5 class="text-muted text-center mt-4">No Post's Posted Yet.</h5>
                             <?php
                                 }
                             ?>

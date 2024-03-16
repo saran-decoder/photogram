@@ -12,6 +12,7 @@ include_once 'includes/REST.class.php';
 include_once 'includes/API.class.php';
 include_once 'app/Profile.class.php';
 include_once 'app/Like.class.php';
+include_once 'app/B-Like.class.php';
 include_once 'app/Group.class.php';
 
 include_once 'app/test.group.php';

@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 13/3/2024 @ 20:35:29*/
+/*Processed by SNA Labs on 16/3/2024 @ 17:36:50*/
 $(document).ready(function(){
     $blog_image_crop = $('.bv#preview_blogs').croppie({
         enableExif: true,
@@ -1125,6 +1125,47 @@ $(document).ready(function() {
             console.log('This Working!');
         }, 5000);
     });
+});
+
+
+// This is the blogs like jquery
+$(document).on("click", "button.blog-like", function () {
+    var blog_id = $(this).closest(".blog-card-list").data("id");
+    // Check if blog_id is retrieved correctly
+    var like_id = "#like-" + blog_id;
+    var like_count = '#b-like-count-' + blog_id;
+
+    if ($(like_id).hasClass("b-liked")) {
+        $('.b-liked'+like_id).removeClass('d-none');
+        $('.b-like'+like_id).addClass('d-none');
+    } else {
+        $('.b-liked'+like_id).addClass('d-none');
+        $('.b-like'+like_id).removeClass('d-none');
+    }
+
+    if ($(like_id).hasClass("liked")) {
+        $(like_id).removeClass("liked");
+        // $(like_id).removeClass("text-danger");
+        $('.b-liked'+like_id).addClass('d-none');
+        $('.b-like'+like_id).removeClass('d-none');
+        like = $(like_count).html();
+        like = parseInt(like) - 1;
+        $(like_count).text(like);
+        $.post("/api/posts/b_unlike", { id: blog_id }, function (data) {
+            console.log(data);
+        });
+    } else {
+        $(like_id).addClass("liked");
+        // $(like_id).addClass("text-danger");
+        $('.b-liked'+like_id).removeClass('d-none');
+        $('.b-like'+like_id).addClass('d-none');
+        like = $(like_count).html();
+        like = parseInt(like) + 1;
+        $(like_count).text(like);
+        $.post("/api/posts/b_like", { id: blog_id }, function (data) {
+            console.log(data);
+        });
+    }
 });
 $(document).ready(function() {
     const darkSwitch = $("#darkSwitch");

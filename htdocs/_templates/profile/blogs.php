@@ -17,7 +17,7 @@
                             <div class="blog-card-list">
                                 <article class="blog-card">
                                     <figure class="blog-card-image">
-                                        <img src="<?=$post['image_uri']?>" alt="An orange painted blue, cut in half laying on a blue background" />
+                                        <!-- <img src="< ?=$post['image_uri']?>" alt="An orange painted blue, cut in half laying on a blue background" /> -->
                                     </figure>
                                     <div class="blog-card-header">
                                         <a href="#">When life gives you oranges</a>
