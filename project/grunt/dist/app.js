@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 17/3/2024 @ 10:35:27*/
+/*Processed by SNA Labs on 17/3/2024 @ 14:3:53*/
 $(document).ready(function(){
     $blog_image_crop = $('.bv#preview_blogs').croppie({
         enableExif: true,
@@ -303,89 +303,113 @@ function display_dialog(bt_name,content,func){
 	]);
 	d.show();
 }
-// start: Coversation
-document.querySelectorAll('.conversation-item-dropdown-toggle').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault()
-        if(this.parentElement.classList.contains('active')) {
-            this.parentElement.classList.remove('active')
-        } else {
-            document.querySelectorAll('.conversation-item-dropdown').forEach(function(i) {
-                i.classList.remove('active')
+document.addEventListener("DOMContentLoaded", function () {
+    const chatInput = document.getElementById("chat-input");
+    const sendChatbtn = document.getElementById("send-chat");
+    const chatbox = document.getElementById("chat-body-inner");
+
+    let userMessage = null; // Variable to store user's message
+    const API_KEY = "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"; // Paste API key here
+    const inputInitHeight = chatInput.scrollHeight;
+
+    const createChatLi = (message, className) => {
+        // Create a chat <li> element with passed message and class name
+        const chatLi = document.createElement("div");
+        chatLi.classList.add("message", className);
+        let chatContent =
+            className === "message-out"
+                ? `<div class="message-inner">
+                        <div class="message-content">
+                            <div class="message-text">
+                                <p class="mb-0">${message}</p>
+                            </div>
+                        </div>
+
+                        <div class="message-footer">
+                            <span class="extra-small text-muted">08:45 PM</span>
+                        </div>
+                    </div>`
+                : `<a href="#" class="avatar avatar-responsive">
+                        <img class="avatar-img" src="../assets/images/default/AI.jpg" alt="">
+                    </a>
+                    <div class="message-inner">
+                        <div class="message-content">
+                            <div class="message-text">
+                                <p class="mb-0">${message}</p>
+                            </div>
+                        </div>
+
+                        <div class="message-footer">
+                            <span class="extra-small text-muted">08:45 PM</span>
+                        </div>
+                    </div>`;
+        chatLi.innerHTML = chatContent;
+        return chatLi; // return chat <li> element
+    };
+
+    const generateResponse = () => {
+        // Generate a response from the bot
+        const API_URL = "https://api.openai.com/v1/chat/completions";
+
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${API_KEY}`,
+            },
+            body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "user",
+                        content: userMessage,
+                    },
+                ],
+            }),
+        };
+
+        // Send POST request to API, get a response and append it to the chatbox
+        fetch(API_URL, requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                const botResponse = data.choices[0].message.content.trim();
+                const incomingChatli = createChatLi(botResponse, "message");
+                chatbox.appendChild(incomingChatli);
+                chatbox.scrollTo(0, chatbox.scrollHeight);
             })
-            this.parentElement.classList.add('active')
-        }
+            .catch(() => {
+                const errorMessage = "Oops Something went wrong. Please try again.";
+                const errorChatLi = createChatLi(errorMessage, "message-out");
+                chatbox.appendChild(errorChatLi);
+                chatbox.scrollTo(0, chatbox.scrollHeight);
+            });
+    };
+
+    const handleChat = () => {
+        userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
+        if (!userMessage) return;
+
+        // Clear the input textarea and set its height to default
+        chatInput.value = "";
+        chatInput.style.height = `${inputInitHeight}px`;
+
+        // Append the user's message to the chatbox
+        const outgoingChatli = createChatLi(userMessage, "message-out");
+        chatbox.appendChild(outgoingChatli);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+
+        // Generate bot response after a short delay
+        setTimeout(generateResponse, 600);
+    };
+
+    chatInput.addEventListener("input", () => {
+        // Adjust the height of the input textarea based on its content
+        chatInput.style.height = `${inputInitHeight}px`;
+        chatInput.style.height = `${chatInput.scrollHeight}px`;
     });
+
+    sendChatbtn.addEventListener("click", handleChat);
 });
-
-document.addEventListener('click', function(e) {
-    if(!e.target.matches('.conversation-item-dropdown, .conversation-item-dropdown *')) {
-        document.querySelectorAll('.conversation-item-dropdown').forEach(function(i) {
-            i.classList.remove('active')
-        });
-    }
-});
-
-document.querySelectorAll('.conversation-form-input').forEach(function(item) {
-    item.addEventListener('input', function() {
-        this.rows = this.value.split('\n').length
-    });
-});
-
-document.querySelectorAll('[data-conversation]').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault()
-        document.querySelectorAll('.conversation').forEach(function(i) {
-            i.classList.remove('active')
-        });
-        document.querySelector(this.dataset.conversation).classList.add('active')
-    });
-});
-
-document.querySelectorAll('.conversation-back').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault()
-        this.closest('.conversation').classList.remove('active')
-        document.querySelector('.conversation-default').classList.add('active')
-    });
-});
-// end: Coversation
-
-
-
-
-
-
-
-
-
-
-
-
-// Code goes here
-
-// $(document).ready(function(){
-//     $('input#filtersearch').bind('keyup change', function () {
-//         if ($(this).val().trim().length !== 0) {
-    
-//             $('#list li').show().hide().each(function () {
-//                 if ($(this).is(':icontains(' + $('input#filtersearch').val() + ')'))
-//                     $(this).show();
-//             });
-//         }
-//         else {
-//             $('#list li').show().hide().each(function () {
-//                 $(this).show();
-//             });
-//         }
-//     });
-
-//     $.expr[':'].icontains = function (obj, index, meta, stack) {
-//         return (obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase().indexOf(meta[3].toLowerCase()) >= 0;
-//     };
-// });
-
-
 /** Variables */
 let files = [],
 dragArea = document.querySelector('.drag-area'),

@@ -1,426 +1,96 @@
-<!-- <!DOCTYPE html>
-<html>
-	<head>
-		<title>Crop Image Before Upload using CropperJS with PHP</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>        
-		<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-		<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
-		<script src="https://unpkg.com/dropzone"></script>
-		<script src="https://unpkg.com/cropperjs"></script>
-		
-		<style>
+<!-- Start: AI Discussion -->
+<div class="conversation">
 
-		.image_area {
-		  position: relative;
-		}
-
-		img {
-		  	display: block;
-		  	max-width: 100%;
-		}
-
-		.preview {
-  			overflow: hidden;
-  			width: 160px; 
-  			height: 160px;
-  			margin: 10px;
-  			border: 1px solid red;
-		}
-
-		.modal-lg{
-  			max-width: 1000px !important;
-		}
-
-		.overlay {
-		  position: absolute;
-		  bottom: 10px;
-		  left: 0;
-		  right: 0;
-		  background-color: rgba(255, 255, 255, 0.5);
-		  overflow: hidden;
-		  height: 0;
-		  transition: .5s ease;
-		  width: 100%;
-		}
-
-		.image_area:hover .overlay {
-		  height: 50%;
-		  cursor: pointer;
-		}
-
-		.text {
-		  color: #333;
-		  font-size: 20px;
-		  position: absolute;
-		  top: 50%;
-		  left: 50%;
-		  -webkit-transform: translate(-50%, -50%);
-		  -ms-transform: translate(-50%, -50%);
-		  transform: translate(-50%, -50%);
-		  text-align: center;
-		}
-
-        .cropper-view-box,
-        .cropper-face {
-            cursor: grab;
-        }
-
-		
-		</style>
-	</head>
-	<body>
-		<div class="container" aligne="center">
-			<div class="row">
-				<div class="col-md-4">&nbsp;</div>
-				<div class="col-md-4">
-					<div class="image_area">
-						<form method="post">
-							<label for="upload_image">
-								<img src="assets/images/default/profile-1.jpg" id="uploaded_image" class="img-responsive img-circle" />
-								<div class="overlay">
-									<div class="text">Click to Change Profile Image</div>
-								</div>
-								<input type="file" name="image" class="image" id="upload_image" style="display:none" />
-							</label>
-						</form>
-					</div>
-			    </div>
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Crop Image Before Upload</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">X</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="img-container">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <img src="" id="sample_image" />
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="preview"></div>
-                                        </div>
-                                    </div>
+    <!-- Start: Chat Header -->
+    <div class="chat-header position-absolute py-2 z-1 w-100">
+        <div class="d-flex align-items-center justify-content-between">
+            <!-- Content -->
+            <div class="col-8 col-xl-12">
+                <div class="d-flex align-items-center">
+                    <!-- Title -->
+                    <!-- Close: btn -->
+                    <a class="ps-2 pb-1 icon-lg text" href="/" data-toggle-chat="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </a>
+                    <!-- Close: btn -->
+                    <div class="col-xl-6">
+                        <div class="d-flex align-items-center">
+                            <div class="col-auto px-3">
+                                <div class="avatar d-xl-inline-block">
+                                    <img class="avatar-img" src="../assets/images/default/AI.jpg" alt="">
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" id="crop" class="btn btn-primary">Crop</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                            <div class="col overflow-hidden">
+                                <span class="text-truncate mb-0">Discussion AI</span>
+                                <p class="text-truncate mb-0">Welcome <?=$porfile['owner']?></p>
                             </div>
                         </div>
                     </div>
-                </div>	
-            </div>		
-		</div>
-
-
-<script>
-$(document).ready(function(){
-    var $modal = $('#modal');
-    var image = document.getElementById('sample_image');
-    var cropper;
-
-    $('#upload_image').change(function(event){
-        var files = event.target.files;
-
-        var done = function(url){
-            image.src = url;
-            $modal.modal('show');
-        };
-
-        if(files && files.length > 0) {
-            reader = new FileReader();
-            reader.onload = function(event) {
-                done(reader.result);
-            };
-            reader.readAsDataURL(files[0]);
-        }
-    });
-
-    $modal.on('shown.bs.modal', function() {
-        cropper = new Cropper(image, {
-            aspectRatio: 1,
-            viewMode: 3,
-            preview: '.preview',
-            movable: false, // Disable moving the whole cropper
-            cropBoxMovable: true, // Enable moving the crop box
-            cropBoxResizable: true // Enable resizing the crop box
-        });
-
-        var initialTop = cropper.getCropBoxData().top;
-        var startY;
-
-        $('.cropper-view-box, .cropper-face').on('mousedown', function (e) {
-            if ($(e.target).hasClass('cropper-view-box') || $(e.target).hasClass('cropper-face')) {
-                e.preventDefault();
-                startY = e.clientY;
-            }
-        });
-
-        $(document).on('mousemove', function (e) {
-            if (startY !== undefined) {
-                var deltaY = e.clientY - startY;
-
-                cropper.setCropBoxData({
-                    top: initialTop + deltaY
-                });
-            }
-        }).on('mouseup', function () {
-            startY = undefined;
-        });
-
-        // Add a reset button click event
-        $('#resetCrop').click(function () {
-            cropper.reset();
-        });
-    }).on('hidden.bs.modal', function(){
-        // Destroy the cropper instance when modal is hidden
-        cropper.destroy();
-        cropper = null;
-    });
-
-    $('#crop').click(function(){
-        canvas = cropper.getCroppedCanvas({
-            width: 400,
-            height: 400
-        });
-
-        canvas.toBlob(function(blob){
-            url = URL.createObjectURL(blob);
-            var reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = function(){
-                var base64data = reader.result;
-                $.ajax({
-                    url:'upload.php',
-                    method:'POST',
-                    data:{image:base64data},
-                    success:function(data)
-                    {
-                        // Hide the modal
-                        $modal.modal('hide');
-                        // Set the uploaded image source
-                        $('#uploaded_image').attr('src', data);
-                    }
-                });
-            };
-        });
-    });
-});
-</script>
-
-        
-</body>
-</html> -->
-
-
-<!-- <!DOCTYPE html>
-<html>
- <head>
-  <title>PHP Mysql Image Crop & Upload using JQuery Ajax</title>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
-</head>
-<body>  
-        <div class="container">
-          <br /> 
-      <h3 align="center">PHP Mysql Image Crop & Upload using JQuery Ajax</h3>
-      <br />
-      <br />
-   <div class="panel panel-default">
-      <div class="panel-heading">Select Profile Image</div>
-      <div class="panel-body" align="center">
-       <input type="file" name="upload_image" id="upload_image" accept="image/*" />
-       <br />
-       <div id="uploaded_image"></div>
-      </div>
-     </div>
-    </div>
- 
-<div id="uploadimageModal" class="modal" role="dialog">
- <div class="modal-dialog">
-  <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Upload & Crop Image</h4>
+                    <!-- Title -->
+                </div>
+            </div>
+            <!-- Content -->
         </div>
-        <div class="modal-body">
-          <div class="row">
-       <div class="col-md-8 text-center">
-        <div id="image_demo" style="width:350px; margin-top:30px"></div>
-       </div>
-       <div class="col-md-4" style="padding-top:30px;">
-        <br />
-        <br />
-        <br/>
-        <button class="btn btn-success crop_image">Crop & Upload Image</button>
-     </div>
     </div>
+    <!-- End: CHat Header -->
+
+    <!-- Start: Chat Body position-fixed -->
+    <div class="chat-body overflow-scroll h-100 px-3">
+        <div class="chat-body-inner">
+            <div class="mt-6 mb-3" id="chat-body-inner">
+                <!-- Adding Message -->
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-     </div>
     </div>
+    <!-- End: Chat Body -->
+
+    <!-- Start: Chat Footer -->
+    <div class="chat-footer pb-2">
+        <form class="chat-form rounded-pill bg-dark" id="chat-form">
+            <div class="row align-items-center gx-0">
+                <div class="col-auto">
+                    <a href="#" class="btn btn-icon btn-link text-body rounded-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 20 20">
+                            <path fill="currentColor" d="M10 5.5a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0m-4-2a.5.5 0 0 0-1 0V5H3.5a.5.5 0 0 0 0 1H5v1.5a.5.5 0 0 0 1 0V6h1.5a.5.5 0 0 0 0-1H6zm8 .5h-3.207a5.466 5.466 0 0 0-.393-1H14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-3.6c.317.162.651.294 1 .393V14c0 .373.102.722.28 1.02l4.669-4.588a1.5 1.5 0 0 1 2.102 0l4.67 4.588A1.99 1.99 0 0 0 16 14V6a2 2 0 0 0-2-2m0 3.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0a.5.5 0 0 0 1 0m-8.012 8.226A1.99 1.99 0 0 0 6 16h8c.37 0 .715-.1 1.012-.274l-4.662-4.58a.5.5 0 0 0-.7 0z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <textarea class="form-control px-0" placeholder="Discussion..." id="chat-input" rows="1" data-emoji-input="" style="resize: none;" data-autosize="true" spellcheck="false" required></textarea>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-icon btn-primary rounded-circle ms-3" id="send-chat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- End: Chat Footer -->
+
 </div>
- 
-<script>  
-$(document).ready(function(){
- 
- $image_crop = $('#image_demo').croppie({
-    enableExif: true,
-    viewport: {
-      width:200,
-      height:200,
-      type:'square' //circle
-    },
-    boundary:{
-      width:300,
-      height:300
-    }
-  });
- 
-  $('#upload_image').on('change', function(){
-    var reader = new FileReader();
-    reader.onload = function (event) {
-      $image_crop.croppie('bind', {
-        url: event.target.result
-      }).then(function(){
-        console.log('jQuery bind complete');
-      });
-    }
-    reader.readAsDataURL(this.files[0]);
-    $('#uploadimageModal').modal('show');
-  });
- 
-  $('.crop_image').click(function(event){
-    $image_crop.croppie('result', {
-      type: 'canvas',
-      size: 'viewport'
-    }).then(function(response){
-      $.ajax({
-        url:"upload.php",
-        type: "POST",
-        data:{"image": response},
-        success:function(data)
-        {
-          $('#uploadimageModal').modal('hide');
-          $('#uploaded_image').html(data);
-        }
-      });
-    })
-  });
- 
-});  
-</script>
- </body>
-</html> -->
+<!-- End: AI Discussion -->
 
 
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Comments UI App</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css'>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body class="bg-light">
 
-<div class="container mt-5">
-    <!-- Comments Block -->
-    <div class="card">
-        <div class="card-header bg-white d-flex justify-content-between align-items-center">
-            <div>
-                <h2>Comments</h2>
-                <div class="badge badge-primary">12</div>
+
+
+<!-- Message -->
+<div class="message">
+    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
+        <img class="avatar-img" src="../assets/images/default/avatar.jpg" alt="">
+    </a>
+    <div class="message-inner">
+        <div class="message-content">
+            <div class="message-text">
+                <p class="mb-0">William is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></p>
             </div>
-            <div class="btn-group" role="group">
-                <label class="btn btn-outline-primary active">
-                    <input type="radio" name="options" id="latest" checked> Latest
-                </label>
-                <label class="btn btn-outline-primary">
-                    <input type="radio" name="options" id="popular"> Popular
-                </label>
-            </div>
-        </div>
-
-        <div class="card-body">
-
-            <!-- Writing Section -->
-            <div class="writing mb-4">
-                <div contenteditable="true" class="form-control textarea" autofocus spellcheck="false">
-                    <p>Hi <a class="tagged-user">@Jo</a></p>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="text-format btn-group">
-                        <button class="btn"><i class="ri-bold"></i></button>
-                        <button class="btn"><i class="ri-italic"></i></button>
-                        <button class="btn"><i class="ri-underline"></i></button>
-                        <button class="btn"><i class="ri-list-unordered"></i></button>
-                    </div>
-                    <div class="group-button">
-                        <button class="btn"><i class="ri-at-line"></i></button>
-                        <button class="btn btn-primary">Send</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Comment Section -->
-            <div class="comment mb-4">
-                <div class="user-banner d-flex justify-content-between align-items-center">
-                    <div class="user d-flex align-items-center">
-                        <div class="avatar">
-                            <img src="https://randomuser.me/api/portraits/men/86.jpg" class="img-fluid rounded-circle" alt="User Avatar">
-                            <span class="stat grey"></span>
-                        </div>
-                        <h5>Floyd Miles</h5>
-                    </div>
-                    <button class="btn dropdown"><i class="ri-more-line"></i></button>
-                </div>
-                <div class="content">
-                    <p>Actually, now that I try out the links on my message, above, none of them take me to the secure site. Only my shortcut on my desktop, which I created years ago.</p>
-                </div>
-                <div class="footer d-flex align-items-center">
-                    <button class="btn"><i class="ri-emotion-line"></i></button>
-                    <div class="reactions">
-                        <button class="btn react"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/thumbs-up_1f44d.png" alt="">4</button>
-                        <button class="btn react"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/angry-face-with-horns_1f47f.png" alt="">1</button>
-                    </div>
-                    <div class="divider mx-2"></div>
-                    <a href="#" class="mr-2">Reply</a>
-                    <div class="divider mx-2"></div>
-                    <span class="is-mute">6 hours</span>
-                </div>
-            </div>
-
-            <!-- Another Comment -->
-            <!-- Add more comment sections as needed -->
-
-            <!-- Load More Section -->
-            <div class="load text-center">
-                <span><i class="ri-refresh-line"></i>Loading</span>
-            </div>
-
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>
