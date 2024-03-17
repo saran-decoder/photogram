@@ -205,11 +205,14 @@ $(document).on('click', '.modal-content .close', function() {
 
 // This is the user blog image show js
 $(document).on('click', '.blog-card-image.viewer', function() {
-    // Extract the post ID from the clicked element's id attribute
-    var blogId = $('.blog-card-list').attr("data-id");
-    
-    // Show the modal corresponding to the post ID
-    $('#blog-' + blogId + '.modal').modal('show');
+    // Extract the post ID from the clicked element's data-id attribute
+    var blogId = $(this).closest(".blog-card-list").data("id");
+    if (blogId) {
+        // Show the modal corresponding to the post ID
+        $('#blog-' + blogId + '.modal').modal('show');
+    } else {
+        console.error("Clicked element does not have a data-id attribute.");
+    }
 });
 
 

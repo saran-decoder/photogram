@@ -149,11 +149,51 @@ $(document).on('click', '.container #dell', function(){
                     console.log(data);
 
                     if(textSuccess =="success" ){ //means 200
+                        $(`#post-${post_id}.modal`).modal('hide');
                         $(`#post-${post_id}`).remove();
                     }
                 });
 
-                $(event.data.modal).modal('hide')
+                $(event.data.modal).modal('hide');
+            }
+        },
+        {
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        }
+    ]);
+    d.show();
+});
+
+
+// This is user blog delete jquery api calling
+$(document).on('click', '.modal #blog-dell', function(){
+    blog_id = $(this).parent().attr('data-id');
+    d = new Dialog("Delete Blog", "Are you sure want to delete this blog");
+    d.setButtons([
+        {
+            'name': "Delete",
+            "class": "btn-danger",
+            "onClick": function(event){
+                console.log(`Assume this blog ${blog_id} is deleted`);
+                
+                $.post('/api/posts/b_delete',
+                {
+                    id: blog_id
+                }, function(data, textSuccess, xhr){
+                    console.log(textSuccess);
+                    console.log(data);
+
+                    if(textSuccess =="success" ){ //means 200
+                        $(`#blog-${blog_id}.modal`).modal('hide');
+                        $(`#blog-${blog_id}`).remove();
+                    }
+                });
+
+                $(event.data.modal).modal('hide');
             }
         },
         {

@@ -27,7 +27,7 @@
                                     $uploaded_time = Carbon::parse($b->getUploadedTime());
                                     $uploaded_time_str = $uploaded_time->Format("M j, Y");
                         ?>
-                        <div class="col-12 col-md-6 col-lg-6 wrap">
+                        <div class="col-12 col-md-6 col-lg-6 wrap" id="blog-<?=$blog['id']?>">
                             <div class="blog-card-list" data-id="<?=$blog['id']?>">
                                 <article class="blog-card">
                                     <figure class="blog-card-image viewer">
@@ -106,7 +106,7 @@
                                 <div class="modal-content">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col col-lg-6 p-0">
+                                            <div class="col col-lg-12 p-0">
                                                 <div class="position-relative">
                                                     <button type="button" class="close text profile-icon position-absolute mt-2 ms-2" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">
@@ -129,7 +129,7 @@
                                                         </a>
                                                         <hr class="m-1">
                                                         <?php
-                                                            if (Session::isOwnerOf($b->getOwner())) {
+                                                            if (Session::isOwnerOf($blog['author'])) {
                                                         ?>
                                                         <div data-id="<?=$blog['id']?>">
                                                             <a class="dropdown-item text-danger" id="blog-dell">
@@ -153,58 +153,57 @@
                                                 </div>
                                                 <img src="<?=$blog['banner']?>" class="custom-wh" alt="Banner background Image">
                                             </div>
-                                            <div class="col col-lg-6 p-3">     
-                                                <div class="font-weight-bold w-100 d-flex align-items-center justify-content-between" data-id="<?=$blog['id']?>">
+                                            <div class="col col-lg-12 p-3">     
+                                                <div class="font-weight-bold w-100 d-flex align-items-center justify-content-between blog-card-list" data-id="<?=$blog['id']?>">
                                                     <a class="text-decoration-none d-flex align-items-center text-capitalize text user-name">
                                                         <p class="text m-0"><?=$blog['title']?></p>
                                                     </a>
                                                     <ul class="list-inline d-flex flex-row align-items-center m-0">
                                                         <li class="list-inline-item d-flex align-items-end">
-                                                        <?php
-                                                            if (Session::isAuthenticated()) {
-                                                                $is_like = new BlogLike($blog['id']);
-                                                                if ($is_like->is_liked() ? $is_like->is_liked()['owner'] : 0 == Session::getUser()->getUsername()) {
-                                                                    if ($is_like->is_liked()['status'] == 'liked') {
-                                                        ?>
-                                                        <!-- unlike button -->
-                                                        <button class="icon-button blog-like liked b-liked" id="like-<?=$blog['id']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
-                                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326c1.194-.397 2.562-1.016 4.01-1.826M34.959 27l6.878 8.5m.001-8.5l-6.879 8.5"/>
-                                                            </svg>
-                                                        </button>
-                                                        <button class="icon-button blog-like b-like d-none" id="like-<?=$blog['id']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
-                                                                <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
-                                                            </svg>
-                                                        </button>
-                                                        <?php } else { ?>
-                                                        <!-- like button -->
-                                                        <button class="icon-button blog-like b-like" id="like-<?=$blog['id']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
-                                                                <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
-                                                            </svg>
-                                                        </button>
-                                                        <button class="icon-button blog-like b-liked d-none" id="like-<?=$blog['id']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
-                                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326c1.194-.397 2.562-1.016 4.01-1.826M34.959 27l6.878 8.5m.001-8.5l-6.879 8.5"/>
-                                                            </svg>
-                                                        </button>
-                                                        <?php
-                                                                }
-                                                                    } else { ?>
-                                                        <!-- like button -->
-                                                        <button class="icon-button blog-like b-like" id="like-<?=$blog['id']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
-                                                                <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
-                                                            </svg>
-                                                        </button>
-                                                        <button class="icon-button blog-like b-liked d-none" id="like-<?=$blog['id']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
-                                                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326c1.194-.397 2.562-1.016 4.01-1.826M34.959 27l6.878 8.5m.001-8.5l-6.879 8.5"/>
-                                                            </svg>
-                                                        </button>
-                                                        <?php } } ?>
-                                                            <div class="text" id="b-like-count-<?=$blog['id']?>"><?=$b->getLikeCount()?></div>
+                                                            <?php
+                                                                if (Session::isAuthenticated()) {
+                                                                    $is_like = new BlogLike($blog['id']);
+                                                                    if ($is_like->is_liked() ? $is_like->is_liked()['owner'] : 0 == Session::getUser()->getUsername()) {
+                                                                        if ($is_like->is_liked()['status'] == 'liked') {
+                                                            ?>
+                                                            <!-- unlike button -->
+                                                            <button class="icon-button blog-like liked b-liked" id="like-<?=$blog['id']?>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+                                                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326c1.194-.397 2.562-1.016 4.01-1.826M34.959 27l6.878 8.5m.001-8.5l-6.879 8.5"/>
+                                                                </svg>
+                                                            </button>
+                                                            <button class="icon-button blog-like b-like d-none" id="like-<?=$blog['id']?>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
+                                                                    <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
+                                                                </svg>
+                                                            </button>
+                                                            <?php } else { ?>
+                                                            <!-- like button -->
+                                                            <button class="icon-button blog-like b-like" id="like-<?=$blog['id']?>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
+                                                                    <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
+                                                                </svg>
+                                                            </button>
+                                                            <button class="icon-button blog-like b-liked d-none" id="like-<?=$blog['id']?>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+                                                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326c1.194-.397 2.562-1.016 4.01-1.826M34.959 27l6.878 8.5m.001-8.5l-6.879 8.5"/>
+                                                                </svg>
+                                                            </button>
+                                                            <?php
+                                                                    }
+                                                                        } else { ?>
+                                                            <!-- like button -->
+                                                            <button class="icon-button blog-like b-like" id="like-<?=$blog['id']?>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart">
+                                                                    <path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z" />
+                                                                </svg>
+                                                            </button>
+                                                            <button class="icon-button blog-like b-liked d-none" id="like-<?=$blog['id']?>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+                                                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M44 19c0-6.075-4.925-11-11-11c-3.72 0-7.01 1.847-9 4.674A10.987 10.987 0 0 0 15 8C8.925 8 4 12.925 4 19c0 11 13 21 20 23.326c1.194-.397 2.562-1.016 4.01-1.826M34.959 27l6.878 8.5m.001-8.5l-6.879 8.5"/>
+                                                                </svg>
+                                                            </button>
+                                                            <?php } } ?>
                                                         </li>
                                                     </ul>
                                                 </div>

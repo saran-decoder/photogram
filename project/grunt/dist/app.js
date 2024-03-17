@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 16/3/2024 @ 17:36:50*/
+/*Processed by SNA Labs on 17/3/2024 @ 10:35:27*/
 $(document).ready(function(){
     $blog_image_crop = $('.bv#preview_blogs').croppie({
         enableExif: true,
@@ -537,11 +537,51 @@ $(document).on('click', '.container #dell', function(){
                     console.log(data);
 
                     if(textSuccess =="success" ){ //means 200
+                        $(`#post-${post_id}.modal`).modal('hide');
                         $(`#post-${post_id}`).remove();
                     }
                 });
 
-                $(event.data.modal).modal('hide')
+                $(event.data.modal).modal('hide');
+            }
+        },
+        {
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event){
+                $(event.data.modal).modal('hide');
+            }
+        }
+    ]);
+    d.show();
+});
+
+
+// This is user blog delete jquery api calling
+$(document).on('click', '.modal #blog-dell', function(){
+    blog_id = $(this).parent().attr('data-id');
+    d = new Dialog("Delete Blog", "Are you sure want to delete this blog");
+    d.setButtons([
+        {
+            'name': "Delete",
+            "class": "btn-danger",
+            "onClick": function(event){
+                console.log(`Assume this blog ${blog_id} is deleted`);
+                
+                $.post('/api/posts/b_delete',
+                {
+                    id: blog_id
+                }, function(data, textSuccess, xhr){
+                    console.log(textSuccess);
+                    console.log(data);
+
+                    if(textSuccess =="success" ){ //means 200
+                        $(`#blog-${blog_id}.modal`).modal('hide');
+                        $(`#blog-${blog_id}`).remove();
+                    }
+                });
+
+                $(event.data.modal).modal('hide');
             }
         },
         {
@@ -1098,11 +1138,14 @@ $(document).on('click', '.modal-content .close', function() {
 
 // This is the user blog image show js
 $(document).on('click', '.blog-card-image.viewer', function() {
-    // Extract the post ID from the clicked element's id attribute
-    var blogId = $('.blog-card-list').attr("data-id");
-    
-    // Show the modal corresponding to the post ID
-    $('#blog-' + blogId + '.modal').modal('show');
+    // Extract the post ID from the clicked element's data-id attribute
+    var blogId = $(this).closest(".blog-card-list").data("id");
+    if (blogId) {
+        // Show the modal corresponding to the post ID
+        $('#blog-' + blogId + '.modal').modal('show');
+    } else {
+        console.error("Clicked element does not have a data-id attribute.");
+    }
 });
 
 
