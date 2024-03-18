@@ -1,4 +1,4 @@
-/*Processed by SNA Labs on 17/3/2024 @ 14:3:53*/
+/*Processed by SNA Labs on 18/3/2024 @ 21:5:43*/
 .comment-container
 {
     right: 0;
@@ -59,6 +59,10 @@
     border: 1px solid var(--timer-color);
 }
 /* Start: Chat Header */
+.w-webkit {
+    width: -webkit-fill-available;
+}
+
 span.text-truncate {
     color: var(--text-color);
 }
@@ -94,11 +98,6 @@ p.text-truncate.mb-0 {
 
 
 /* Start: Chat Body */
-.my-6 {
-    margin-top: 5rem;
-    margin-bottom: 6rem;
-}
-
 .message {
     display: flex;
     -webkit-box-align: end;
@@ -242,6 +241,14 @@ p.text-truncate.mb-0 {
     border: 2px solid #ffffff00;
     appearance: none;
     border-radius: 0.6rem;
+}
+
+.form-control:focus {
+    color: var(--text-color);
+    background-color: #ffffff00;
+    border-color: #ffffff00;
+    outline: none;
+    box-shadow: none;
 }
 
 .btn-primary {

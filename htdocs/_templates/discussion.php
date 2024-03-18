@@ -5,49 +5,53 @@
         $porfile = Profile::getProfile();
     ?>
 
+    <style>
+        textarea.form-control::placeholder {
+            color: var(--timer-color);
+        }
+    </style>
+
     <div class="post-box overflow-auto">
 
         <!-- Start: AI Discussion -->
-        <div class="conversation h-100">
+        <div class="conversation d-flex flex-column justify-content-center h-100">
 
             <!-- Start: Chat Header -->
-            <div class="chat-header position-absolute py-2 z-1 w-100">
-                <div class="d-flex align-items-center justify-content-between">
-                    <!-- Content -->
-                    <div class="col-8 col-xl-12">
-                        <div class="d-flex align-items-center">
-                            <!-- Title -->
-                            <!-- Close: btn -->
-                            <a class="ps-2 pb-1 icon-lg text" href="/" data-toggle-chat="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                            </a>
-                            <!-- Close: btn -->
-                            <div class="col-xl-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="col-auto px-3">
-                                        <div class="avatar d-xl-inline-block">
-                                            <img class="avatar-img" src="../assets/images/default/AI.jpg" alt="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col overflow-hidden">
-                                        <span class="text-truncate mb-0">Discussion AI</span>
-                                        <p class="text-truncate mb-0">Welcome <?=$porfile['owner']?></p>
+            <div class="chat-header py-2 w-webkit">
+                <!-- Content -->
+                <div class="col-8 col-xl-12">
+                    <div class="d-flex align-items-center">
+                        <!-- Title -->
+                        <!-- Close: btn -->
+                        <a class="ps-2 pb-1 icon-lg text" href="/" data-toggle-chat="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </a>
+                        <!-- Close: btn -->
+                        <div class="col-xl-6">
+                            <div class="d-flex align-items-center">
+                                <div class="col-auto px-3">
+                                    <div class="avatar d-xl-inline-block">
+                                        <img class="avatar-img" src="../assets/images/default/AI.jpg" alt="">
                                     </div>
                                 </div>
+
+                                <div class="col overflow-hidden">
+                                    <span class="text-truncate mb-0">Discussion AI</span>
+                                    <p class="text-truncate mb-0">Welcome <?=$porfile['owner']?></p>
+                                </div>
                             </div>
-                            <!-- Title -->
                         </div>
+                        <!-- Title -->
                     </div>
-                    <!-- Content -->
                 </div>
+                <!-- Content -->
             </div>
             <!-- End: CHat Header -->
 
             <!-- Start: Chat Body position-fixed -->
             <div class="chat-body overflow-scroll h-100 px-3">
                 <div class="chat-body-inner">
-                    <div class="my-6" id="chat-body-inner">
+                    <div class="my-3" id="chat-body-inner">
                         <!-- Adding Message -->
                     </div>
                 </div>
@@ -56,7 +60,7 @@
 
             <!-- Start: Chat Footer -->
             <div class="chat-footer pb-2">
-                <form class="chat-form rounded-pill bg-dark" id="chat-form">
+                <div class="chat-form rounded-pill bg-dark" id="chat-form">
                     <div class="row align-items-center gx-0">
                         <div class="col-auto">
                             <a href="#" class="btn btn-icon btn-link text-body rounded-circle">
@@ -67,7 +71,7 @@
                         </div>
                         <div class="col">
                             <div class="input-group">
-                                <textarea class="form-control px-0" placeholder="Discussion..." id="chat-input" rows="1" data-emoji-input="" style="resize: none;" data-autosize="true" spellcheck="false" required></textarea>
+                                <textarea class="form-control px-0" autocomplete="off" placeholder="Type You're Message" id="chat-input" rows="1" style="resize: none;" data-autosize="true" spellcheck="false"></textarea>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -76,7 +80,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
             <!-- End: Chat Footer -->
 
